@@ -1,0 +1,3820 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Data</name>
+    </assembly>
+    <members>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Temperature">
+            <summary>
+            A class containing useful methods for conversion of temperature measurements from F to C.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Temperature.Convert(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units,ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units)">
+            <summary>
+            Convert the value in specified units to the target value.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Temperature.ToString(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units,System.String)">
+            <summary>
+            Format the value with the specified units in the specified format.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="from">The value's units.</param>
+            <param name="format">The format and precision. May optionally include a single character of either U or u at the end to 
+            append the full unit name (eg. Fahrenheit) or abbreviated unit name (eg. °F)</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Temperature.Label(ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units)">
+            <summary>
+            Return a label for the specified units, eg "Fahrenheit"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Temperature.LabelAbbr(ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units)">
+            <summary>
+            Return an abbreviated label (greater than one units) for the specified units, eg "lb"
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units">
+            <summary>
+            Temperature unit types.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units.Fahrenheit">
+            <summary>
+            Fahrenheit.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Temperature.Units.Celsius">
+            <summary>
+            Celsius.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds">
+            <summary>
+            A two dimensional region of geography bounded by GPS coordinates.
+            The class must handle the situation where longitude straddles the 180/-180 degree 
+            line, thus there is no guarantee west longitude is less than east longitude.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.Contains(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation)">
+            <summary>
+            Return true if the specific location is within the GPSBounds.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.Intersect(ZoneFiveSoftware.Common.Data.GPS.IGPSBounds)">
+            <summary>
+            Returns the overlapping GPS bounds, or null if the bounds do not intersect.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.NorthWest">
+            <summary>
+            The upper left point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.SouthEast">
+            <summary>
+            The lower right point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.Center">
+            <summary>
+            The center.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.NorthLatitudeDegrees">
+            <summary>
+            The latitude of the upper point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.WestLongitudeDegrees">
+            <summary>
+            The longitude of the left point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.SouthLatitudeDegrees">
+            <summary>
+            The latitude of the lower point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.EastLongitudeDegrees">
+            <summary>
+            The longitude of the right point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.LongitudeDegrees">
+            <summary>
+            Return the "width" of the bounds in longitude degrees
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSBounds.LatitudeDegrees">
+            <summary>
+            Return the "height" of the bounds in latitude degrees
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.Convert(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Weight.Units,ZoneFiveSoftware.Common.Data.Measurement.Weight.Units)">
+            <summary>
+            Convert the value in specified units to the target value.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.ToString(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Weight.Units,System.String)">
+            <summary>
+            Format the value with the specified units in the specified format.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="from">The value's units.</param>
+            <param name="format">The format and precision. May optionally include a single character of either U or u at the end to 
+            append the full unit name (eg. Pound) or abbreviated unit name (eg. lb)</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.ParseWeightKilograms(System.String,ZoneFiveSoftware.Common.Data.Measurement.Weight.Units)">
+            <summary>
+            Attempt to parse the specified text into a weight in kilograms.<p></p>
+            </summary>
+            <remarks>
+            If the text contains any unit indicators following a numeric value, the numeric value is interpreted
+            as being in those units, otherwise (in the case of a plain unadorned numeric value) the specified
+            default units are used.<p></p>
+            Unit indicators are only accepted in the english language and can be full text, singular or plural, or abbreviations as specified below<p></p>
+            </remarks>
+            <param name="text"></param>
+            <param name="defaultUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.Label(ZoneFiveSoftware.Common.Data.Measurement.Weight.Units)">
+            <summary>
+            Return a single label for the specified units, eg "pound"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.LabelPlural(ZoneFiveSoftware.Common.Data.Measurement.Weight.Units)">
+            <summary>
+            Return a plural label (greater than one units) for the specified units, eg "pounds"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.LabelAbbr(ZoneFiveSoftware.Common.Data.Measurement.Weight.Units)">
+            <summary>
+            Return an abbreviated label (greater than one units) for the specified units, eg "lb"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Weight.LabelCap(ZoneFiveSoftware.Common.Data.Measurement.Weight.Units)">
+            <summary>
+            Return a capitalized single label for the specified units, eg "Pound"
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Weight.Units">
+            <summary>
+            Weight unit types.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Weight.Units.Pound">
+            <summary>
+            Pound.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Weight.Units.Kilogram">
+            <summary>
+            Kilogram.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Weight.Units.Stone">
+            <summary>
+            Stone.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.INumericTimeDataSeries">
+            <summary>
+            A time data series which contains numeric (float) data. Includes additional methods
+            for calculating statistics on the numeric data series.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1">
+            <summary>
+            An array of data values indexed by increasing elapsed time.
+            </summary>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.ITimeValueEntry{T}" />
+            <remarks>
+            Data is stored in the series by an elapsed time which is a ushort (two bytes). As a result
+            a data series can be no more than 18 hours, 12 minutes, 15 seconds (65536 seconds).
+            For typical fitness data this is a reasonable limitation, and it reduces memory consuption versus
+            storing something like a long (4 bytes) or DateTime.<p></p>
+            A data series comes in two flavors - those that allow multiple points at the same time and those
+            that don't as specified by the <see cref="P:ZoneFiveSoftware.Common.Data.ITimeValueEntry.AllowMultipleAtSameTime{T}" /> property.<br></br> For numeric
+            data tracks such as a recording of heart-rate over time it doesn't make sense to allow multiple
+            points at the same time (only one given heart-rate value can be sampled at any instant in time).
+            In this mode, adding a data point at a time which already has one will replace the value.<br></br>
+            For GPS tracks the AllowMultipleAtSameTime property is set to true which allows users to create a route
+            that doesn't have time (all the points are at elapsed time = 0), or has points which are more frequent
+            than one per second (the resolution of the data series since the elapsed time is stored as a ushort).
+            In this mode data points added to the series which already contain a point at that elapsed time
+            will be added to the end of points at that time (e.g, immediately before the point one second after the
+            specified time).
+            </remarks>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.Add(System.DateTime,`0)">
+            <summary>
+            Add the value at the specified time. If AllowMultipleAtSameTime is false or if there
+            is no entry at the specified elapsed time this sets the value at the specified time,
+            otherwise the value is added to to the end maintaining the time order.
+            </summary>
+            <param name="time">Time of entry.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.SetValueAt(System.Int32,`0)">
+            <summary>
+            Set the value at the specified index position.
+            </summary>
+            <param name="index">The index position. Must be less than Count.</param>
+            <param name="value">The value</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.RemoveAt(System.Int32)">
+            <summary>
+            Remove the entry at the specified index position.
+            </summary>
+            <param name="index">The index position. Must be less than Count.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.Clear">
+            <summary>
+            Clear all entries from the collection.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.IndexOf(ZoneFiveSoftware.Common.Data.ITimeValueEntry{`0})">
+            <summary>
+            Return the index position of the specified entry.
+            </summary>
+            <param name="item">The entry.</param>
+            <returns>The index.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.GetValueEnumerator">
+            <summary>
+            Returns an enumeration of the values.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.EntryDateTime(ZoneFiveSoftware.Common.Data.ITimeValueEntry{`0})">
+            <summary>
+            Return the DateTime of the specified entry. Shortcut to add StartTime + entry.ElapsedSeconds.
+            </summary>
+            <param name="entry">The entry.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.GetInterpolatedValue(System.DateTime)">
+            <summary>
+            Returns a linear interpolated value based on existing data at the specified time.
+            </summary>
+            <param name="time">A time which must be after the first value and before the last value in the data series.</param>
+            <returns>The value if successful or null.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.StartTime">
+            <summary>
+            The start time of the data track. If Count is zero this value will be invalid.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.TotalElapsedSeconds">
+            <summary>
+            The total elapsed seconds of the track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.Count">
+            <summary>
+            Get the count of items in the data series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.AllowMultipleAtSameTime">
+            <summary>
+            If true, multiple entries can appear at the same elapsed time, if false only a single
+            entry will be present at each elapsed time. This is used for GPS routes, where points
+            may be placed more frequently than once per second, or on a track with no time data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1.Item(System.Int32)">
+            <summary>
+            Return the value entry at the specified index.
+            </summary>
+            <param name="index">The index. Must be &gt;=0 and &lt; Count.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.INumericTimeDataSeries.Min">
+            <summary>
+            The minimum value found in the time series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.INumericTimeDataSeries.Max">
+            <summary>
+            The maximum value found in the time series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.INumericTimeDataSeries.Avg">
+            <summary>
+            The weighted average (based on elapsed time) of the values.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry">
+            <summary>
+            Athlete info for a particular date
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Clear">
+            <summary>
+            Clear all data for this entry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Date">
+            <summary>
+            The date of this entry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.WeightKilograms">
+            <summary>
+            Weight in kilograms.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.BodyFatPercentage">
+            <summary>
+            Body fat percentage.
+            The value must be between 0 and 1 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.BMI">
+            <summary>
+            BMI (body mass index).
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Skinfold">
+            <summary>
+            Skinfold measurement.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.RestingHeartRatePerMinute">
+            <summary>
+            Resting heart-rate beats per minute.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.MaximumHeartRatePerMinute">
+            <summary>
+            Maximum heart-rate beats per minute.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.SystolicBloodPressure">
+            <summary>
+            Systolic blood pressure.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.DiastolicBloodPressure">
+            <summary>
+            Diastolic blood pressure.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.CaloriesConsumed">
+            <summary>
+            Calories consumed.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Mood">
+            <summary>
+            Mood.
+            The value must be 0 (none), 1 (poor), 2(normal) or 3(excellent).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.SleepHours">
+            <summary>
+            Hours of sleep.
+            The value must be > 0 or float.NaN. A value of float.NaN specifies the entry is empty.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.SleepQuality">
+            <summary>
+            Sleep quality.
+            The value must be 0 (none), 1 (poor), 2(normal) or 3(excellent).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Injured">
+            <summary>
+            Whether athlete was injured or not.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.InjuredText">
+            <summary>
+            Explanatory text for injury.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Sick">
+            <summary>
+            Whether athlete was sick or not.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.SickText">
+            <summary>
+            Explanatory text for sick day.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.MissedWorkout">
+            <summary>
+            Whether athlete missed a workout for a misc. reason
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.MissedWorkoutText">
+            <summary>
+            Explanatory text for missed workout.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.DiaryText">
+            <summary>
+            Notes for the day.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntry.Photo">
+            <summary>
+            A photo or null if not specified.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.IValueRangeSeries`1">
+            <summary>
+            A collection which maintains an ordered, non-overlapping set of ranges {from,to}.
+            As ranges are added to the collection they may be combined with other ranges.
+            </summary>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.IValueRange{T}" />
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.IValueRangeSeries`1.IndexOf(ZoneFiveSoftware.Common.Data.IValueRange{`0})">
+            <summary>
+            The index position of the specified range.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.IValueRangeSeries`1.RemoveAt(System.Int32)">
+            <summary>
+            Remove the range at the specified position.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.IValueRangeSeries`1.Item(System.Int32)">
+            <summary>
+            The range at the specified position.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.ITimeValueEntry`1">
+            <summary>
+            A value entry in an <see cref="T:ZoneFiveSoftware.Common.Data.ITimeDataSeries{T}" /> collection.
+            </summary>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.ITimeDataSeries{T}" />
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeValueEntry`1.ElapsedSeconds">
+            <summary>
+            The elapsed time of the data point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ITimeValueEntry`1.Value">
+            <summary>
+            The value of the data point.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IRoute">
+            <summary>
+            A route represents a non-workout activity possibly including GPS data with or without time information.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.INotifyDataChanged">
+            <summary>
+            An interface to notify event handlers when data in an object has changed.
+            </summary>
+        </member>
+        <member name="E:ZoneFiveSoftware.Common.Data.INotifyDataChanged.DataChanged">
+            <summary>
+            Event to notify listeners when data has changed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.INotifyDataChanged.QueueEvents">
+            <summary>
+            If true, queue DataChanged events. When set to false if any events
+            are queued the DataChanged event will be fired multiple times.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IExtensionData">
+            <summary>
+            An interface to set and get plugin data for a particular item. The data can be
+            text or a byte array and is stored in the logbook.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IExtensionData.GetExtensionText(System.Guid)">
+            <summary>
+            Get plugin extension text associated with the item.
+            </summary>
+            <param name="id">The plugin id.</param>
+            <returns>The extension text or null.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IExtensionData.SetExtensionText(System.Guid,System.String)">
+            <summary>
+            Set the plugin extension text associated with the item.
+            </summary>
+            <param name="id">The plugin id.</param>
+            <param name="text">The extension text or null.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IExtensionData.GetExtensionData(System.Guid)">
+            <summary>
+            Get plugin extension text associated with the item.
+            </summary>
+            <param name="id">The plugin id.</param>
+            <returns>The extension data.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IExtensionData.SetExtensionData(System.Guid,System.Byte[])">
+            <summary>
+            Set the plugin extension text associated with the item.
+            </summary>
+            <param name="id">The plugin id.</param>
+            <param name="data">The extension data.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.ReferenceId">
+            <summary>
+            The unique identifier of the route.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Metadata">
+            <summary>
+            Return metadata information about this data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Name">
+            <summary>
+            The name of the route.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Description">
+            <summary>
+            A description of the route.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Location">
+            <summary>
+            The location of the route. If the location includes colon characters(:) these can be used to create a hierarchy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Category">
+            <summary>
+            The category of the route. If the category includes colon characters(:) these can be used to create a hierarchy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Notes">
+            <summary>
+            Notes associated with the route.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.Photo">
+            <summary>
+            An image associated with the route or null.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.TotalDistanceMeters">
+            <summary>
+            The distance in meters of the associated GPS route (if one is present)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.TotalTime">
+            <summary>
+            The total time of the GPS route (if one is present)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IRoute.GPSRoute">
+            <summary>
+            The GPS data for the route or null if none has been set.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ILogbook">
+            <summary>
+            A workout logbook which contains activities about a single athlete's workouts.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.ReferenceId">
+            <summary>
+            The unique identifier of the logbook.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.Metadata">
+            <summary>
+            Return metadata information about this data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.FileLocation">
+            <summary>
+            The saved location of the logbook.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.Modified">
+            <summary>
+            True if the logbook has been modified since the last save.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.Athlete">
+            <summary>
+            The information about the athlete.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.ActivityCategories">
+            <summary>
+            A list of activity categories.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.Activities">
+            <summary>
+            A list of activities.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.Routes">
+            <summary>
+            A list of routes.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.Equipment">
+            <summary>
+            A list of equipment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.ClimbZones">
+            <summary>
+            A list of defined climb zones for ascend/descend analysis.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.SpeedZones">
+            <summary>
+            A list of defined speed zones for speed/pace analysis.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.HeartRateZones">
+            <summary>
+            A list of defined heart-rate zones.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.CadenceZones">
+            <summary>
+            A list of defined cadence zones for cadence analysis.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.PowerZones">
+            <summary>
+            A list of defined power zones for power analysis.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILogbook.ExcludedOnPriorImport">
+            <summary>
+            A list of start times of activities that were excluded in a prior import
+            into this logbook. These times are compared against new data that
+            is imported and used to prefill which should be excluded.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Speed">
+            <summary>
+            An enumeration of the ways speed can be measured - either speed, or pace
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Speed.Units">
+            <summary>
+            Speed unit types.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Speed.Units.Speed">
+            <summary>
+            Speed.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Speed.Units.Pace">
+            <summary>
+            Pace.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ICalorieCalculationMethod">
+            <summary>
+            A method for calculating calories for a particular athlete's workout.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ICalorieCalculationMethod.CalculateCaloriesExpended(ZoneFiveSoftware.Common.Data.Fitness.IAthlete,ZoneFiveSoftware.Common.Data.Fitness.IActivity,System.Object)">
+            <summary>
+            Return the number of calories expended for the workout.
+            </summary>
+            <param name="athlete">The athlete.</param>
+            <param name="activity">The activity.</param>
+            <param name="calculationParameters">Calculation specific parameters.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ICalorieCalculationMethod.ReferenceId">
+            <summary>
+            The unique identifier of the calculation method.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ICalorieCalculationMethod.Name">
+            <summary>
+            The localized name displayed to the user, eg "Running", "Cycling", etc.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType">
+            <summary>
+            Represents a type of laps which can be displayed. Either recorded laps, custom distance,
+            or a regular distance indicated by the DistanceMeters property.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType.Kind">
+            <summary>
+            The kind of lap type.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType.DistanceMeters">
+            <summary>
+            The regular distance in meters of the laps if the kind is LapKind.RegularDistance.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType.LapKind">
+            <summary>
+            The kind of laps type.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType.LapKind.RecordedLaps">
+            <summary>
+            Laps recorded by the device, indicating distance and time.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType.LapKind.CustomDistance">
+            <summary>
+            Laps a marked distance intervals.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType.LapKind.RegularDistance">
+            <summary>
+            Laps at a regular distance such as 1km, 2km, etc. Refer to the DistanceMeters property.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.GPSPoint">
+            <summary>
+            Implementation of the IGPSPoint interface.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.IGPSPoint">
+            <summary>
+            A three dimensional GPS Point.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.IGPSLocation">
+            <summary>
+            A GPS location specifies a latitude/longitude position without elevation.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.IGPSLocation.ToString(System.String)">
+            <summary>
+            Return a string representing the GPS position. The format parameter determines
+            how the string is formatted: [+][m][{n}].
+            If + is present, +/- is used instead of N/S, E/W
+            If m is present minutes/seconds is used instead of decimal
+            A number at the end determines the precision of the decimal or seconds.
+            Examples with input lat=35.50, lon=-78
+            (empty string) = 35.5000 N, 78.0000 W
+            +2 = 35.50, -78.00
+            m0 = 35° 30' 00 N, 78° 00' 00 W
+            +m2 = 35° 30' 00.00, -78° 00' 00.00
+            </summary>
+            <param name="format">The format (see summary).</param>
+            <returns></returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSLocation.LatitudeDegrees">
+            <summary>
+            Latitude degrees (North = +, South = -) of the GPS location.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSLocation.LongitudeDegrees">
+            <summary>
+            Longitude degrees (East = +, West = -) of the GPS location.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.IGPSPoint.DistanceMetersToPoint(ZoneFiveSoftware.Common.Data.GPS.IGPSPoint)">
+            <summary>
+            Measure the distance in meters from this point to the specified point.
+            </summary>
+            <param name="point">A GPS point.</param>
+            <returns>Distance in meters.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSPoint.ElevationMeters">
+            <summary>
+            The elevation in meters above sea level. A value of float.NaN is valid and indicates
+            the elevation is "unknown". When processing the data track, and average of the closest
+            surrounding GPS points with valid elevation points can be used, or the preceeding or
+            following point. If the entire track contains GPS points with unknown values and the
+            algorithm requires a valid numeric value zero can be used.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.#ctor(System.Single,System.Single,System.Single)">
+            <summary>
+            Construct a GPSLocation from the specified degrees latitude and longitude and meters elevation.
+            Latitude degrees are limited to the range (-85, +85), values outside this
+            range are coerced into the valid range.
+            Longitude values beyond (-180, +180) are wrapped around to the valid range.
+            Elevation may be positive or negative, or float.NaN to indicate the elevation is "unspecified".
+            </summary>
+            <param name="latitudeDegrees">A value from -85 to +85.</param>
+            <param name="longitudeDegrees">A value from -180 to +180.</param>
+            <param name="elevationMeters">A value or float.NaN.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.ToString">
+            <summary>
+            Default ToString() for diagnostic information.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.Equals(System.Object)">
+            <summary>
+            Returns true if the latitude, longitude and elevation match or either elevation is not specified.
+            </summary>
+            <param name="obj">An IGPSPoint object.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.GetHashCode">
+            <summary>
+            Return the hashcode of the GPS point.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.ToString(System.String)">
+            <summary>
+            Return a formatted string for the latitude, longitude.
+            </summary>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.GPS.GPSLocation"/>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.DistanceMetersToPoint(ZoneFiveSoftware.Common.Data.GPS.IGPSPoint)">
+            <summary>
+            Measure the distance in meters from this point to the specified point.
+            </summary>
+            <param name="point">A GPS point.</param>
+            <returns>Distance in meters.</returns>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.latitudeDegrees">
+            <summary>
+            Latitidue.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.longitudeDegrees">
+            <summary>
+            Longitude.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.elevationMeters">
+            <summary>
+            Elevation.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.LatitudeDegrees">
+            <summary>
+            Latitude degrees (North = +, South = -) of the GPS location.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.LongitudeDegrees">
+            <summary>
+            Longitude degrees (East = +, West = -) of the GPS location.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.ElevationMeters">
+            <summary>
+            The elevation in meters above sea level. A value of float.NaN is valid and indicates
+            the elevation is "unknown". When processing the data track, and average of the closest
+            surrounding GPS points with valid elevation points can be used, or the preceeding or
+            following point. If the entire track contains GPS points with unknown values and the
+            algorithm requires a valid numeric value zero can be used.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.ValueInterpolator">
+            <summary>
+            An implementation of the value iterpolation interface.
+            Creates a GPS point directly between the two points based on latitude and longitude.
+            Either point's elevation may be unspecified.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.IInterpolateValues`1">
+            <summary>
+            The interface to interpolate a value. This is defined as an adaptor interface so
+            we can interpolate system value types such as double, long, byte, etc.
+            </summary>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.TimeDataSeries" />
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.IInterpolateValues`1.Interpolate(`0,`0,System.Double)">
+            <summary>
+            Return the interpolated value.
+            </summary>
+            <param name="from">Lower value</param>
+            <param name="to">Upper value.</param>
+            <param name="percent">Linear distance from lower to upper where 0 returns the lower value and 1 returns the upper value.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSPoint.ValueInterpolator.Interpolate(ZoneFiveSoftware.Common.Data.GPS.IGPSPoint,ZoneFiveSoftware.Common.Data.GPS.IGPSPoint,System.Double)">
+            <summary>
+            Returns the GPS location between the two points. If both points contain elevation information
+            the interpolated value between the two elevations is used, otherwise the point without
+            an elevation of float.NaN will be used. If both points have unspecified elevation the interpolated
+            point will also.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Time_NDays">
+            <summary>
+              Looks up a localized string similar to {0} days.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Time_NMonths">
+            <summary>
+              Looks up a localized string similar to {0} months.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Time_NYears">
+            <summary>
+              Looks up a localized string similar to {0} years.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Time_OneMonth">
+            <summary>
+              Looks up a localized string similar to One month.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Time_OneYear">
+            <summary>
+              Looks up a localized string similar to One year.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Total">
+            <summary>
+              Looks up a localized string similar to Total.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_LifeRemainingText_None">
+            <summary>
+              Looks up a localized string similar to None.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_EveryCoupleWeeks">
+            <summary>
+              Looks up a localized string similar to Every couple of weeks.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_EveryDay">
+            <summary>
+              Looks up a localized string similar to Every day.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_HardlyEver">
+            <summary>
+              Looks up a localized string similar to Hardly ever.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_Never">
+            <summary>
+              Looks up a localized string similar to Never.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_NotInUse">
+            <summary>
+              Looks up a localized string similar to No longer in use.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_Once">
+            <summary>
+              Looks up a localized string similar to Once.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_OnceMonth">
+            <summary>
+              Looks up a localized string similar to Once a month.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_OnceWeek">
+            <summary>
+              Looks up a localized string similar to Once a week.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UsageFrequencyType_SeveralTimesWeek">
+            <summary>
+              Looks up a localized string similar to Several times a week.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.EquipmentInfo_UseText">
+            <summary>
+              Looks up a localized string similar to {0} for {1}.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Energy_Kilocalorie">
+            <summary>
+              Looks up a localized string similar to Calories.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Energy_Kilojoule">
+            <summary>
+              Looks up a localized string similar to Energy (kJ).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Centimeter">
+            <summary>
+              Looks up a localized string similar to centimeter.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Centimeter_Abbr">
+            <summary>
+              Looks up a localized string similar to cm.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Centimeter_Caps">
+            <summary>
+              Looks up a localized string similar to Centimeter.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Centimeter_Plural">
+            <summary>
+              Looks up a localized string similar to centimeters.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Foot">
+            <summary>
+              Looks up a localized string similar to foot.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Foot_Abbr">
+            <summary>
+              Looks up a localized string similar to ft.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Foot_Caps">
+            <summary>
+              Looks up a localized string similar to Foot.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Foot_Plural">
+            <summary>
+              Looks up a localized string similar to feet.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Inch">
+            <summary>
+              Looks up a localized string similar to inch.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Inch_Abbr">
+            <summary>
+              Looks up a localized string similar to in.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Inch_Caps">
+            <summary>
+              Looks up a localized string similar to Inch.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Inch_Plural">
+            <summary>
+              Looks up a localized string similar to inches.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Kilometer">
+            <summary>
+              Looks up a localized string similar to kilometer.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Kilometer_Abbr">
+            <summary>
+              Looks up a localized string similar to km.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Kilometer_Caps">
+            <summary>
+              Looks up a localized string similar to Kilometer.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Kilometer_Plural">
+            <summary>
+              Looks up a localized string similar to kilometers.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Meter">
+            <summary>
+              Looks up a localized string similar to meter.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Meter_Abbr">
+            <summary>
+              Looks up a localized string similar to m.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Meter_Caps">
+            <summary>
+              Looks up a localized string similar to Meter.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Meter_Plural">
+            <summary>
+              Looks up a localized string similar to meters.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Mile">
+            <summary>
+              Looks up a localized string similar to mile.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Mile_Abbr">
+            <summary>
+              Looks up a localized string similar to mi.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Mile_Caps">
+            <summary>
+              Looks up a localized string similar to Mile.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Mile_Plural">
+            <summary>
+              Looks up a localized string similar to miles.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Yard">
+            <summary>
+              Looks up a localized string similar to yard.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Yard_Abbr">
+            <summary>
+              Looks up a localized string similar to yd.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Yard_Caps">
+            <summary>
+              Looks up a localized string similar to Yard.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Length_Yard_Plural">
+            <summary>
+              Looks up a localized string similar to yards.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Temperature_Celsius">
+            <summary>
+              Looks up a localized string similar to Celsius.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Temperature_Celsius_Abbr">
+            <summary>
+              Looks up a localized string similar to °C.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Temperature_Fahrenheit">
+            <summary>
+              Looks up a localized string similar to Fahrenheit.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Temperature_Fahrenheit_Abbr">
+            <summary>
+              Looks up a localized string similar to °F.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_Hour">
+            <summary>
+              Looks up a localized string similar to hour.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_Hour_Plural">
+            <summary>
+              Looks up a localized string similar to hours.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_Month">
+            <summary>
+              Looks up a localized string similar to month.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_Month_Plural">
+            <summary>
+              Looks up a localized string similar to months.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_TimeOfDay_Afternoon">
+            <summary>
+              Looks up a localized string similar to Afternoon.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_TimeOfDay_Evening">
+            <summary>
+              Looks up a localized string similar to Evening.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_TimeOfDay_Midday">
+            <summary>
+              Looks up a localized string similar to Midday.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_TimeOfDay_Morning">
+            <summary>
+              Looks up a localized string similar to Morning.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_TimeOfDay_Night">
+            <summary>
+              Looks up a localized string similar to Night.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Time_TimeOfDay_Unspecified">
+            <summary>
+              Looks up a localized string similar to Unspecified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Kilogram">
+            <summary>
+              Looks up a localized string similar to kilogram.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Kilogram_Abbr">
+            <summary>
+              Looks up a localized string similar to kg.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Kilogram_Caps">
+            <summary>
+              Looks up a localized string similar to Kilogram.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Kilogram_Plural">
+            <summary>
+              Looks up a localized string similar to kilograms.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Pound">
+            <summary>
+              Looks up a localized string similar to pound.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Pound_Abbr">
+            <summary>
+              Looks up a localized string similar to lb.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Pound_Caps">
+            <summary>
+              Looks up a localized string similar to Pound.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Pound_Plural">
+            <summary>
+              Looks up a localized string similar to pounds.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Stone">
+            <summary>
+              Looks up a localized string similar to stone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Stone_Abbr">
+            <summary>
+              Looks up a localized string similar to st.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Stone_Caps">
+            <summary>
+              Looks up a localized string similar to Stone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Measurement_Weight_Stone_Plural">
+            <summary>
+              Looks up a localized string similar to stone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_ChanceRain">
+            <summary>
+              Looks up a localized string similar to Chance of rain.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_ChanceThunder">
+            <summary>
+              Looks up a localized string similar to Chance of storms.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Clear">
+            <summary>
+              Looks up a localized string similar to Sunny.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Clouds">
+            <summary>
+              Looks up a localized string similar to Cloudy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Fog">
+            <summary>
+              Looks up a localized string similar to Fog.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Haze">
+            <summary>
+              Looks up a localized string similar to Haze.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_HeavyRain">
+            <summary>
+              Looks up a localized string similar to Heavy rain.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_LightRain">
+            <summary>
+              Looks up a localized string similar to Light rain.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_MostClouds">
+            <summary>
+              Looks up a localized string similar to Mostly cloudy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Overcast">
+            <summary>
+              Looks up a localized string similar to Overcast.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_PartClouds">
+            <summary>
+              Looks up a localized string similar to Partly cloudy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Rain">
+            <summary>
+              Looks up a localized string similar to Rain.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_ScatterClouds">
+            <summary>
+              Looks up a localized string similar to Scattered clouds.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Snow">
+            <summary>
+              Looks up a localized string similar to Snow.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Thunder">
+            <summary>
+              Looks up a localized string similar to Thunderstorms.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.WeatherConditions_Type_Unspecified">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1">
+            <summary>
+            Implementation of <see cref="T:ZoneFiveSoftware.Common.Data.IValueRangeSeries{T}" /> interface.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.IndexOf(ZoneFiveSoftware.Common.Data.IValueRange{`0})">
+            <summary>
+            Return the index position of the specified item
+            </summary>
+            <param name="item">The range.</param>
+            <returns>Index position or -1 if not found.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.RemoveAt(System.Int32)">
+            <summary>
+            Remove the range at the specified index position
+            </summary>
+            <param name="index">Index must be less than Count.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.Add(ZoneFiveSoftware.Common.Data.IValueRange{`0})">
+            <summary>
+            Add a range to the series. If this range overlaps any existing ranges they
+            will be removed or updated as needed.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.Clear">
+            <summary>
+            Removes all ranges.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.Contains(ZoneFiveSoftware.Common.Data.IValueRange{`0})">
+            <summary>
+            Returns true if the range is contained in the range series.
+            </summary>
+            <param name="item">The range.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.CopyTo(ZoneFiveSoftware.Common.Data.IValueRange{`0}[],System.Int32)">
+            <summary>
+            Copy the range series to an array.
+            </summary>
+            <param name="array">An array.</param>
+            <param name="arrayIndex">Starting position.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.Remove(ZoneFiveSoftware.Common.Data.IValueRange{`0})">
+            <summary>
+            Remove the specified item if it exists.
+            </summary>
+            <param name="item">The range.</param>
+            <returns>True if the item was found and removed.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.GetEnumerator">
+            <summary>
+            Get an enumerator to iterate over the contained <see cref="T:ZoneFiveSoftware.Common.Data.IValueRange{T}" /> objects.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.Item(System.Int32)">
+            <summary>
+            Return the range at the specified position.
+            </summary>
+            <param name="index">Index position from 0 to Count-1.</param>
+            <returns>The range.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.Count">
+            <summary>
+            Number of range objects in the series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ValueRangeSeries`1.IsReadOnly">
+            <summary>
+            True if the collection is read only.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.InterpolateValues">
+            <summary>
+            IInterpolateValues implementations for system types.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.InterpolateValues.Byte">
+            <summary>
+            A value interpolator for System.Byte.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.InterpolateValues.Byte.Interpolate(System.Byte,System.Byte,System.Double)">
+            <summary>
+            Return the interpolated value.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.InterpolateValues.Short">
+            <summary>
+            A value interpolator for System.Short.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.InterpolateValues.Short.Interpolate(System.Int16,System.Int16,System.Double)">
+            <summary>
+            Return the interpolated value.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.InterpolateValues.Long">
+            <summary>
+            A value interpolator for System.Long.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.InterpolateValues.Long.Interpolate(System.Int64,System.Int64,System.Double)">
+            <summary>
+            Return the interpolated value.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.InterpolateValues.Float">
+            <summary>
+            A value interpolator for System.Float.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.InterpolateValues.Float.Interpolate(System.Single,System.Single,System.Double)">
+            <summary>
+            Return the interpolated value.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.InterpolateValues.Double">
+            <summary>
+            A value interpolator for System.Double.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.InterpolateValues.Double.Interpolate(System.Double,System.Double,System.Double)">
+            <summary>
+            Return the interpolated value.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.NotifyDataChangedAction">
+            <summary>
+            Type of data change event.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedAction.Add">
+            <summary>
+            Data was added. Refer to the NewItems collection.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedAction.Remove">
+            <summary>
+            Data was removed. Refer to the OldItems collection.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedAction.Replace">
+            <summary>
+            Data was replaced. Refer to the OldItems and NewItems collection.
+            Items in OldItems were replaced by items in NewItems.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedAction.PropertySet">
+            <summary>
+            A property on a specified element was changed. Refer to NewItems and PropertySet.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventArgs">
+            <summary>
+            Specifies what data was changed and how it was changed.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventArgs.#ctor(ZoneFiveSoftware.Common.Data.NotifyDataChangedAction)">
+            <summary>
+            Construct a data changed event of the specified type. 
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventArgs.Action">
+            <summary>
+            The type of data change event.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventArgs.NewItems">
+            <summary>
+            New items either added to the collection, replacing old items, or those which had properties changed.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventArgs.OldItems">
+            <summary>
+            Old items replaced or removed.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventArgs.PropertiesSet">
+            <summary>
+            When Action is PropertySet, indicates which property was changed.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.NotifyDataChangedEventHandler">
+            <summary>
+            The delegate for the INotifyDataChange event handler.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.GPSBounds">
+            <summary>
+            Implementation of IGPSBounds interface.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.#ctor(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,ZoneFiveSoftware.Common.Data.GPS.IGPSLocation)">
+            <summary>
+            Construct GPS bounds from the specified locations.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.Contains(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation)">
+            <summary>
+            Return true if the specific location is within the GPSBounds.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.Intersect(ZoneFiveSoftware.Common.Data.GPS.IGPSBounds)">
+            <summary>
+            Returns the overlapping GPS bounds, or null if the bounds do not intersect.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.FromGPSRoute(ZoneFiveSoftware.Common.Data.GPS.IGPSRoute)">
+            <summary>
+            Create a GPSBounds object which contains all the points in the route.
+            If the route is null or does not contain any GPS points, null will be returned.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.FromGPSLocations(System.Collections.Generic.IEnumerable{ZoneFiveSoftware.Common.Data.GPS.IGPSLocation})">
+            <summary>
+            Create a GPSBounds object which contains all the points in the specified collection.
+            If the collection is empty or does not contain any GPS locations, null will be returned.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.NorthWest">
+            <summary>
+            The upper left point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.SouthEast">
+            <summary>
+            The lower right point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.Center">
+            <summary>
+            The center.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.NorthLatitudeDegrees">
+            <summary>
+            The latitude of the upper point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.WestLongitudeDegrees">
+            <summary>
+            The longitude of the left point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.SouthLatitudeDegrees">
+            <summary>
+            The latitude of the lower point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.EastLongitudeDegrees">
+            <summary>
+            The longitude of the right point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.LongitudeDegrees">
+            <summary>
+            Return the "width" of the bounds in longitude degrees
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSBounds.LatitudeDegrees">
+            <summary>
+            Return the "height" of the bounds in latitude degrees
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IItemMetadata">
+            <summary>
+            Metadata information about a data item.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IItemMetadata.Source">
+            <summary>
+            Source of the data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IItemMetadata.Created">
+            <summary>
+            When the data was created.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IItemMetadata.Modified">
+            <summary>
+            When the data was last modified.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.WeatherConditions">
+            <summary>
+            Descriptive terms for precipitation and cloud cover.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.WeatherConditions.Type">
+            <summary>
+            Conditions type.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo">
+            <summary>
+            Information about weather conditions for a particular activity or date.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.Conditions">
+            <summary>
+            Weather conditions.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.TemperatureCelsius">
+            <summary>
+            The temperature in celsius degrees or float.NaN if unspecified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.HumidityPercent">
+            <summary>
+            The humidity from 0 to 100 or float.NaN if unspecified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.ConditionsText">
+            <summary>
+            Descriptive conditions in localized text - eg: Scattered clouds
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.ConditionsNotes">
+            <summary>
+            Additional user-entered notes about weather conditions - eg: windy, dusty, high-tide, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.WindSpeedKilometersPerHour">
+            <summary>
+            Wind speed in kilometers per hour or float.NaN if unspecified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.WindDirectionDegrees">
+            <summary>
+            Wind direction in degrees (0 to 360) or float.NaN if unspecified. North = 0.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.CurentSpeedKilometersPerHour">
+            <summary>
+            Water current speed in kilometers per hour or float.NaN if unspecified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IWeatherInfo.CurentDirectionDegrees">
+            <summary>
+            Water current direction in degrees (0 to 360) or float.NaN if unspecified. North = 0.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo">
+            <summary>
+            The EquipmentInfo class takes an IEquipmentItem object and provides methods to calculate
+            equipment usage and categorize the information.
+            </summary>
+            <remarks>
+            Conceptually this class is like the ActivityInfo
+            class but the calculations are less complex so there is no data caching.
+            </remarks>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.#ctor(ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem)">
+            <summary>
+            Construct an instance of the EquipmentInfo object.
+            </summary>
+            <param name="equipmentItem">An equipment item.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.TotalUseText(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return the total use of the equipment in either time or distance based on the expected life type.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingText(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return a localized text string representing the life remaining.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.ExpectedLifeText(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return localized text indicating the expected life in either distance or time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingStatus">
+            <summary>
+            Return the life remaining status based on current usage and expected life.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.CurrentUseKilometers">
+            <summary>
+            Return the current use in kilometers, the total distance of all associated activities.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.CurrentUseDays">
+            <summary>
+            Return the current use in days, the first used date to now.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.CurrentUseTime">
+            <summary>
+            Return the total use in time, the total time of all associated activities.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.FirstUsed">
+            <summary>
+            Return the first time the equipment was used with an activity or DateTime.MinValue
+            if the equipment  has never been used.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LastUsed">
+            <summary>
+            Return the last time the equipment was used with an activity or DateTime.MinValue
+            if the equipment  has never been used.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsagePerWeek">
+            <summary>
+            Return the average number of activities per week that the item is used with.
+            Several values indicate special conditions:
+            -3: The item is no longer in use.
+            -2: The item has never been used.
+            -1: The item has been used with a single activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequency">
+            <summary>
+            Return the enumeration for usage frequency.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageText">
+            <summary>
+            A localized string for the usage frequency.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingDays">
+            <summary>
+            Return the number of days remaining in the life of the item if the expected life is in months.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingKilometers">
+            <summary>
+            Return the number of kilometers remaining in the life of the item if the expected life is in kilometers
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.ReplacementDate">
+            <summary>
+            An estimate of the date the equipment will need to be replaced, based on usage and life remaining.
+            Returns DateTime.MaxValue in circumstances where the date cannot be computed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.AgeDays">
+            <summary>
+            Returns the age in days since the equipment was purchased, or -1.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.Age">
+            <summary>
+            Return localized text indicating the age
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingStatusType">
+            <summary>
+            An enumerated type which indicates the status of life remaining. Typically rendered green/yellow/red icons.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingStatusType.OK">
+            <summary>
+            When total usage is less than 90% of the expected life of the equipment.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingStatusType.ExpirationNear">
+            <summary>
+            When total usage is between 90% and 105% of the expected life of the equipment.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.LifeRemainingStatusType.Expired">
+            <summary>
+            When total usage is over 105% of the expected life of the equipment.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType">
+            <summary>
+            An enumerated type indicating the usage frequency.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.EveryDay">
+            <summary>
+            More than 4.8 times a week, approximately every day.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.SeveralTimesWeek">
+            <summary>
+            Less than 4.8 times a week.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.OnceWeek">
+            <summary>
+            Less than 1.8 times a week.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.EveryCoupleWeeks">
+            <summary>
+            Less than 0.80 times a week, about less than 3.2 times a month.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.OnceMonth">
+            <summary>
+            Less than 0.40 times a week, about less than 1.6 times a month.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.HardlyEver">
+            <summary>
+            Less than 0.15 times a week, about than once every 6.5 weeks.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.Once">
+            <summary>
+            The item was only used once.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.NotInUse">
+            <summary>
+            The item is no longer in use.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Fitness.EquipmentInfo.UsageFrequencyType.Never">
+            <summary>
+            The item has never been used.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IActivityLaps">
+            <summary>
+            A list of laps which can be modified.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IActivityLaps.Clear">
+            <summary>
+            Clear all laps.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IActivityLaps.Add(System.DateTime,System.TimeSpan)">
+            <summary>
+            Add a lap.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IActivityLaps.Remove(ZoneFiveSoftware.Common.Data.Fitness.ILapInfo)">
+            <summary>
+            Remove the specified lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityLaps.Count">
+            <summary>
+            Get the count of laps.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityLaps.Item(System.Int32)">
+            <summary>
+            Return the lap at the specified index.
+            </summary>
+            <param name="index">The index. Must be &gt;=0 and &lt;= Count.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries">
+            <summary>
+            Methods to calculate statistics across <see cref="T:ZoneFiveSoftware.Common.Data.INumericTimeDataSeries"/> objects.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.Min(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries)">
+            <summary>
+            Find the minimum value in the data series.
+            </summary>
+            <param name="data">The data series.</param>
+            <returns>The minimum value.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.Max(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries)">
+            <summary>
+            Find the maximum value in the data series.
+            </summary>
+            <param name="data">The data series.</param>
+            <returns>The maximum value.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.Avg(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries)">
+            <summary>
+            Calculate the weighted average of the values in the data series.
+            </summary>
+            <remarks>
+            Each value is weighted by the proportion of the time at that value.
+            </remarks>
+            <param name="data">The data series.</param>
+            <returns>The average.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.ValueAtTime(System.DateTime,ZoneFiveSoftware.Common.Data.INumericTimeDataSeries)">
+            <summary>
+            A convenience method which attempts to return a value at the specified time in the data series.
+            </summary>
+            <remarks>
+            If the time is before the data series, zero is returned. If the time is past
+            the end of the data series, the value of the last entry is returned. If the time is within the series
+            an interpolated value is returned. If the data series contains zero entries float.NaN is always returned.<p></p>
+            The behavior of this method differs from <see cref="T:ZoneFiveSoftware.Common.Data.ITimeDataSeries{T}" />.<see cref="M:ZoneFiveSoftware.Common.Data.ITimeDataSeries.GetInterpolatedValue" /> as
+            that method will return a null if the value is outside the time range.
+            </remarks>
+            <param name="time">The time.</param>
+            <param name="data">The data series.</param>
+            <returns>The value at the specified time.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.Smooth(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries,System.Int32,System.Single@,System.Single@)">
+            <summary>
+            Perform a smoothing operation using a moving average on the data series.
+            </summary>
+            <remarks>
+            This method calculates a moving average whose width in seconds is specified by the <strong>seconds</strong> parameter
+            and returns the smoothed data series. While the data is calculated, the minimum and maximum value encountered
+            are placed in the <strong>min</strong> and <strong>max</strong> out parameters.<p></p>
+            If the smoothing seconds is less than one or there is a single data point the data series is simply copied to a
+            return series without doing any smoothing.
+            </remarks>
+            <param name="data">The data series to smooth.</param>
+            <param name="seconds">The range to smooth across to the left and right of a point.</param>
+            <param name="min">An out parameter set to the minimum value of the smoothed data series.</param>
+            <param name="max">An out parameter set to the maximum value of the smoothed data series.</param>
+            <returns>The smoothed data track.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.MinMaxAvgRange(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries,System.DateTime,System.DateTime,ZoneFiveSoftware.Common.Data.IValueRangeSeries{System.DateTime},System.Single,System.Single@,System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Calculate minimum, maximum, average, first and last values from the data series that are within a {start,end} time range,
+            not in the paused time ranges, and above a given cutoff value.
+            </summary>
+            <param name="data">The data series.</param>
+            <param name="start">The start of the time segment to consider.</param>
+            <param name="end">The end of the time segment to consider.</param>
+            <param name="pauses">Time ranges indicating pauses to be excluded from the calculation.</param>
+            <param name="minimum">A lower bound cutoff which determines which values are considered in the calculation.</param>
+            <param name="first">An out parameter set to the last value in the segment (value at time <strong>start</strong>).</param>
+            <param name="last">An out parameter set to the last value in the segment (value at time <strong>end</strong>).</param>
+            <param name="min">An out parameter set to the minimum value found.</param>
+            <param name="max">An out parameter set to the maximum value found.</param>
+            <param name="avg">An out parameter set to the weighted average of the segment.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.NumericTimeDataSeries.MinMaxAvgRange(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries,System.DateTime,System.DateTime,System.Single,System.Single@,System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Return the total number of seconds in the span with counting data.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection" -->
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.#ctor">
+            <summary>
+            Construct an ActivitiesCollection instance.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.#ctor(System.Collections.Generic.IEnumerable{ZoneFiveSoftware.Common.Data.Fitness.IActivity})">
+            <summary>
+            Construct an ActivitiesCollection instance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.Activities">
+            <summary>
+            Return the list of activities in this collection. If modified, all cached data is discarded and
+            recalculated lazily (when requested).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.Bounds">
+            <summary>
+            Return the entire enclosing GPS boundary of all points in the activities.
+            May return null if there is no GPS data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.AverageMetersPerSecond">
+            <summary>
+            The total average speed for the activities. This is calculated as the total activity
+            distance divided by the time. If there is no speed data float.NaN is returned.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.MinimumAverageMetersPerSecond">
+            <summary>
+            The fastest average speed for a single activity. If there is no speed data float.NaN is returned.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivitiesCollection.MaximumAverageMetersPerSecond">
+            <summary>
+            The slowest average speed for a single activity. If there is no speed data float.NaN is returned.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.ValueRange`1">
+            <summary>
+            Implementation of the <see cref="T:ZoneFiveSoftware.Common.Data.IValueRange{T}" /> interface.
+            </summary>
+            <typeparam name="T">A type which implements IComparable.</typeparam>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.IValueRange`1">
+            <summary>
+            A range of values which enforces the rule lower &lt;= upper.
+            </summary>
+            <seealso cref="T:IValueRangeSeries{T}" />
+            <typeparam name="T">A type which implements IComparable.</typeparam>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.IValueRange`1.Lower">
+            <summary>
+            The lower value in the range.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.IValueRange`1.Upper">
+            <summary>
+            The upper value in the range.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRange`1.#ctor(`0,`0)">
+            <summary>
+            Construct a value range from the specified values. If the bounds
+            are in the incorrect order they will be swapped.
+            </summary>
+            <param name="lower">The lower bound.</param>
+            <param name="upper">The upper bound.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.ValueRange`1.ToString">
+            <summary>
+            Default ToString() for diagnostic information.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ValueRange`1.Lower">
+            <summary>
+            The lower value in the range.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.ValueRange`1.Upper">
+            <summary>
+            The upper value in the range.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.IWebImage">
+            <summary>
+            A web image represents a link to a local file or remote url and a unique identifier (a GUID)
+            which allows the image to be identified in the image thumbnail cache. 
+            </summary>
+            <remarks>
+            When an image specified by values in an IWebImage object needs to be loaded and
+            displayed on screen an attempt is made to first load the local thumbnail
+            using the ReferenceId. In this manner all images are loaded relatively quickly. If the
+            image cannot be found in the cache or the full original image needs to be displayed, the
+            Url will point to the source location.
+            </remarks>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.IWebImage.Url">
+            <summary>
+            The source of the image. Either a local file path (of the form C:\...) or an http:// url.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.IWebImage.ReferenceId">
+            <summary>
+            A GUID which identifies the image for purposes of loading it from the cache.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.GPSRoute">
+            <summary>
+            Implementation of the IGPSRoute interface and TimeDataSeries on IGPSPoint.
+            Multiple entries may appear at the same elapsed time in the collection.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.TimeDataSeries`1">
+            <summary>
+            Implementation of the <see cref="T:ZoneFiveSoftware.Common.Data.ITimeDataSeries`1"/> interface.
+            </summary>
+            <typeparam name="T">Type which is contained at each point in the data series.</typeparam>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.#ctor">
+            <summary>
+            Create an empty time series.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.#ctor(ZoneFiveSoftware.Common.Data.ITimeDataSeries{`0})">
+            <summary>
+            Create a copy of an existing time series.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.#ctor(ZoneFiveSoftware.Common.Data.IInterpolateValues{`0})">
+            <summary>
+            Create an empty time series using the specified interpolator object.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.Add(System.DateTime,`0)">
+            <summary>
+            Add the value at the specified time. If AllowMultipleAtSameTime is false or if there
+            is no entry at the specified elapsed time this sets the value at the specified time,
+            otherwise the value is added to to the end maintaining the time order.
+            </summary>
+            <param name="time">Time of entry.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.SetValueAt(System.Int32,`0)">
+            <summary>
+            Set the value at the specified index position.
+            </summary>
+            <param name="index">The index position. Must be less than Count.</param>
+            <param name="value">The value</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.RemoveAt(System.Int32)">
+            <summary>
+            Remove the entry at the specified index position.
+            </summary>
+            <param name="index">The index position. Must be less than Count.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.Clear">
+            <summary>
+            Clear all entries from the collection.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.IndexOf(ZoneFiveSoftware.Common.Data.ITimeValueEntry{`0})">
+            <summary>
+            Return the index position of the specified entry.
+            </summary>
+            <param name="item">The entry.</param>
+            <returns>The index.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.GetValueEnumerator">
+            <summary>
+            Returns an enumeration of the values.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.EntryDateTime(ZoneFiveSoftware.Common.Data.ITimeValueEntry{`0})">
+            <summary>
+            Return the DateTime of the specified entry. Shortcut to add StartTime + entry.ElapsedSeconds.
+            </summary>
+            <param name="entry">The entry.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.GetInterpolatedValue(System.DateTime)">
+            <summary>
+            Returns a linear interpolated value based on existing data at the specified time.
+            </summary>
+            <param name="time">A time which must be after the first value and before the last value in the data series.</param>
+            <returns>The value if successful or null.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.GetEnumerator">
+            <summary>
+            Get an enumerator to iterate over the contained <see cref="T:ZoneFiveSoftware.Common.Data.ITimeValueEntry{T}" /> objects.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.StartTime">
+            <summary>
+            The start time of the data track. If Count is zero this value will be invalid.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.TotalElapsedSeconds">
+            <summary>
+            The total elapsed seconds of the track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.Count">
+            <summary>
+            Get the count of items in the data series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.AllowMultipleAtSameTime">
+            <summary>
+            If true, multiple entries can appear at the same elapsed time, if false only a single
+            entry will be present at each elapsed time. This is used for GPS routes, where points
+            may be placed more frequently than once per second, or on a track with no time data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeDataSeries`1.Item(System.Int32)">
+            <summary>
+            Return the value entry at the specified index.
+            </summary>
+            <param name="index">The index. Must be &gt;=0 and &lt; Count.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.IGPSRoute">
+            <summary>
+            A time data series which contains IGPSPoint. This interface includes additional
+            methods related to the GPS route.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.IGPSRoute.InsertAtPosition(System.Int32,System.DateTime,ZoneFiveSoftware.Common.Data.GPS.IGPSPoint)">
+            <summary>
+            Insert a GPS point at the specified time and location in the route.
+            If time specified would cause the track points to be out of chronological
+            order the point is not inserted and false is returned, otherwise true
+            is returned. This is used when editing a track to place a new GPS point
+            at an exact location in the route. Typically the Add() method would be used.
+            </summary>
+            <param name="index">The index from 0 to Count-1.</param>
+            <param name="time">The time of the new point</param>
+            <param name="point">The GPS point.</param>
+            <returns>True if the point was inserted.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.IGPSRoute.GetDistanceMetersTrack">
+            <summary>
+            Get a time data series of the distance in meters of this GPS track. This is a copy of
+            the data in the GPS route and is not kept in synch if changes are made to the GPS data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.IGPSRoute.TotalDistanceMeters">
+            <summary>
+            The sum of the distance of segments between all successive GPS points in the track.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSRoute.#ctor">
+            <summary>
+            Construct a GPS route which does not contain any points.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSRoute.#ctor(ZoneFiveSoftware.Common.Data.GPS.IGPSRoute)">
+            <summary>
+            Create a copy of an existing route.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSRoute.InsertAtPosition(System.Int32,System.DateTime,ZoneFiveSoftware.Common.Data.GPS.IGPSPoint)">
+            <seealso cref="M:ZoneFiveSoftware.Common.Data.GPS.IGPSRoute.InsertAtPosition(System.Int32,System.DateTime,ZoneFiveSoftware.Common.Data.GPS.IGPSPoint)"/>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSRoute.TotalDistanceMeters">
+            <seealso cref="P:ZoneFiveSoftware.Common.Data.GPS.IGPSRoute.TotalDistanceMeters"/>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ZoneCategoryInfo">
+            <summary>
+            Contains information that has been calculated across a data track for a particular zone category.
+            </summary>
+            <remarks>
+            A zone category contains a series of named zones with low/high thresholds. An example might be a heart-rate
+            zone category which defines zones {0-100}, {100-120}, {120-140}, {140-160}, {160-&gt;}. In various parts
+            of the application these zones are displayed with a summary of the total time, distance or average HR while in the zone.
+            This object holds data for an entire category with each zone corresponding to a <see cref="T:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo"/> object in the
+            <see cref="P:Zones"/> property.<p></p>
+            Statistics about the zones are calculated with the static <see cref="M:Calculate"/> method, which iterates through
+            the points in the data tracks and compares the values with the ranges in the zones, allocating the time segment to the
+            appropriate zone. When this process is complete, each ZoneInfo will have a series of {from,to} times which can be
+            accessed in the <see cref="P:Times"/> property of the <see cref="T:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo"/> object. The other statistics are then
+            calculated from the activity data tracks, the moving distance track and the time ranges.<p></p>
+            For typical usage, the zone statistics for a particular activity should be retrieved by using a cached <see cref="T:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo"/>
+            object, calling one of the methods ending in <strong>ZoneInfo</strong>.
+            </remarks>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo"/>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.Fitness.IZoneCategory"/>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ZoneCategoryInfo.Calculate(ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo,ZoneFiveSoftware.Common.Data.Fitness.IZoneCategory,ZoneFiveSoftware.Common.Data.INumericTimeDataSeries,System.Single)">
+            <summary>
+            Calculate the zone statistics for the specified activity, zone category and data track.
+            </summary>
+            <param name="activityInfo">The activity which is used to determine moving times and data track statistics such as heart-rate.</param>
+            <param name="category">The zone category which defines the value ranges to analyze.</param>
+            <param name="dataTrack">The data track to analyze.</param>
+            <param name="factor">A factor which the data track value is multiplied with before the value is compared to the zone ranges.</param>
+            <returns>A ZoneCategoryInfo object containing statistics about the zones.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneCategoryInfo.Category">
+            <summary>
+            The zone category which these statistics are for.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneCategoryInfo.Zones">
+            <summary>
+            A list of detail statistics about each zone. Each item in this collection corresponds to an item in the Category.Zones collection.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.INamedLowHighZone">
+            <summary>
+            A single zone within a range of zones that has a name and a low and high range. For example
+            a range heart-rate range of 0 to 120 BPM might be defined with a name of "Below Aerobic Threshold".
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.INamedLowHighZone.Name">
+            <summary>
+            The zone name.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.INamedLowHighZone.Low">
+            <summary>
+            The low value of the zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.INamedLowHighZone.High">
+            <summary>
+            The high value of the zone.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IZoneCategory">
+            <summary>
+            A container for named zones with a low and high value, for example a specific set of heart-rate zones.
+            </summary>
+            <seealso cref="T:ZoneFiveSoftware.Common.Data.Fitness.INamedLowHighZone"/>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IZoneCategory.ReferenceId">
+            <summary>
+            The unique identifier of the zone category.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IZoneCategory.Name">
+            <summary>
+            The name of the zone category.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IZoneCategory.Zones">
+            <summary>
+            A collection of named zones each with a {low,high} range.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem">
+            <summary>
+            A piece of equipment which may be tracked for use against activities.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.ReferenceId">
+            <summary>
+            The unique identifier of the equipment item.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Metadata">
+            <summary>
+            Return metadata information about this data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Name">
+            <summary>
+            Item name (a combination of model + brand)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Model">
+            <summary>
+            The model name of the equipment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Brand">
+            <summary>
+            The brand name of the equipment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.DatePurchased">
+            <summary>
+            Date the equipment was purchased. If blank, returns DateTime.MinValue
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Photo">
+            <summary>
+            An image associated with the equipment or null.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.PhotoThumbnail">
+            <summary>
+            A thumbnail image associated with the equipment or null. This may be the
+            same image as the Photo.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Type">
+            <summary>
+            The type of equipment
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.ExpectedLifeKilometers">
+            <summary>
+            The expected life in kilometers or float.NaN if not specified. If this is set
+            ExpectedLifeMonths will be blanked out; only one may be set at a time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.ExpectedLifeMonths">
+            <summary>
+            The expected life in months or float.NaN if not specified. If this is set
+            ExpectedLifeKilometers will be blanked out; only one may be set at a time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.ExtraKilometersUsed">
+            <summary>
+            Extra kilometers used before the equipment was tracked against the activities.
+            This will be added to the total distance used.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.WeightKilograms">
+            <summary>
+            The weight of the equipment or 0 if not specified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.PurchaseLocation">
+            <summary>
+            Location the equipment was purchased at.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.PurchasePrice">
+            <summary>
+            Purchase price of the equipment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.Notes">
+            <summary>
+            Notes.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.InUse">
+            <summary>
+            If true the item is shown in equipment selection lists for the activities
+            and will prefill used on activities during import.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.DisplayWithActivity">
+            <summary>
+            If true the item will be displayed in the activity selection list.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.PartOf">
+            <summary>
+            Item that this equipment is part of or null.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.SubParts">
+            <summary>
+            Sub-parts of equipment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.ActivitiesUsedWith">
+            <summary>
+            A list of activities the equipment was used with.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IEquipmentItem.PrefillCategories">
+            <summary>
+            A list of categories whose activities during import will have this equipment
+            item prefilled.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo">
+            <summary>
+            Summary statistics from detail data tracks for values which fell within the range of a single zone.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.#ctor(ZoneFiveSoftware.Common.Data.Fitness.INamedLowHighZone,ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo)">
+            <summary>
+            Construct a ZoneInfo object from the specified zone with a reference to the ZoneInfo representing the total for the entire activity.
+            </summary>
+            <param name="zone">A zone which indicates low and high values.</param>
+            <param name="totalInfo">A ZoneInfo object that contains the totals.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.Zone">
+            <summary>
+            The zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.Name">
+            <summary>
+            The name of the zone. A shortcut to Zone.Name.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.Times">
+            <summary>
+            A series of {from,to} times indicating when the value was within the range specified in the {low,high} values of the zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.TotalTime">
+            <summary>
+            The total time spent in the zone/
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.TotalDistanceMeters">
+            <summary>
+             The total distance traveled while in the zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.ElevationChangeMeters">
+            <summary>
+            The change in elevation while in the zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.AverageHeartRate">
+            <summary>
+             The weighted average heart-rate while in the zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.MaximumHeartRate">
+            <summary>
+            The maximum heart-rate achieved in the zone (usually the zone high value, except for the top zone).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.Percent">
+            <summary>
+            The pecent of the total activity time which was spent in this zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ZoneInfo.TotalInfo">
+            <summary>
+            A reference to the ZoneInfo object for the entire activity totals.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Algorithm.TimeDataSeries">
+            <summary>
+            Class to calculate data from a <see cref="T:ZoneFiveSoftware.Common.Data.ITimeDataSeries{T}" /> object.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.TimeDataSeries.FindPosOnOrBefore``1(ZoneFiveSoftware.Common.Data.ITimeDataSeries{``0},System.DateTime)">
+            <summary>
+            Find the index of the entry in the data series whose elapsed time is on or before the specified DateTime.
+            </summary>
+            <remarks>
+            Performs an efficient binary search of the data series elapsed values. If the data series is null or empty, or
+            the specified date occurs before the start of the data track -1 is returned.
+            </remarks>
+            <param name="data">The data series.</param>
+            <param name="date">The time to find.</param>
+            <returns>The index in the data series of the point which occurs on or before the specified date or -1 if not found.</returns>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntries">
+            <summary>
+            Athlete history entries by date.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntries.EntryForDate(System.DateTime)">
+            <summary>
+            Get the entry for a particular date.
+            </summary>
+            <param name="date">The date.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntries.LastEntryAsOfDate(System.DateTime)">
+            <summary>
+            Get the last entry on or before a particular date.
+            </summary>
+            <param name="date">The date.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthleteInfoEntries.EntryDates">
+            <summary>
+            A list of dates for which there is some info.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfoCache">
+            <summary>
+            Provide a singleton cache of ActivityInfo objects. Request an ActivityInfo object
+            with the GetInfo method. To clear cached data and force a recalculation use the
+            Clear methods.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfoCache.GetInfo(ZoneFiveSoftware.Common.Data.Fitness.IActivity)">
+            <summary>
+            Get an ActivityInfo object for the specified activity. One will be created if needed
+            and the data will be calculated as requested from the info object.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfoCache.ClearInfo(ZoneFiveSoftware.Common.Data.Fitness.IActivity)">
+            <summary>
+            Remove the cached info for the specified activity.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfoCache.ClearAllInfo">
+            <summary>
+            Remove all cached info.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfoCache.Instance">
+            <summary>
+            Return the cache singleton which contains all cached ActivityInfo.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions">
+            <summary>
+            Options which effect how calculations occur on the ActivityInfo object.
+            </summary>
+            <remarks>
+            In normal circumstances the info options from the user settings in the application are set
+            on the ActivityInfoCache singleton. Any ActivityInfo objects returned from this cache will
+            therefore use the user specified settings.
+            </remarks>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.IncludeStopped">
+            <summary>
+            Should stopped time be included when calculating time and distance totals.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.IncludePaused">
+            <summary>
+            Does the stopped time total include watch pauses.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.CadenceCutoff">
+            <summary>
+            The cutoff for calculating cadence statistics. Values below this are ignored.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.PowerCutoff">
+            <summary>
+            The cutoff for calculating power statistics. Values below this are ignored.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.SpeedSmoothingSeconds">
+            <summary>
+            The number of seconds range to use when calculating the smoothed speed track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.ElevationSmoothingSeconds">
+            <summary>
+            The number of seconds range to use when calculating the smoothed elevation track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.HeartRateSmoothingSeconds">
+            <summary>
+            The number of seconds range to use when calculating the smoothed heart rate track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.CadenceSmoothingSeconds">
+            <summary>
+            The number of seconds range to use when calculating the smoothed cadence track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions.PowerSmoothingSeconds">
+            <summary>
+            The number of seconds range to use when calculating the smoothed power track.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.TimeValueEntry`1">
+            <summary>
+            Implementation of the <see cref="T:ZoneFiveSoftware.Common.Data.ITimeValueEntry`1"/> interface.
+            </summary>
+            <typeparam name="T">Type which is contained at each point in the data series.</typeparam>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.TimeValueEntry`1.#ctor(System.UInt16,`0)">
+            <summary>
+            Construct an instance of the TimeValueEntry object.
+            </summary>
+            <param name="elapsedSeconds">Seconds elapsed since the start of the data track.</param>
+            <param name="value">The value at this point.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeValueEntry`1.ElapsedSeconds">
+            <summary>
+            The elapsed time of the data point.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.TimeValueEntry`1.Value">
+            <summary>
+            The value of the data point.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Time.Label(ZoneFiveSoftware.Common.Data.Measurement.Time.TimeRange)">
+            <summary>
+            Return a single label for the specified timespan, eg "hour"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Time.LabelPlural(ZoneFiveSoftware.Common.Data.Measurement.Time.TimeRange)">
+            <summary>
+            Return a plural label (greater than one units) for the specified timespan, eg "hours"
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Time.TimeOfDay.Morning">
+            <summary>
+            4:00am to 11:00am
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Time.TimeOfDay.Midday">
+            <summary>
+            11:00am to 2:00pm
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Time.TimeOfDay.Afternoon">
+            <summary>
+            2:00pm to 5:30pm
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Time.TimeOfDay.Evening">
+            <summary>
+            5:30pm to 9:00pm
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Time.TimeOfDay.Night">
+            <summary>
+            After 9:00pm
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Time.TimeOfDay.Unspecified">
+            <summary>
+            Not time of day information
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Energy">
+            <summary>
+            A class containing useful methods for conversion of energy measurements such as kilocalories and kilojoules.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Energy.Convert(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Energy.Units,ZoneFiveSoftware.Common.Data.Measurement.Energy.Units)">
+            <summary>
+            Convert the value in specified units to the target value.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Energy.ParseEnergyKilocalories(System.String,ZoneFiveSoftware.Common.Data.Measurement.Energy.Units)">
+            <summary>
+            Attempt to parse the specified text into a energy in kilocalories.<p></p>
+            </summary>
+            <remarks>
+            If the text contains any unit indicators following a numeric value, the numeric value is interpreted
+            as being in those units, otherwise (in the case of a plain unadorned numeric value) the specified
+            default units are used.<p></p>
+            Unit indicators are only accepted in the english language and can be full text, singular or plural, or abbreviations as specified below<p></p>
+            </remarks>
+            <param name="text"></param>
+            <param name="defaultUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Energy.Label(ZoneFiveSoftware.Common.Data.Measurement.Energy.Units)">
+            <summary>
+            Return a single label for the specified units, eg "kilojoule"
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Energy.Units">
+            <summary>
+            Length unit types.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Energy.Units.Kilocalorie">
+            <summary>
+            Kilocalorie.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Energy.Units.Kilojoule">
+            <summary>
+            Kilojoule.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.GPSLocation">
+            <summary>
+            Represents a two-dimensional GPS location {latutude, longitude}
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.#ctor(System.Single,System.Single)">
+            <summary>
+            Construct a GPSLocation from the specified degrees latitude and longitude.<br></br>
+            Latitude degrees are limited to the range (-85, +85), values outside this
+            range are coerced into the valid range.<br></br>
+            Longitude values beyond (-180, +180) are wrapped around to the valid range.
+            </summary>
+            <param name="latitudeDegrees">A value from -85 to +85.</param>
+            <param name="longitudeDegrees">A value from -180 to +180.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.ToString">
+            <summary>
+            Default ToString() for diagnostic information.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.ToString(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.String)">
+            <summary>
+            Format the specified GPS latitude and longitude as a string.<br></br>
+            Valid format strings may include:<br></br>
+            A leading + to use +/- formatting - the default is to append N/S and E/W to the end.<br></br>
+            A leading m to use minutes instead of decimal.<br></br>
+            A digit to indicate the precision.<br></br>
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.AbsoluteDegreeToString(System.Single,System.Boolean,System.Int32)">
+            <summary>
+            Convert the specified degree value to a string.
+            </summary>
+            <param name="degrees">The degrees.</param>
+            <param name="bMinutes">If true minutes are returned, otherwise decimal.</param>
+            <param name="precision">The digits after the period. If minutes format is used, a -2 indicates degrees only, a -1 indicates degree+minutes only.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.ToString(System.String)">
+            <summary>
+            Format the specified GPS latitude and longitude as a string.
+            </summary>
+            <seealso cref="M:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.ToString(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.String)"/>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.LatitudeDegrees">
+            <summary>
+            Latitude degrees (North = +, South = -) of the GPS location.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.LongitudeDegrees">
+            <summary>
+            Longitude degrees (East = +, West = -) of the GPS location.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.Units">
+            <summary>
+            Display type for GPS locations
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.Units.Decimal3">
+            <summary>
+            eg -78.500
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.Units.Decimal4">
+            <summary>
+            eg -78.5000
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.Units.Minutes">
+            <summary>
+            eg. 78° 40' W
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.GPS.GPSLocation.Units.MinutesSeconds">
+            <summary>
+            eg. 78° 40' 00" W
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo">
+            <summary>
+            Contains information about the laps of an activity.
+            </summary>
+            <remarks>
+            The interface does not necessarily
+            enforce a constraint that laps may not overlap, or that the laps must all be contained
+            within the total time of the activity - this responsibility lies in the user interface or data
+            creation code.<p></p>
+            In addition all the properties which return float may be unspecified in which case float.NaN
+            will be returned. If you are doing calculations on lap data, be careful to handle this case.
+            </remarks>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.StartTime">
+            <summary>
+            Gets or sets the start time of the lap.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.TotalTime">
+            <summary>
+            Gets or sets the total time of the lap.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.TotalDistanceMeters">
+            <summary>
+            The distance in meters of the lap. If not specified, return float.NaN.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.ElevationChangeMeters">
+            <summary>
+            The elevation change in meters of the lap (positive or negative).  If not specified, return float.NaN.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.AverageHeartRatePerMinute">
+            <summary>
+            The average heart-rate in beats-per-minute.  If not specified, return float.NaN.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.AverageCadencePerMinute">
+            <summary>
+            The average cadence in revolution/steps-per-minute.  If not specified, return float.NaN.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.AveragePowerWatts">
+            <summary>
+            The average power in watts.  If not specified, return float.NaN.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.TotalCalories">
+            <summary>
+            The total calories expended during the lap.  If not specified, return float.NaN.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.Rest">
+            <summary>
+            If true the lap was a rest interval.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ILapInfo.Notes">
+            <summary>
+            Notes for the lap.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries">
+            <summary>
+            Implementation of the <see cref="T:ZoneFiveSoftware.Common.Data.INumericTimeDataSeries" /> interface.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.#ctor">
+            <summary>
+            Create an empty time series.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.#ctor(ZoneFiveSoftware.Common.Data.INumericTimeDataSeries)">
+            <summary>
+            Create a copy of an existing time series.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.ToString">
+            <summary>
+            Default ToString() for diagnostic information.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Add(System.DateTime,System.Single)">
+            <summary>
+            Add the value at the specified time. If AllowMultipleAtSameTime is false or if there
+            is no entry at the specified elapsed time this sets the value at the specified time,
+            otherwise the value is added to to the end maintaining the time order.
+            </summary>
+            <param name="time">Time of entry.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.SetValueAt(System.Int32,System.Single)">
+            <summary>
+            Set the value at the specified index position.
+            </summary>
+            <param name="index">The index position. Must be less than Count.</param>
+            <param name="value">The value</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.RemoveAt(System.Int32)">
+            <summary>
+            Remove the entry at the specified index position.
+            </summary>
+            <param name="index">The index position. Must be less than Count.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Clear">
+            <summary>
+            Clear all entries from the collection.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.IndexOf(ZoneFiveSoftware.Common.Data.ITimeValueEntry{System.Single})">
+            <summary>
+            Return the index position of the specified entry.
+            </summary>
+            <param name="item">The entry.</param>
+            <returns>The index.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.GetValueEnumerator">
+            <summary>
+            Returns an enumeration of the values.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.EntryDateTime(ZoneFiveSoftware.Common.Data.ITimeValueEntry{System.Single})">
+            <summary>
+            Return the DateTime of the specified entry. Shortcut to add StartTime+entry.ElapsedSeconds.
+            </summary>
+            <param name="entry">The entry.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.GetInterpolatedValue(System.DateTime)">
+            <summary>
+            Returns a linear interpolated value based on existing data at the specified time.
+            </summary>
+            <param name="time">A time which must be after the first value and before the last value in the data series.</param>
+            <returns>The value if successful or null.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.GetEnumerator">
+            <summary>
+            Returns an enumeration of the values.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Min">
+            <summary>
+            The minimum value found in the time series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Max">
+            <summary>
+            The maximum value found in the time series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Avg">
+            <summary>
+            The weighted average (based on elapsed time) of the values.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.StartTime">
+            <summary>
+            The start time of the data track. If Count is zero this value will be invalid.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.TotalElapsedSeconds">
+            <summary>
+            The total elapsed seconds of the track.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Count">
+            <summary>
+            Get the count of items in the data series.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.AllowMultipleAtSameTime">
+            <summary>
+            If true, multiple entries can appear at the same elapsed time, if false only a single
+            entry will be present at each elapsed time. This is used for GPS routes, where points
+            may be placed more frequently than once per second, or on a track with no time data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.NumericTimeDataSeries.Item(System.Int32)">
+            <summary>
+            Return the value entry at the specified index.
+            </summary>
+            <param name="index">The index. Must be &gt;=0 and &lt;= Count.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IConfiguredDevice">
+            <summary>
+            A GPS device that has been configured by the user
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IConfiguredDevice.Id">
+            <summary>
+            An id which corresponds to a IDataImporter Id that is provided by a plugin
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IConfiguredDevice.Configuration">
+            <summary>
+            Configuration info, passed to the import routine
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IActivity">
+            <summary>
+            An activity represents a workout which may include GPS data, heart-rate tracks, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.ReferenceId">
+            <summary>
+            The unique identifier of the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Metadata">
+            <summary>
+            Return metadata information about this data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.StartTime">
+            <summary>
+            The date and time (if HasStartTime is true) the activity started.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.HasStartTime">
+            <summary>
+            If true, the StartTime should be interpreted as a date, time, if false, only the date part of StartTime should be used
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.UseEnteredData">
+            <summary>
+            If true entered data is used for summary information, otherwise the track data is used.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.TotalTimeEntered">
+            <summary>
+            Set or get the total time of the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.TotalDistanceMetersEntered">
+            <summary>
+            Set or get the distance in meters traveled during the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.TotalAscendMetersEntered">
+            <summary>
+            Set or get the distance in meters ascended during the activity. This is always a positive number.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.TotalDescendMetersEntered">
+            <summary>
+            Set or get the distance in meters descended during the activity. This is always a negative number.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.AverageHeartRatePerMinuteEntered">
+            <summary>
+            Set or get the average heart-rate in beats-per-minute.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.MaximumHeartRatePerMinuteEntered">
+            <summary>
+            Set or get the maximum heart-rate in beats-per-minute.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.AverageCadencePerMinuteEntered">
+            <summary>
+            Set or get the average cadence in revolution/steps-per-minute.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.MaximumCadencePerMinuteEntered">
+            <summary>
+            Set or get the maximum cadence in revolution/steps-per-minute.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.AveragePowerWattsEntered">
+            <summary>
+            Set or get the average power in watts.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.MaximumPowerWattsEntered">
+            <summary>
+            Set or get the maximum power in watts.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.TotalCalories">
+            <summary>
+            Set or get the total calories expended during the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Notes">
+            <summary>
+            Notes associated with the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Name">
+            <summary>
+            The name of the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Laps">
+            <summary>
+            The activity laps.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.DistanceMarkersMeters">
+            <summary>
+            Distance markers for splits. The values are cumulative distance from the start of the workout.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Intensity">
+            <summary>
+            Workout intensity, from 1 to 10
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Weather">
+            <summary>
+            Weather conditions during the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Category">
+            <summary>
+            The category this activity is associated with.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.Location">
+            <summary>
+            The location of the activity. Separate location hierarchies by colon.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.EquipmentUsed">
+            <summary>
+            The list of equipment that was used during this workout.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.GPSRoute">
+            <summary>
+            The GPS data for the activity or null if none has been set.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.ElevationMetersTrack">
+            <summary>
+            The elevation track in meters or null if none has been set.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.DistanceMetersTrack">
+            <summary>
+            The distance track in meters or null if none has been set.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.HeartRatePerMinuteTrack">
+            <summary>
+            The heart-rate track in beats-per-minute or null if none has been set.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.CadencePerMinuteTrack">
+            <summary>
+            The cadence track in revolution/steps-per-minute or null if none has been set.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.PowerWattsTrack">
+            <summary>
+            The power track in watts or null if none has been set.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivity.TimerPauses">
+            <summary>
+            Timer (watch) pauses during the activity.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries">
+            <summary>
+            Methods to calculate statistics across <see cref="T:ZoneFiveSoftware.Common.Data.IValueRangeSeries`1">IValueRangeSeries&lt;DateTime&gt;</see> objects which are
+            used to indicate ranges of times in data tracks and activity details (paused or stopped time segments, 
+            for instance).
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.TimePaused(System.DateTime,System.DateTime,ZoneFiveSoftware.Common.Data.IValueRangeSeries{System.DateTime})">
+            <summary>
+            Calculate the total time of the DateTime ranges between the time bounded by the start and end parameters.
+            </summary>
+            <param name="start">The start of the time range.</param>
+            <param name="end">The end of the time range.</param>
+            <param name="pauses">A collection of DateTime ranges.</param>
+            <returns>Total time included.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.TimeNotPaused(System.DateTime,System.DateTime,ZoneFiveSoftware.Common.Data.IValueRangeSeries{System.DateTime})">
+            <summary>
+            Calculate the total time outside of the DateTime ranges between the time bounded by the start and end parameters.
+            </summary>
+            <param name="start">The start of the time range.</param>
+            <param name="end">The end of the time range.</param>
+            <param name="pauses">A collection of DateTime ranges.</param>
+            <returns>Total time excluded.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.TimesNotPaused(System.DateTime,System.DateTime,ZoneFiveSoftware.Common.Data.IValueRangeSeries{System.DateTime})">
+            <summary>
+            Calculate the time ranges bounded by the start and end parameters which are not inside any DateTime ranges.
+            </summary>
+            <remarks>
+            In other words, find the intersection of the {start,end} set and a logical NOT of the set described by the pauses.
+            </remarks>
+            <param name="start">The start of the time range.</param>
+            <param name="end">The end of the time range.</param>
+            <param name="pauses">A collection of DateTime ranges.</param>
+            <returns>An ordered series of DateTime ranges.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.AddTimeAndPauses(System.DateTime,System.TimeSpan,ZoneFiveSoftware.Common.Data.IValueRangeSeries{System.DateTime})">
+            <summary>
+            Find the ending time based on the start time and the elapsed time span by adding any time in paused segments
+            found before the elapsed time.
+            </summary>
+            <remarks>
+            Using the start time of a data track this method can be used to find a particual
+            time in a data track which occurs at the elapsed (user displayed) time. Because the elapsed time does not include
+            time in pauses you cannot simply add the start and elapsed times to find the end track time.
+            </remarks>
+            <param name="start">A starting time.</param>
+            <param name="elapsed">An elapsed time span, one which excludes any times in the paused series.</param>
+            <param name="pauses">The timer paused series.</param>
+            <returns>Time at the elapsed time.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.IsPaused(System.DateTime,ZoneFiveSoftware.Common.Data.IValueRangeSeries{System.DateTime})">
+            <summary>
+            Determine whether the specified time is in any of the DateTime ranges in the paused series.
+            </summary>
+            <param name="time">The time.</param>
+            <param name="pauses">The timer paused series.</param>
+            <returns>True if paused.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.Earliest(System.DateTime,System.DateTime)">
+            <summary>
+            Return the earliest date of the two specified dates.
+            </summary>
+            <param name="date1">One date.</param>
+            <param name="date2">Another date.</param>
+            <returns>The earliest date.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Algorithm.DateTimeRangeSeries.Latest(System.DateTime,System.DateTime)">
+            <summary>
+            Return the latest date of the two specified dates.
+            </summary>
+            <param name="date1">One date.</param>
+            <param name="date2">Another date.</param>
+            <returns>The latest date.</returns>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo">
+            <summary>
+            Detailed information about recorded laps or calculated splits based on distances.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.PriorLap">
+            <summary>
+            The prior lap for lap-to-lap comparisons, or null if this is the first lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.Rest">
+            <summary>
+            Set whether the lap is a rest lap (default to false)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.StartTime">
+            <summary>
+            The time that this lap started
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.EndTime">
+            <summary>
+            The time that this lap ended
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.StartElapsed">
+            <summary>
+            The start time of the lap from the start of the first lap.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.LapElapsed">
+            <summary>
+            The elapsed time of the lap.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.EndElapsed">
+            <summary>
+            The elapsed time at the end of the lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.StartDistanceMeters">
+            <summary>
+            The distance at the start of the lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.LapDistanceMeters">
+            <summary>
+            The distance of the lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.EndDistanceMeters">
+            <summary>
+            The distance at the end of the lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.ElevationChangeMeters">
+            <summary>
+            The meters elevation changed during the lap
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.StartingHeartRatePerMinute">
+            <summary>
+            The starting heart rate during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.EndingHeartRatePerMinute">
+            <summary>
+            The ending heart rate during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.MinimumHeartRatePerMinute">
+            <summary>
+            The minimum heart rate during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.MaximumHeartRatePerMinute">
+            <summary>
+            The maximum heart rate during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.AverageHeartRatePerMinute">
+            <summary>
+            The average heart rate during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.MinimumCadencePerMinute">
+            <summary>
+            The minimum cadence during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.MaximumCadencePerMinute">
+            <summary>
+            The maximum cadence during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.AverageCadencePerMinute">
+            <summary>
+            The average cadence during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.MinimumPowerWatts">
+            <summary>
+            The minimum power during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.MaximumPowerWatts">
+            <summary>
+            The maximum power during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.AveragePowerWatts">
+            <summary>
+            The average power during the lap or float.NaN if unspecified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.LapDetailInfo.Notes">
+            <summary>
+            The notes for the lap.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IAthlete">
+            <summary>
+            Information about the athlete.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.ReferenceId">
+            <summary>
+            The unique identifier of the activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.Metadata">
+            <summary>
+            Return metadata information about this data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.Name">
+            <summary>
+            The athlete name.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.DateOfBirth">
+            <summary>
+            Athlete's date of birth or DateTime.MinValue if not specified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.HeightCentimeters">
+            <summary>
+            Athlete's height in centimeters.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.WeightKilograms">
+            <summary>
+            Most recent weight measurement in kilograms or float.NaN if not specified.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IAthlete.InfoEntries">
+            <summary>
+            Historical entries.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory">
+            <summary>
+            A category of an activity from which it inherits certain behavior such as units of
+            measurement preferences, caloric calculations, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.ReferenceId">
+            <summary>
+            The unique identifier of the category.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.Metadata">
+            <summary>
+            Return metadata information about this data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.Parent">
+            <summary>
+            The activity category which this is a child of or null if the category is a root category.
+            If the setter is called and the current parent is null, most of the attributes (except
+            Name and SubCategories) are copied from the new parent.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.Name">
+            <summary>
+            The name of the activity category
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.SubCategories">
+            <summary>
+            The sub-categories of this activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.UseParentSettings">
+            <summary>
+            If true, the parent category settings are used for options such as speed, calorie calculations.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.SpeedUnits">
+            <summary>
+            Preference whether to show speed as mph,kph or min/mile,min/km.
+            If UseParentSettings is true, get will return the setting from the parent category and
+            calling the setter will throw an exception.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.StoppedMetersPerSecond">
+            <summary>
+            When the activity speed falls below stopped it is considered stopped. This may me zero.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.CalorieCalculationMethod">
+            <summary>
+            The method for calculating calories, or null if no automatic calculation method is used.
+            If UseParentSettings is true, get will return the setting from the parent category and
+            calling the setter will throw an exception.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.SpeedZone">
+            <summary>
+            The speed zone category to show by default when showing speed zone detail.
+            If UseParentSettings is true, get will return the setting from the parent category and
+            calling the setter will throw an exception.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.HeartRateZone">
+            <summary>
+            The heart-rate zone category to show by default when showing heart-rate zone detail.
+            If UseParentSettings is true, get will return the setting from the parent category and
+            calling the setter will throw an exception.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.UseSystemLengthUnits">
+            <summary>
+            If true use the system defined units for distance and elevation, if false, 
+            use the units defined by the category. In either case, the get methods for
+            units on the activity category can be called to get the current setting.
+            Setting this to true will have the side effect of setting the distance and elevation
+            units to the system settings.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.DistanceUnits">
+            <summary>
+            The measurement for distances (miles, kilometers, etc) for activities in this category.
+            If UseSystemLengthUnits is true, the system settings are used (from IApplication) and
+            calling the setter will throw an exception.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.IActivityCategory.ElevationUnits">
+            <summary>
+            The measurement for elevation (meters, feet, etc) for activities in this category.
+            If UseSystemLengthUnits is true, the system settings are used (from IApplication) and
+            calling the setter will throw an exception.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Length">
+            <summary>
+            A class containing useful methods for conversion of length measurements such as distances and elevations.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.Convert(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Length.Units,ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Convert the value in specified units to the target value.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.ToString(System.Double,ZoneFiveSoftware.Common.Data.Measurement.Length.Units,System.String)">
+            <summary>
+            Format the value with the specified units in the specified format.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="from">The value's units.</param>
+            <param name="format">The format and precision. May optionally include a single character of either U or u at the end to 
+            append the full unit name (eg. Kilometer) or abbreviated unit name (eg. km)</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.ParseDistanceMeters(System.String,ZoneFiveSoftware.Common.Data.Measurement.Length.Units@)">
+            <summary>
+            Attempt to parse the specified text into a distance in meters.<p></p>
+            </summary>
+            <remarks>
+            If the text contains any unit indicators following a numeric value, the numeric value is interpreted
+            as being in those units, otherwise (in the case of a plain unadorned numeric value) the specified
+            default units are used.<p></p>
+            Unit indicators are only accepted in the english language and can be full text, singular or plural, or abbreviations as specified below<p></p>
+            
+            </remarks>
+            <param name="text"></param>
+            <param name="defaultUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.DefaultDecimalPrecision(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return the default decimal precision for the specified units. Typically used to construct a format string for ToString.<br></br>
+            For Mile and Kilometer returns 2, for Meter returns 1, for all others returns 0.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.Label(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return a single label for the specified units, eg "kilometer"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.LabelPlural(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return a plural label (greater than one units) for the specified units, eg "kilometers"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.LabelAbbr(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return an abbreviated label (greater than one units) for the specified units, eg "km"
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Measurement.Length.LabelCap(ZoneFiveSoftware.Common.Data.Measurement.Length.Units)">
+            <summary>
+            Return a capitalized single label for the specified units, eg "Kilometer"
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Measurement.Length.Units">
+            <summary>
+            Length unit types.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Centimeter">
+            <summary>
+            Centimeter.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Meter">
+            <summary>
+            Meter.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Kilometer">
+            <summary>
+            Kilometer.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Inch">
+            <summary>
+            Inch.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Foot">
+            <summary>
+            Foot.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Yard">
+            <summary>
+            Yard.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Data.Measurement.Length.Units.Mile">
+            <summary>
+            Mile.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo">
+            <summary>
+            The ActivityInfo class takes an IActivity object with raw workout data and provides
+            methods to summarize and combine data into metrics which are useful to present
+            to the user.
+            </summary>
+            <remarks>
+            The algorithms at work in this class can be quite expensive in CPU and
+            memory (especially the smoothing algorithms), so all data is calculated lazily when first
+            requested and cached. This behavior should be transparent to the client but
+            memory/CPU usage can be tuned by calling the various Clear() methods to discard cached data.
+            </remarks>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.#ctor(ZoneFiveSoftware.Common.Data.Fitness.IActivity,ZoneFiveSoftware.Common.Data.Fitness.IActivityInfoOptions)">
+            <summary>
+            Construct an instance of the ActivityInfo object.
+            </summary>
+            <param name="activity">An activity.</param>
+            <param name="options">Options which indicate how smoothing and summarization behaves.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.LapDetailInfo(ZoneFiveSoftware.Common.Data.Fitness.ActivityLapsType)">
+            <summary>
+            Return a collection of detail information for each lap for the specified type
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.DistanceLapDetailInfo(System.Double)">
+            <summary>
+            Return a collection of detail information for each lap at the regular distance interval specified
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.Activity">
+            <summary>
+            Return the activity that this info object is for.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.Description">
+            <summary>
+            Returns a one-line description of the activity based on the name, location, category and date
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.Time">
+            <summary>
+            Return the workout time based on the analysis settings.
+            If UseEnteredData is true, returns TotalTimeEntered.
+            Otherwise, if IncludeStoppedInTotals is true, returns ActualTrackTime.
+            Otherwise, consider the time of all track data, and remove time spans
+            where the timer was paused or the speed fell below the StoppedSpeed setting.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.StoppedTime">
+            <summary>
+            Return the stopped time based on the analysis settings.
+            If IncludePausedTimeInStopped is true, return the segments where the timer
+            was paused or the speed fell below the StoppedSpeed setting.
+            Otherwise, return the segments where the speed fell below the StoppedSpeed
+            setting and the timer was not paused.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.TimePaused">
+            <summary>
+            Return the total time the timer was paused.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.TimeNonPaused">
+            <summary>
+            Return the total track time minus the time that the timer was paused.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.TimeMoving">
+            <summary>
+            Return the track time that the timer was not paused and that the speed
+            was above the StoppedSpeed setting. Any track data which is not within
+            the boundaries of the GPSRoute or DistanceMetersTrack is assumed to
+            be moving because there is no time/distance data to determine otherwise.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.TimeNotMoving">
+            <summary>
+            Return the track time that the timer was paused or the speed was below
+            the StoppedSpeed setting. Only track data within the boundaries of the
+            GPSRoute or DistanceMetersTrack is considered.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.TimeNotMovingNonPaused">
+            <summary>
+            Return the track time that the timer was not paused and the speed was
+            below the StoppedSpeed setting. Only track data within the boundaries of the
+            GPSRoute or DistanceMetersTrack is considered.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.ActualTrackTime">
+            <summary>
+            Return the total combined time of all the data tracks including
+            time when the athlete was not moving and when the timer was paused. 
+            Equal to time from earliest DateTime entry to latest DateTime entry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.ActualTrackStart">
+            <summary>
+            Return the earliest actual start time of any data track. If there is no track info return DateTime.MinValue.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.ActualTrackEnd">
+            <summary>
+            Return the latest actual end time of any data track. If there is no track info return DateTime.MinValue.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.NonMovingTimes">
+            <summary>
+            Return the times where the timer was paused or the speed fell below the moving speed threshold.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.DistanceMeters">
+            <summary>
+            Return the distance in meters of the activity based on the analysis settings.
+            If UseEnteredData is true, returns TotalDistanceMetersEntered.
+            Otherwise, if IncludeStoppedInTotals is true, returns DistanceMetersNonPaused.
+            Otherwise, returns DistanceMetersMoving.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.DistanceMetersNonPaused">
+            <summary>
+            Returns the total distance (either moving or not) where the timer was not paused.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.DistanceMetersMoving">
+            <summary>
+            Return the total moving distance, where the speed was above StoppedSpeed and the timer was not paused.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.MovingDistanceMetersTrack">
+            <summary>
+            Return a data series of the distance in meters where the speed was above StoppedSpeed and the timer was not paused.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.ActualDistanceMetersTrack">
+            <summary>
+            Return a data series of the distance in meters irrespective of stopped or paused times.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.HasAnyTrackData">
+            <summary>
+            Return true if any of the track data is not null and has at least 1 entry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.HasDistanceData">
+            <summary>
+            Return true if either the GPSRoute or DistanceMetersTrack is not null and has at least 1 entry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.HasElevationTrackData">
+            <summary>
+            Return true if either the GPSRoute or ElevationMetersTrack is not null and has at least 1 entry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.RecordedLapDetailInfo">
+            <summary>
+            Return a collection of detail information for each recorded lap on this activity
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.RestLapsTotalDetail">
+            <summary>
+            Return the total information for rest laps.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.ActiveLapsTotalDetail">
+            <summary>
+            Return the total information for active laps
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Data.Fitness.ActivityInfo.CustomDistanceLapDetailInfo">
+            <summary>
+            Return a collection of detail information for each lap at the custom distance markers for this activity
+            </summary>
+        </member>
+    </members>
+</doc>

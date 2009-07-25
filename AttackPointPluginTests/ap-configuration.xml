@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AttackPointConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DescriptionFormat="" WarnOnNotMappedEquipment="false" xmlns="http://www.attackpoint.org/config/v0.1">
+  <Profile username="greg" password="" advanced="false">
+    <Activities>
+      <ApActivity Id="5784" Title="Road/Track Running" GraphOrder="1" Color="green" />
+      <ApActivity Id="5785" Title="Orienteering" GraphOrder="1" Color="red" />
+      <ApActivity Id="5848" Title="Trail Running" GraphOrder="1" Color="blue" />
+      <ApActivity Id="5999" Title="Hiking" GraphOrder="1" Color="grey" />
+      <ApActivity Id="6809" Title="Exercise machine" GraphOrder="1" Color="brown" />
+      <ApActivity Id="6914" Title="Downhill skiing" GraphOrder="1" Color="white" />
+      <ApActivity Id="7317" Title="Cross-country Skiing" GraphOrder="1" Color="cyan" />
+      <ApActivity Id="7446" Title="Terrain running" GraphOrder="1" Color="orange" />
+      <ApActivity Id="7669" Title="Strength" GraphOrder="1" Color="purple" />
+    </Activities>
+    <Shoes>
+      <ApShoes Id="1719" Title="Brooks Axiom 2" DateNew="2006-08-28T00:00:00" Retired="false" />
+      <ApShoes Id="1770" Title="Brooks Adrenaline ASR" DateNew="2006-09-06T00:00:00" Retired="false" />
+      <ApShoes Id="2602" Title="Montrail Highlander" DateNew="2007-02-12T00:00:00" Retired="false" />
+      <ApShoes Id="2083" Title="Inov-8 MudClaw 'O' 330" DateNew="2006-11-08T00:00:00" Retired="true" />
+      <ApShoes Id="1663" Title="Salomon XA Comp 2 XCR" DateNew="2005-06-01T00:00:00" Retired="true" />
+      <ApShoes Id="1907" Title="Nike Keystone Low Cleats" DateNew="2006-10-08T00:00:00" Retired="true" />
+    </Shoes>
+  </Profile>
+  <Mapping>
+    <Activities>
+      <Activity ApId="5784" StId="e9e1f202-b28e-44ba-bb5b-aabf99aabd8b" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="5848" StId="007db241-8663-4bed-a954-1f3a7b013dff" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="5784" StId="9196908a-1d7a-4d1e-bebf-3d26beb74a27" SubType="intervals" WorkoutId="1" O="false" />
+      <Activity ApId="5784" StId="ec9fa72a-4186-4eaa-b49c-ab536373abdd" SubType="thresholds" WorkoutId="4" O="false" />
+      <Activity ApId="5784" StId="ca93460a-6ad0-496e-8391-e62dd314496f" SubType="repetitions" WorkoutId="4" O="false" />
+      <Activity ApId="5784" StId="281922ef-2ddf-49f6-b9f4-e7a4c1ced730" SubType="intervals" WorkoutId="4" O="false" />
+      <Activity ApId="5784" StId="567e8bb6-6e8c-4a38-ae68-b9683f045c64" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="7446" StId="d3d717f8-0164-4ac1-b01a-930fe9a9d961" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="5785" StId="8a0e9f70-92c5-4854-8300-b28d1a7153a5" SubType="" WorkoutId="1" O="true" />
+      <Activity ApId="5785" StId="ea4ac04d-0dbe-40b1-b080-cc1208fd128f" SubType="sprint" WorkoutId="1" O="true" />
+      <Activity ApId="5785" StId="018ca534-89c8-4338-9e01-fe6f638b0d19" SubType="middle" WorkoutId="1" O="true" />
+      <Activity ApId="5785" StId="5e13c6e5-59d5-4e99-9fbe-16c65e1111e1" SubType="long" WorkoutId="1" O="true" />
+      <Activity ApId="5785" StId="3d015674-2932-42d6-8dad-82c469e8b70d" SubType="" WorkoutId="1" O="true" />
+      <Activity ApId="6809" StId="d9a85129-77df-4be8-af9e-22ce67e9fb27" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="6809" StId="7c06daa6-770a-404d-b45e-5acf450c6d6a" SubType="bicycle" WorkoutId="1" O="false" />
+      <Activity ApId="6809" StId="d46b70d4-d242-48d8-bc3e-1a59c62dd8bd" SubType="stairmaster" WorkoutId="1" O="false" />
+      <Activity ApId="6809" StId="ac6772f5-2c39-429e-b139-701755f9d5b5" SubType="treadmill" WorkoutId="1" O="false" />
+      <Activity ApId="6914" StId="62c80929-a11d-4039-88b2-507767c8cb89" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="7317" StId="14ab2852-74ce-44da-960f-450f77ae92bc" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="7669" StId="81b53e08-33a7-4069-b960-f6b80f55b154" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="7669" StId="8e55542a-615e-428e-9f7d-da26420b2449" SubType="abs" WorkoutId="1" O="false" />
+      <Activity ApId="7669" StId="3c34e023-30e1-43c7-960e-f2239f4bfd76" SubType="legs" WorkoutId="1" O="false" />
+      <Activity ApId="5999" StId="1185835f-08ea-4c31-8dc4-f8b955a2dea6" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="303cba75-9aa5-41de-9f32-5a640cda7c25" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="a7c12738-c1c1-4b8b-a358-73912b592b28" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="11c33498-06e8-4c9b-aae2-a7c74afb0b27" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="09b92759-cceb-49ce-b830-a94599a09ebc" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="be47a442-777f-483f-81c9-d0f7471359c9" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="bf52c3af-a398-428f-ad26-3fd2b63a7aa6" SubType="" WorkoutId="1" O="false" />
+      <Activity ApId="-1" StId="6c137304-367c-4af9-ac05-6524296e4978" SubType="" WorkoutId="1" O="false" />
+    </Activities>
+    <Intensities>
+      <Intensity ApId="0" StId="0" />
+      <Intensity ApId="1" StId="1" />
+      <Intensity ApId="1" StId="2" />
+      <Intensity ApId="2" StId="3" />
+      <Intensity ApId="2" StId="4" />
+      <Intensity ApId="-1" StId="5" />
+      <Intensity ApId="3" StId="6" />
+      <Intensity ApId="4" StId="7" />
+      <Intensity ApId="4" StId="8" />
+      <Intensity ApId="5" StId="9" />
+      <Intensity ApId="5" StId="10" />
+    </Intensities>
+    <Shoez>
+      <Shoes ApId="1663" StId="5bb3ed24-d0a4-4ce5-ac6f-8c906fa00646" />
+      <Shoes ApId="1719" StId="07d78b3f-e058-42ef-9479-683f6afa46e0" />
+      <Shoes ApId="1770" StId="fcd2e9e7-9af7-40cd-b4fe-968c5988b664" />
+      <Shoes ApId="1907" StId="4a198126-171f-479c-a9da-0293470802d4" />
+      <Shoes ApId="2083" StId="c06e50c7-34c7-4567-ae6b-37a2529f3b63" />
+      <Shoes ApId="2602" StId="783cc7b1-4a73-4b3f-b90f-7c96282406a3" />
+      <Shoes ApId="-1" StId="b5200c02-4f25-4eef-aa2e-b466b928893e" />
+      <Shoes ApId="-1" StId="a61008ed-bcee-4310-a889-ee28cb96c6cb" />
+      <Shoes ApId="-1" StId="792d3504-ea35-43e0-942b-99d97195a236" />
+      <Shoes ApId="-1" StId="bd624386-f509-4563-8a52-3b90b11335e9" />
+    </Shoez>
+  </Mapping>
+</AttackPointConfiguration>

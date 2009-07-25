@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ap-metadata xmlns="http://www.atackpoint.org/metadata/v0.1"
+          base-url="http://www.attackpoint.org"
+          login-url="/dologin.jsp"
+          login-cookie="login"
+          username-property="username"
+          password-property="password"
+          scrape-activities-url="/jsonactivitytypes.jsp"
+          scrape-shoes-url="/jsonshoes.jsp"
+          scrape-user-settings-url="/usermenu.jsp"
+>
+  <operations>
+    <operation class="ApNote" url="/addcomment.jsp">
+      <properties>
+        <property name="MonthId" key="session-month" />
+        <property name="DayId" key="session-day" />
+        <property name="Year" key="session-year" />
+        <property name="RestingHeartRate" key="rhr" null-value="" />
+        <property name="SleepHours" key="sleep" null-value="" />
+        <property name="Weight" key="weight" null-value="" />
+        <property name="WeightUnitId" key="wunit" />
+        <property name="IsInjured" key="injured" />
+        <property name="IsSick" key="sick" />
+        <property name="IsRestDay" key="restday" />
+        <property name="Description" key="description" unicode="true" null-value="" />
+        <property name="PrivateDescription" key="pdescription" unicode="true" />
+      </properties>
+    </operation>
+    <operation class="ApTraining" url="/addtraining.jsp">
+      <properties>
+        <property name="MonthId" key="session-month" />
+        <property name="DayId" key="session-day" />
+        <property name="Year" key="session-year" />
+        <property name="RestingHeartRate" key="rhr" />
+        <property name="SleepHours" key="sleep" />
+        <property name="Weight" key="weight" />
+        <property name="IsInjured" key="injured" />
+        <property name="IsSick" key="sick" />
+        <property name="IsRestDay" key="restday" />
+        <property name="Description" key="description" unicode="true" null-value="" />
+        <property name="PrivateDescription" key="pdescription" unicode="true" />
+        <property name="WeightUnitId" key="wunit" />
+
+        <property name="ActivityId" key="activitytypeid" />
+        <property name="ActivitySubType" key="activitymodifiers" />
+        <property name="WorkoutId" key="workouttypeid" null-value="1" />
+        <property name="IntensityId" key="intensity" null-value="-1" />
+        <property name="Intensity0" key="intensity0" />
+        <property name="Intensity1" key="intensity1" />
+        <property name="Intensity2" key="intensity2" />
+        <property name="Intensity3" key="intensity3" />
+        <property name="Intensity4" key="intensity4" />
+        <property name="Intensity5" key="intensity5" />
+        <property name="TotalTime" key="sessionlength" />
+        <property name="Distance" key="distance" />
+        <property name="Pace" key="pace" />
+        <property name="DistanceUnitId" key="distanceunits" />
+        <property name="Climb" key="climb" null-value="" />
+        <property name="ClimbUnitId" key="cunit" />
+        <property name="ShoesId" key="shoes" null-value="null" />
+        <property name="AverageHeartRate" key="ahr" />
+        <property name="MaxHeartRate" key="mhr" />
+        <property name="SpikedControls" key="spiked" />
+        <property name="TotalControls" key="controls" />
+        <property name="TechnicalIntensityId" key="map" null-value="0" />
+        <property name="IsPlan" key="isplan" null-value="0" />
+        
+      </properties>
+    </operation>
+  </operations>
+  <units>
+    <unit for="Climb" type="Metric" ap-name="meters" value="m"/>
+    <unit for="Climb" type="English" ap-name="feet" value="ft"/>
+    <unit for="Distance" type="Metric" ap-name="Metric" value="kilometers"/>
+    <unit for="Distance" type="English" ap-name="English" value="miles"/>
+    <unit for="Weight" type="Metric" ap-name="Metric" value="kg"/>
+    <unit for="Weight" type="English" ap-name="English" value="lbs"/>
+  </units>
+
+</ap-metadata>

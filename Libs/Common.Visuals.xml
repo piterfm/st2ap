@@ -1,0 +1,2535 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Visuals</name>
+    </assembly>
+    <members>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Marker">
+            <summary>
+            Summary description for Marker.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendDataImporters">
+            <summary>
+            Provide an extension to the file importers.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendDataImporters.BeforeImport(System.Collections.IList)">
+            <summary>
+            A method which is called after all data has been imported from the source location (file or GPS device),
+            but before it is presented to the user. Use this method to prefill additional information into the items.
+            Note that the user may choose not to import any of the items into their logbook - if you only want to process 
+            items imported into the logbook use AfterImport.
+            </summary>
+            <param name="items">A collection of items which may be IActivity, IRoute. Do not make any assumption
+            about the types in the items list as this may change in the future, use the is keyword to test each item for it's type.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendDataImporters.AfterImport(System.Collections.IList,System.Collections.IList)">
+            <summary>
+            A method which is called after all the items selected in the import wizard by the user are added to the logbook.
+            Items in the added parameter have been added to the logbook, items in the updated parameter are existing
+            items which have been somehow changed.
+            </summary>
+            <param name="added">A collection of items which may be IActivity, IRoute. Do not make any assumption
+            about the types in the items list as this may change in the future, use the is keyword to test each item for it's type.</param>
+            <param name="updated">A collection of items which may be IActivity, IRoute. Do not make any assumption
+            about the types in the items list as this may change in the future, use the is keyword to test each item for it's type.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendDataImporters.FileImporters">
+            <summary>
+            Retrieve the list of the file importers.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.ItemSelectorBase.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ItemSelectorBase.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ItemSelectorBase.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.TreeList">
+            <summary>
+            A TreeList is similar to the standard ListView in details mode with the addition of a tree hierarchy and custom content / painting behavior.<p></p>
+            <img src="../Images/TreeList.png" alt="TreeList control" />
+            </summary>
+            <remarks>
+            After creating a TreeList add columns using the Add method on the Columns collection:<p></p>
+            <pre>
+            Column column = new Column("Name", "Item Name", 100, StringAlignment.Center);
+            treeList.Columns.Add(column);
+            </pre><p></p>
+            Add rows by setting the RowData property to a collection of objects.
+            <pre>
+            IList&lt;MyClass&gt; items;
+            treeList.RowData = items;
+            </pre><p></p>
+            By default, the contents of a cell is determined by calling a property getter on the row object
+            which matches the column id (via reflection). For example, if the the control RowData property
+            is set to an array of ActivityInfo objects, a column with an id of "EndTime" will return the value of the
+            activityInfo.EndTime property. <p></p>
+            To display the text of the cell ToString() is called on any object which is returned from a getter method that is not a string type.
+            Since this usually doesn't format data the way you want to show it to the user, there are two options:<p></p>
+            1) Create a UI wrapper object which contains the true data object for each row. The wrapper object implements
+            a get method returning a string that calls the method on the contained data object and formats it. Continuing the example above, 
+            we would create a new property <strong>EndDateText</strong> which is implemented something like 
+            <strong>return activityInfo.EndTime.ToLocalTime().ToShortDateString()</strong><p></p>
+            2) Set the LabelProvider property to an implementation class which derives from DefaultContentProvider and returns the appropriate text for each column. This
+            would typically involve downcasting the <strong>element</strong> parameter of the GetText method to a known concrete type
+            which is contained in the RowData (such as ActivityInfo), switching on column.Id and returning the customized text. For any columns
+            that don't need special formatting, use the base class GetText method which will call the property getter based on the column id.
+            </remarks>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.ISelectionProvider">
+            <summary>
+            An interface for visual elements which provide a selection of items.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ISelectionProvider.SelectedItems">
+            <summary>
+            Get the selected items.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.TreeList.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TreeList.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TreeList.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.IContentProvider">
+            <summary>
+            An IContentProvider controls the menu structure of the data shown in a TreeList.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IContentProvider.InputChanged(System.Object,System.Object)">
+            <summary>
+            Called when the TreeList.RowData property is changed.
+            </summary>
+            <param name="oldInput">The old RowData.</param>
+            <param name="newInput">The new RowData.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IContentProvider.GetElements(System.Object)">
+            <summary>
+            Get the root elements of the TreeList RowData.
+            </summary>
+            <param name="inputElement">The RowData.</param>
+            <returns>An IList of root objects.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IContentProvider.GetChildren(System.Object)">
+            <summary>
+            Get the children of the specified object.
+            </summary>
+            <param name="parentElement">An object returned from a prior call to GetElements or GetChildren.</param>
+            <returns>An IList of child elements or null if there are none.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IContentProvider.GetParent(System.Object)">
+            <summary>
+            Get the parent of the specified object. Typically used to find the location of the element when restoring selection.
+            </summary>
+            <param name="element">An object returned from a prior call to GetElements or GetChildren.</param>
+            <returns>An element.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IContentProvider.HasChildren(System.Object)">
+            <summary>
+            Returns true if the specified element has children. A plus icon will optionally be displayed
+            by the node and when expanded GetChildren() will be called to determin the child elements.
+            </summary>
+            <param name="element">An object returned from a prior call to GetElements or GetChildren.</param>
+            <returns>True if the element has children.</returns>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.ColorSelector.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ColorSelector.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ColorSelector.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.Calendar.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Calendar.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Calendar.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.Wizard.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Wizard.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Wizard.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider">
+            <summary>
+            A map provider is a stateless object which renders map images inside the route control when requested.
+            Typically the map provider will render images when the DrawMap method is called. If the map provider is
+            rendering data from a remote server and the download of data should be queued and that section of the 
+            map not drawn immediately. When the data is downloaded the map provider can notify the control to 
+            invalidate the region with the downloaded info. In this manner we support tiled map images coming from
+            servers (such as terraserver) that download incrementally.
+            
+            The map provider controls the zoom level (magnification) by the minimum and maximum ranges. When zooming the
+            map control will increment/decrement the zoom by 1 or 0.25 if fractional zooming is supported. By chosing an 
+            appropriate level of zoom and returning false for fractional zooming, the map provider can ensure that an integer 
+            zoom is used which may correspond to a different map image tile-set at different magnification level. Each level 
+            of zoom should be a power of 2 farther away. For example:
+               zoom level 1 = 10 meters per pixel
+               zoom level 2 = 20 meters per pixel
+               zoom level 3 = 40 meters per pixel
+               zoom level 4 = 80 meters per pixel
+               ...etc...
+            
+            More importantly the map provider controls the projection system which maps GPS coordinates to pixels. 
+            
+            Because the instance does not hold any state based on the route control (location, zoom, etc) a single map 
+            provider can (and should) service multiple controls. Typically a plugin will create a single map provider instance
+            for each type of provider the plugin supports. This presents and interesting problem for caching since requests
+            for images may come in for different GPS locations at different levels of zoom in unpredictable order.
+            
+            See also IExtendMapProviders
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProjection.PixelToGPS(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.Double,System.Drawing.Point)">
+            <summary>
+            Given a pixel point in the control (offset from the origin), what is the GPS location ?
+            </summary>
+            <param name="origin">The GPS location at pixel location (0,0).</param>
+            <param name="zoomLevel">The current zoom level.</param>
+            <param name="pixel">The pixel point.</param>
+            <returns>The GPS location.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProjection.GPSToPixel(ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.Double,ZoneFiveSoftware.Common.Data.GPS.IGPSLocation)">
+            <summary>
+            Given a GPS location, translate it to a pixel relative to the origin.
+            </summary>
+            <param name="origin">The GPS location at pixel location (0,0).</param>
+            <param name="zoomLevel">The current zoom level.</param>
+            <param name="gps">The GPS location.</param>
+            <returns>The pixel point.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.DrawMap(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapImageReadyListener,System.Drawing.Graphics,System.Drawing.Rectangle,System.Drawing.Rectangle,ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.Double)">
+            <summary>
+            Draw the map. Any map images which are immediately available (e.g. cached on disk) should be drawn immediately.
+            For missing map images, queue them for download and return the number missing.
+            </summary>
+            <param name="listener">A listener to notify for asynchronous fetching of map images (from a server).</param>
+            <param name="graphics">A graphics context to draw on.</param>
+            <param name="drawRectangle">The rectangle to draw the map at.</param>
+            <param name="clipRectangle">The clipping rectangle for drawing optimization.</param>
+            <param name="center">The GPS location at the center of the drawRectangle (width/2,height/2).</param>
+            <param name="zoomLevel">The current zoom level.</param>
+            <returns>Number of missing map images which were queued for download.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.Refresh(System.Drawing.Rectangle,ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.Double)">
+            <summary>
+            Refresh the map area by discarding any cached map images. After this call the control will be invalidated which will
+            cause the appropriate calls to be made to refetch any images from the server.
+            </summary>
+            <param name="drawRectangle">The rectangle to draw the map at.</param>
+            <param name="center">The GPS location at the center of the drawRectangle (width/2,height/2).</param>
+            <param name="zoomLevel">The current zoom level.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.ClearDownloadQueue">
+            <summary>
+            Clear the map image download queue. This is called when the user zooms or pans the control, or when the control is hidden,
+            since the queued tiles may not be relevant.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.MapImagePixelRect(System.Object,System.Drawing.Rectangle,ZoneFiveSoftware.Common.Data.GPS.IGPSLocation,System.Double)">
+            <summary>
+            Retrieve the pixel rectangle of the specified map image. If the type of map image is unrecognized, return Rectangle.Empty.
+            This is called when a map image is downloaded and the control needs to refresh the region of the image.
+            </summary>
+            <param name="mapImage">The image.</param>
+            <param name="drawRectangle">The rectangle to draw the map at.</param>
+            <param name="center">The GPS location at the center of the drawRectangle (width/2,height/2).</param>
+            <param name="zoomLevel">The current zoom level.</param>
+            <returns>The pixel rectangle of the map image to invalidate when redrawing, or Rectangle.Empty if not applicable.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.Id">
+            <summary>
+            Return the unique identifier for this map provider.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.Name">
+            <summary>
+            The name displayed in selection lists, menus, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.MinZoomLevel">
+            <summary>
+            What is the minimum zoom level. Lower levels are zoomed in farther (lower meters per pixel)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.MaxZoomLevel">
+            <summary>
+            What is the maximum zoom level.Highers levels are zoomed out farther (higher meters per pixel)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.FractionalZoom">
+            <summary>
+            Is fractional zooming supported. If true, smoother zooming can be used, instead of a step size of 1, 0.25 is used.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapProvider.DownloadQueueSize">
+            <summary>
+            Return the number of images in the map image download queue. This is used to display the activity animation and the animation tooltip.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Drawing.LineF">
+            <summary>
+            Summary description for Intersect.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Calendar_Month_DOW_Abbrs">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Calendar_Month_DOW_Length">
+            <summary>
+              Looks up a localized string similar to 2.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Calendar_Month_DOW_Start">
+            <summary>
+              Looks up a localized string similar to 0.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ColorSelectorPopup_btnSelect_Text">
+            <summary>
+              Looks up a localized string similar to Select....
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Abort">
+            <summary>
+              Looks up a localized string similar to Abort.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Add">
+            <summary>
+              Looks up a localized string similar to Add.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Back">
+            <summary>
+              Looks up a localized string similar to &lt; Back.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Close">
+            <summary>
+              Looks up a localized string similar to Close.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Copy">
+            <summary>
+              Looks up a localized string similar to Copy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Edit">
+            <summary>
+              Looks up a localized string similar to Edit.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Export">
+            <summary>
+              Looks up a localized string similar to Export.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Finish">
+            <summary>
+              Looks up a localized string similar to Finish.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Ignore">
+            <summary>
+              Looks up a localized string similar to Ignore.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Import">
+            <summary>
+              Looks up a localized string similar to Import.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_MoveDown">
+            <summary>
+              Looks up a localized string similar to Move Down.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_MoveUp">
+            <summary>
+              Looks up a localized string similar to Move Up.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_New">
+            <summary>
+              Looks up a localized string similar to New.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Next">
+            <summary>
+              Looks up a localized string similar to Next &gt;.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_No">
+            <summary>
+              Looks up a localized string similar to No.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Ok">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Open">
+            <summary>
+              Looks up a localized string similar to Open.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Refresh">
+            <summary>
+              Looks up a localized string similar to Refresh.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Remove">
+            <summary>
+              Looks up a localized string similar to Remove.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Replace">
+            <summary>
+              Looks up a localized string similar to Replace.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Retry">
+            <summary>
+              Looks up a localized string similar to Retry.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Save">
+            <summary>
+              Looks up a localized string similar to Save.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_ShowDetails">
+            <summary>
+              Looks up a localized string similar to Show Details.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_SortBy">
+            <summary>
+              Looks up a localized string similar to Sort By.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_Yes">
+            <summary>
+              Looks up a localized string similar to Yes.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_ZoomIn">
+            <summary>
+              Looks up a localized string similar to Zoom In.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Action_ZoomOut">
+            <summary>
+              Looks up a localized string similar to Zoom Out.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Error_FileCouldNotBeOpened_Text">
+            <summary>
+              Looks up a localized string similar to File could not be opened..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Error_FileCouldNotBeOpened_Text1">
+            <summary>
+              Looks up a localized string similar to File could not be opened..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Error_FileCouldNotBeOpened_Title">
+            <summary>
+              Looks up a localized string similar to Open File Error.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_FileSelection_Filter_AllFiles_Extensions">
+            <summary>
+              Looks up a localized string similar to *.*.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_FileSelection_Filter_AllFiles_Text">
+            <summary>
+              Looks up a localized string similar to All Files.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_FileSelection_Filter_ImageFiles_Extensions">
+            <summary>
+              Looks up a localized string similar to *.bmp;*.jpg;*.gif;*.png.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_FileSelection_Filter_ImageFiles_Text">
+            <summary>
+              Looks up a localized string similar to Image Files.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AccumulatedPace">
+            <summary>
+              Looks up a localized string similar to Accum. pace.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AccumulatedSpeed">
+            <summary>
+              Looks up a localized string similar to Accum. speed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Activity">
+            <summary>
+              Looks up a localized string similar to Activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Amount">
+            <summary>
+              Looks up a localized string similar to Amount.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Any">
+            <summary>
+              Looks up a localized string similar to Any.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Ascending">
+            <summary>
+              Looks up a localized string similar to Ascending.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AthleteName">
+            <summary>
+              Looks up a localized string similar to Athlete name.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgAscend">
+            <summary>
+              Looks up a localized string similar to Avg. ascend.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgCadence">
+            <summary>
+              Looks up a localized string similar to Avg. cadence.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgCalories">
+            <summary>
+              Looks up a localized string similar to Avg. calories.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgDescend">
+            <summary>
+              Looks up a localized string similar to Avg. descend.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgDistance">
+            <summary>
+              Looks up a localized string similar to Avg. distance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgEnergyKJ">
+            <summary>
+              Looks up a localized string similar to Avg. energy (kJ).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgGrade">
+            <summary>
+              Looks up a localized string similar to Avg. grade.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgHR">
+            <summary>
+              Looks up a localized string similar to Avg. HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgPace">
+            <summary>
+              Looks up a localized string similar to Avg. pace.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgPower">
+            <summary>
+              Looks up a localized string similar to Avg. power.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgSpeed">
+            <summary>
+              Looks up a localized string similar to Avg. speed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_AvgTime">
+            <summary>
+              Looks up a localized string similar to Avg. time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_BodyFatPct">
+            <summary>
+              Looks up a localized string similar to Body fat %.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_BPM">
+            <summary>
+              Looks up a localized string similar to BPM.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Cadence">
+            <summary>
+              Looks up a localized string similar to Cadence.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Category">
+            <summary>
+              Looks up a localized string similar to Category.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Climb">
+            <summary>
+              Looks up a localized string similar to Climb.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Comment">
+            <summary>
+              Looks up a localized string similar to Comment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Data">
+            <summary>
+              Looks up a localized string similar to Data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Date">
+            <summary>
+              Looks up a localized string similar to Date.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_DateOfBirth">
+            <summary>
+              Looks up a localized string similar to Date of birth.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_DayOfWeek">
+            <summary>
+              Looks up a localized string similar to Day of week.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Descending">
+            <summary>
+              Looks up a localized string similar to Descending.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Description">
+            <summary>
+              Looks up a localized string similar to Description.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Details">
+            <summary>
+              Looks up a localized string similar to Details.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Device">
+            <summary>
+              Looks up a localized string similar to Device.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Distance">
+            <summary>
+              Looks up a localized string similar to Distance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_DistanceRange">
+            <summary>
+              Looks up a localized string similar to Distance range.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Duration">
+            <summary>
+              Looks up a localized string similar to Duration.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_ElapsedTime">
+            <summary>
+              Looks up a localized string similar to Elapsed time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Elevation">
+            <summary>
+              Looks up a localized string similar to Elevation.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_ElevationChange">
+            <summary>
+              Looks up a localized string similar to Elev. chg..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_EndingHR">
+            <summary>
+              Looks up a localized string similar to Ending HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_EndTime">
+            <summary>
+              Looks up a localized string similar to End time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Equipment">
+            <summary>
+              Looks up a localized string similar to Equipment.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_EquipmentAge">
+            <summary>
+              Looks up a localized string similar to Age.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Fastest">
+            <summary>
+              Looks up a localized string similar to Fastest.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_FastestPace">
+            <summary>
+              Looks up a localized string similar to Fastest pace.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_FastestSpeed">
+            <summary>
+              Looks up a localized string similar to Fastest speed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_From">
+            <summary>
+              Looks up a localized string similar to From.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_GPSLocation">
+            <summary>
+              Looks up a localized string similar to GPS location.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Grade">
+            <summary>
+              Looks up a localized string similar to Grade.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_GroupBy">
+            <summary>
+              Looks up a localized string similar to Group by.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_HeartRate">
+            <summary>
+              Looks up a localized string similar to Heart rate.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Height">
+            <summary>
+              Looks up a localized string similar to Height.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Hierarchy">
+            <summary>
+              Looks up a localized string similar to Hierarchy.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_History">
+            <summary>
+              Looks up a localized string similar to History.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Hour_lower">
+            <summary>
+              Looks up a localized string similar to hour.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Intensity">
+            <summary>
+              Looks up a localized string similar to Intensity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Item">
+            <summary>
+              Looks up a localized string similar to Item.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_km_per_hour">
+            <summary>
+              Looks up a localized string similar to km/h.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Large">
+            <summary>
+              Looks up a localized string similar to Large.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Least">
+            <summary>
+              Looks up a localized string similar to Least.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_List">
+            <summary>
+              Looks up a localized string similar to List.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Location">
+            <summary>
+              Looks up a localized string similar to Location.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_LongestDistance">
+            <summary>
+              Looks up a localized string similar to Longest Distance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxAvgCadence">
+            <summary>
+              Looks up a localized string similar to Max. (avg) cadence.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxAvgGrade">
+            <summary>
+              Looks up a localized string similar to Max. (avg) grade.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxAvgHR">
+            <summary>
+              Looks up a localized string similar to Max. (avg) HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxAvgPower">
+            <summary>
+              Looks up a localized string similar to Max. (avg) power.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxCadence">
+            <summary>
+              Looks up a localized string similar to Max. cadence.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxGrade">
+            <summary>
+              Looks up a localized string similar to Max. grade.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxHR">
+            <summary>
+              Looks up a localized string similar to Max. HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_MaxPower">
+            <summary>
+              Looks up a localized string similar to Max. power.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Medium">
+            <summary>
+              Looks up a localized string similar to Medium.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_mile_per_hour">
+            <summary>
+              Looks up a localized string similar to mph.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_min_per_km">
+            <summary>
+              Looks up a localized string similar to min/km.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_min_per_mile">
+            <summary>
+              Looks up a localized string similar to min/mi.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Month">
+            <summary>
+              Looks up a localized string similar to Month.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Months_Lower">
+            <summary>
+              Looks up a localized string similar to months.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Most">
+            <summary>
+              Looks up a localized string similar to Most.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Multiple">
+            <summary>
+              Looks up a localized string similar to Multiple.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Name">
+            <summary>
+              Looks up a localized string similar to Name.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_No">
+            <summary>
+              Looks up a localized string similar to No.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_None">
+            <summary>
+              Looks up a localized string similar to None.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_NoneParens">
+            <summary>
+              Looks up a localized string similar to (none).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Notes">
+            <summary>
+              Looks up a localized string similar to Notes.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_NumActivities">
+            <summary>
+              Looks up a localized string similar to Num. activities.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Pace">
+            <summary>
+              Looks up a localized string similar to Pace.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_PaceChangeLast">
+            <summary>
+              Looks up a localized string similar to Pace chg. last.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_PaceOrSpeed">
+            <summary>
+              Looks up a localized string similar to Pace or Speed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_PaceVsAverage">
+            <summary>
+              Looks up a localized string similar to Pace vs avg..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Percent">
+            <summary>
+              Looks up a localized string similar to Percent.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_PercentOfMax">
+            <summary>
+              Looks up a localized string similar to % of max HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_PercentOfReserve">
+            <summary>
+              Looks up a localized string similar to % of HRR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Photo">
+            <summary>
+              Looks up a localized string similar to Photo.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Power">
+            <summary>
+              Looks up a localized string similar to Power.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Range">
+            <summary>
+              Looks up a localized string similar to Range.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_RestingHR">
+            <summary>
+              Looks up a localized string similar to Resting HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Route">
+            <summary>
+              Looks up a localized string similar to Route.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_RPM">
+            <summary>
+              Looks up a localized string similar to RPM.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_ShortestDistance">
+            <summary>
+              Looks up a localized string similar to Shortest Distance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Show">
+            <summary>
+              Looks up a localized string similar to Show.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_ShowBy">
+            <summary>
+              Looks up a localized string similar to Show by.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Small">
+            <summary>
+              Looks up a localized string similar to Small.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Speed">
+            <summary>
+              Looks up a localized string similar to Speed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_SpeedChangeLast">
+            <summary>
+              Looks up a localized string similar to Speed chg. last.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_SpeedVsAverage">
+            <summary>
+              Looks up a localized string similar to Speed vs avg..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_SplitDistance">
+            <summary>
+              Looks up a localized string similar to Split distance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_SplitPace">
+            <summary>
+              Looks up a localized string similar to Split pace.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Splits">
+            <summary>
+              Looks up a localized string similar to Splits.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_SplitSpeed">
+            <summary>
+              Looks up a localized string similar to Split speed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_SplitTime">
+            <summary>
+              Looks up a localized string similar to Split time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Start">
+            <summary>
+              Looks up a localized string similar to Start.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_StartingHR">
+            <summary>
+              Looks up a localized string similar to Starting HR.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_StartTime">
+            <summary>
+              Looks up a localized string similar to Start time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Status">
+            <summary>
+              Looks up a localized string similar to Status.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Stopped">
+            <summary>
+              Looks up a localized string similar to Stopped.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_StoppedTime">
+            <summary>
+              Looks up a localized string similar to Stopped time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Temperature">
+            <summary>
+              Looks up a localized string similar to Temperature.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Time">
+            <summary>
+              Looks up a localized string similar to Time.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_TimeElapsed">
+            <summary>
+              Looks up a localized string similar to Time elapsed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_TimeOfDay">
+            <summary>
+              Looks up a localized string similar to Time of day.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_To">
+            <summary>
+              Looks up a localized string similar to To.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Today">
+            <summary>
+              Looks up a localized string similar to Today.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Total">
+            <summary>
+              Looks up a localized string similar to Total.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_TotalDistance">
+            <summary>
+              Looks up a localized string similar to Total distance.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Type">
+            <summary>
+              Looks up a localized string similar to Type.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Value">
+            <summary>
+              Looks up a localized string similar to Value.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Watts">
+            <summary>
+              Looks up a localized string similar to Watts.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Weather">
+            <summary>
+              Looks up a localized string similar to Weather.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Week">
+            <summary>
+              Looks up a localized string similar to Week.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Weekday">
+            <summary>
+              Looks up a localized string similar to Weekday.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Weekend">
+            <summary>
+              Looks up a localized string similar to Weekend.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Weight">
+            <summary>
+              Looks up a localized string similar to Weight.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Year">
+            <summary>
+              Looks up a localized string similar to Year.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_YearMonth">
+            <summary>
+              Looks up a localized string similar to Year, Month.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Yes">
+            <summary>
+              Looks up a localized string similar to Yes.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Common_Label_Zone">
+            <summary>
+              Looks up a localized string similar to Zone.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_Configuration_AdjustDSTCheckbox_Text">
+            <summary>
+              Looks up a localized string similar to Adjust times for daylight savings.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_Configuration_HoursOffsetLabel_Text">
+            <summary>
+              Looks up a localized string similar to Hours offset:.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_Configuration_Title">
+            <summary>
+              Looks up a localized string similar to GPS Options.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_ActivityImportSource">
+            <summary>
+              Looks up a localized string similar to Imported from {0}.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_Status_Cancelled">
+            <summary>
+              Looks up a localized string similar to Import canceled..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_Status_CouldNotOpenDeviceError">
+            <summary>
+              Looks up a localized string similar to Couldn&apos;t open the specified device..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_Status_ImportComplete">
+            <summary>
+              Looks up a localized string similar to Import complete..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_Status_ImportError">
+            <summary>
+              Looks up a localized string similar to An error occurred and the import has been halted..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_Status_OpeningDevice">
+            <summary>
+              Looks up a localized string similar to Opening connection to device....
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Device_ImportJob_Status_Reading">
+            <summary>
+              Looks up a localized string similar to Reading {0}..
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.DirectoryTree_Desktop_Text">
+            <summary>
+              Looks up a localized string similar to Desktop.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.DirectoryTree_MyComputer_Text">
+            <summary>
+              Looks up a localized string similar to My Computer.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.DirectoryTree_MyDocuments_Text">
+            <summary>
+              Looks up a localized string similar to My Documents.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_ContextMenu_PasteImage_Text">
+            <summary>
+              Looks up a localized string similar to Paste Image.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_ContextMenu_RemoveImage_Text">
+            <summary>
+              Looks up a localized string similar to Remove Image.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_ContextMenu_SelectImage_Text">
+            <summary>
+              Looks up a localized string similar to Select Image....
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_Paste_Text">
+            <summary>
+              Looks up a localized string similar to Paste.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_Remove_Text">
+            <summary>
+              Looks up a localized string similar to Remove.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_RemoveConfirmationPrompt_Text">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to remove this photo?.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_RemoveConfirmationPrompt_Title">
+            <summary>
+              Looks up a localized string similar to Remove Photo.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.ImageSelector_Select_Text">
+            <summary>
+              Looks up a localized string similar to Select.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Properties.Resources.Message_Export_Completed">
+            <summary>
+              Looks up a localized string similar to Export complete..
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider">
+            <summary>
+            A weather forecast/data service provider
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.ResolveLocation(System.String@)">
+            <summary>
+            Called when the user enters a location in the weather configuration settings.
+            </summary>
+            <param name="location">The entered location. This may be changed by the method (for example if a nearby location is used instead).</param>
+            <returns>True if the location is valid.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.GetConfigurationDisplayText(System.String,System.String)">
+            <summary>
+            Get the text which is displayed to the user for the configuration string 
+            </summary>
+            <param name="location">The entered location.</param>
+            <param name="configuration">The configuration text.</param>
+            <returns>The descriptive text to display for the configuration info.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.CanChangeConfiguration(System.String,System.String)">
+            <summary>
+            Return true if there is additional configuration info the user can modify (additional locations, parameters, etc).
+            </summary>
+            <param name="location">The entered location.</param>
+            <param name="configuration">The configuration text.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.ChangeConfiguration(System.String,System.String@)">
+            <summary>
+            Open a dialog which allows the user to modify the extended configuration info. Return true if modified and modify the configuration string.
+            </summary>
+            <param name="location">The entered location.</param>
+            <param name="configuration">The configuration text.</param>
+            <returns>True if the configuration was modified.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.GetWeatherInfo(System.String,System.String,System.DateTime,ZoneFiveSoftware.Common.Data.GPS.IGPSLocation)">
+            <summary>
+            Get weather info for the specified location, configuration, time and GPS location. 
+            A provider may choose to ignore the GPS location if info by lat/lon is not supported and return the home location info instead.
+            </summary>
+            <param name="location">The entered location.</param>
+            <param name="configuration">The configuration text.</param>
+            <param name="time">The time.</param>
+            <param name="gpsLocation">A GPS location which may be null if unspecified.</param>
+            <returns>The weather info or null if no info exists.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.GetForecastInfo(System.String,System.String,System.DateTime,System.Single@,System.Single@,ZoneFiveSoftware.Common.Data.Fitness.WeatherConditions.Type@,System.String@)">
+            <summary>
+            Return a forecast for the specified location, configuration and day.
+            </summary>
+            <param name="location">The entered location.</param>
+            <param name="configuration">The configuration text.</param>
+            <param name="day">The day.</param>
+            <param name="highCelsius">The forecast high in celsius or float.NaN if unknown.</param>
+            <param name="lowCelsius">The forecast low in celsius or float.NaN if unknown.</param>
+            <param name="conditions">The forecast conditions.</param>
+            <param name="conditionsText">Additional descriptive text.</param>
+            /// <returns>True if weather info exists for the day.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.Id">
+            <summary>
+            Return the unique identifier for this weather provider.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IWeatherProvider.Name">
+            <summary>
+            Name of the provider.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityDetailPages">
+            <summary>
+            Provide an extension to the pages shown in the activity detail view.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityDetailPages.ActivityDetailPages">
+            <summary>
+            Retrieve the list of activity detail pages.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IFitnessDevice">
+            <summary>
+            A GPS device which can be used to import/export information from.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IDataImporter">
+            <summary>
+            A source for importing data. Import sources will show up in the parts of the application
+            that allow a user to import data.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IDataImporter.Import(System.String,ZoneFiveSoftware.Common.Visuals.IJobMonitor,ZoneFiveSoftware.Common.Visuals.Fitness.IImportResults)">
+            <summary>
+            Perform the import. For file based imports the configuration info contains the file name that was selected.
+            </summary>
+            <param name="configurationInfo">Configuration info.</param>
+            <param name="monitor">An interface to report % complete, status messages, and completion results.</param>
+            <param name="importResults">An interface to collect the import results.</param>
+            <returns>True if the import succeeded, false if it failed.</returns>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IDataImporter.Id">
+            <summary>
+            Return the unique identifier for this import source.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IDataImporter.Name">
+            <summary>
+            Return a description of the import source. If this is a device it is best to specify a
+            manufacturer and model separated by a hyphen, for example "Garmin - Forerunner 305"
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IDataImporter.Image">
+            <summary>
+            Return the image associated with this import source. All images should be in 32-bit png format at the following resolutions:
+            File import: 16x16
+            Device: 48x48
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IFitnessDevice.ConfiguredDescription(System.String)">
+            <summary>
+            Return the textual description based on the configuration info. Up to two lines of info may be separated by
+            Environment.Newline. Typically the info will include the Name on the first line, and a description of the configuration
+            on the second line, eg:
+            Garmin - Forerunner 201
+            COM 3
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IFitnessDevice.Configure(System.String)">
+            <summary>
+            Open a dialog to prompt the user for device configuration (such as COM port) and return the new configuration string.
+            If the source has not been configured null will be passed into the configurationInfo parameter.
+            If null is returned, the configuration failed or was cancelled. This will be called the first time a device is selected and
+            whenever the user clicks the device configuration button.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.ColorSelectorPopup.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ColorSelectorPopup.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ColorSelectorPopup.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ColorSelectorPopup.Popup(System.Drawing.Rectangle)">
+            <summary>
+            Place at the bottom left point of the rectangle and adjust to fit the screen
+            </summary>
+            <param name="rect"></param>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.Animation.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Animation.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Animation.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IDialogPage.HidePage">
+            <summary>
+            Attempt to hide the page. Return true if successful, or false if additional 
+            user action needs to be taken before switching to another view.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IDialogPage.CreatePageControl">
+            <summary>
+            Return the control that is the page content.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IDialogPage.ShowPage(System.String)">
+            <summary>
+            Display the page. Use the application reference to refresh data, selected
+            state, etc before showing the page. The bookmark string is specific to the page implementor.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IDialogPage.ThemeChanged(ZoneFiveSoftware.Common.Visuals.ITheme)">
+            <summary>
+            Called when the user changes the visual theme. Update any control appearance accordingly.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IDialogPage.UICultureChanged(System.Globalization.CultureInfo)">
+            <summary>
+            Called when the user has selected a different langange. Update any resource strings accordingly.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IDialogPage.PageName">
+            <summary>
+            Get the name of the page that appears in menu commands, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IDialogPage.Status">
+            <summary>
+            Return the status of property page, error messages, etc
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IDialogPage.Title">
+            <summary>
+            Get the name of the page that appears in the view heading.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ISettingsPage.Id">
+            <summary>
+            Return the unique identifier for this settings page.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ISettingsPage.SubPages">
+            <summary>
+            Return a list of sub-pages which will appear beneath this in the settings tree.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendRouteEditActions">
+            <summary>
+            Provide an extension to the actions available in the edit menu when one or more routes are selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendRouteEditActions.GetActions(ZoneFiveSoftware.Common.Data.Fitness.IRoute)">
+            <summary>
+            Retrieve the list of actions when a single route is selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendRouteEditActions.GetActions(System.Collections.Generic.IList{ZoneFiveSoftware.Common.Data.Fitness.IRoute})">
+            <summary>
+            Retrieve the list of actions when a group of routes is selected
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.ProgressBar.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ProgressBar.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ProgressBar.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.MessageDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.MessageDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.MessageDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControl">
+            <summary>
+            A map control allows layers and pointer objects to manipulate the owning control.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.CalendarPopup.Popup(System.Drawing.Rectangle)">
+            <summary>
+            Place at the bottom left point of the rectangle and adjust to fit the screen
+            </summary>
+            <param name="rect"></param>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.CalendarPopup.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.CalendarPopup.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.CalendarPopup.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.ImageSelector.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ImageSelector.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ImageSelector.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ImageSelector.ImageLocation">
+            <summary>
+            Set the local path (C:\folder\image.png) of the image or url (http://).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ImageSelector.ImageSelectLocation">
+            <summary>
+            Set the actual location of the image (the source, not the cache location).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ImageSelector.Image">
+            <summary>
+            Retrieve the displayed image. If the image is not set null will be returned. If an error occurred loading
+            the image the error icon will be returned.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.ImageSelector.MaximumImageSize">
+            <summary>
+            Set the maximum size of the image in memory. Images larger than the size will be resized in whole
+            increments of the source image until it fixs the maximum size. For example if the maximum size is 200
+            pixels and the source image is 350 pixels, the resulting image size will be 175 pixels.
+            The default size is 200 by 200, pass in Size.Empty for unlimited.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapMarker">
+            <summary>
+            A map marker in the GPSMarkers layer of the route control. A marker can display an image
+            at a particular point on the map and may display an info tip which the marker is highlighted
+            and selected. The route control will manage the locations of the info tips so they don't 
+            overlap but the marker controls the desired size.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapMarker.InfoSize(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Boolean)">
+            <summary>
+            Return the size of the info bubble to display.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <param name="bSelected">True if selected, false if highlighted.</param>
+            <returns>Size in pixels or Size.Empty.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapMarker.DrawInfo(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Drawing.Rectangle,System.Boolean)">
+            <summary>
+            Draw the info bubble.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <param name="infoRect">The rectangle in client coordinates of the info bubble. Include a 3 pixel allowance for the visual border.</param>
+            <param name="bSelected">True if selected, false if highlighted.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapMarker.GPSLocation">
+            <summary>
+            Return the GPS location of the marker.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapMarker.MarkerImage">
+            <summary>
+            Return the marker image to be displayed.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Chart.ChartDataSeries.XMin">
+            <summary>
+            Return the start/end x values of the selected regions
+            </summary>
+            <param name="points">Each element will be an array [float,float]</param>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Panel">
+            <summary>
+            Summary description for Panel.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Panel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.Panel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IView.SubTitleClicked(System.Drawing.Rectangle)">
+            <summary>
+            Called when the subtitle hyperlink is clicked
+            <param name="subTitleRect">The rectangle in screen coordinates of the subtitle.</param>
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IView.Id">
+            <summary>
+            Return the unique identifier for this view.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IView.SubTitle">
+            <summary>
+            Get the subtitle of the view that appears in the view heading.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IView.TasksHeading">
+            <summary>
+            Get the text that appears in the task pane area for this view.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IView.Actions">
+            <summary>
+            Get a list of actions that appear in the task pane area for this view.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IView.SubTitleHyperlink">
+            <summary>
+            If true the subtitle is shown as a hyperlink
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendMapProviders">
+            <summary>
+            Provide an extension to the available map providers. Each map provider returned from the
+            MapProviders method will be listed in the map selection for the routes control.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendMapProviders.MapProviders">
+            <summary>
+            Return a list of IMapProvider instances. This method will be called every time the list of
+            maps needs to be displayed; for performance reasons a singleton instance of each
+            provider should be created once (or a singleton of a map provider list manager).
+            
+            Because this is called each time the map list is displayed, the plugin may change the list
+            of map providers available while the application is running, making certain providers unavailable
+            based on user preferences or availability of remote servers.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject">
+            <summary>
+            A selectable object on the map control. Map control objects may be highlighted or selected.
+            Each map layer manages which objects can be selected (via the HitTest methods), the route
+            control manages the highlight and selection status, and the object itself performs drawing, etc.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject.PixelBounds(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            Return the pixel bounds of the object to invalidate the display when redrawing.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <returns>A Rectangle in client coordinates or Rectangle.Empty.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject.DrawHighlight(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            Draw the object in it's highlighted state.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject.DrawSelected(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            Draw the object in it's selected state.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject.InfoSize(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Boolean)">
+            <summary>
+            Return the size of the info bubble for this object.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <param name="bSelected">True if selected, false if highlighted.</param>
+            <returns>A Size in client coordinates or Size.Empty.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject.DrawInfo(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Drawing.Rectangle,System.Boolean)">
+            <summary>
+            Draw the info bubble.
+            </summary>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <param name="infoRect">The rectangle in client coordinates of the info bubble. Include a 3 pixel allowance for the visual border.</param>
+            <param name="bSelected">True if selected, false if highlighted.</param>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendRouteExportActions">
+            <summary>
+            Provide an extension to the actions available in the export menu when one or more routes are selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendRouteExportActions.GetActions(ZoneFiveSoftware.Common.Data.Fitness.IRoute)">
+            <summary>
+            Retrieve the list of actions when a single route is selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendRouteExportActions.GetActions(System.Collections.Generic.IList{ZoneFiveSoftware.Common.Data.Fitness.IRoute})">
+            <summary>
+            Retrieve the list of actions when a group of routes is selected
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Chart.Formatter.Default">
+            <summary>
+            Static method implementations for IAxisFormatter classes.
+            Spaces ticks at 1.0, 2.0, 2.5, 5.0, 10.0 and displays the appropriate precision based on the range of the numbers.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext">
+            <summary>
+            The IMapDrawContext interface is passed to many methods in the map server interfaces
+            to specify the context in the route control being drawn. The map server can use the
+            members of this object to determine how to draw the background, selected objects, etc.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.GetDrawObject(System.Type,System.String)">
+            <summary>
+            Get a draw object from the context.
+            </summary>
+            <param name="objectType">The class which controls the namespace to the object.</param>
+            <param name="id">A unique Id for the object.</param>
+            <returns>An IDisposable draw object.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.PutDrawObject(System.Type,System.String,System.IDisposable)">
+            <summary>
+            Place an object on the draw context such as a Pen, Brush, Font to be used in rendering objects
+            during the draw operation. When the draw context is disposed all draw objects are also disposed.
+            </summary>
+            <param name="objectType">The class which controls the namespace to the object.</param>
+            <param name="id">A unique Id for the object.</param>
+            <param name="drawObj">The draw object.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.Graphics">
+            <summary>
+            A Graphics object to draw on.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.DrawRectangle">
+            <summary>
+            The rectangle to draw on, usually equal to the ClientRectangle offset by border decorations.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.ClipRectangle">
+            <summary>
+            A draw clipping rectangle which allows the map server to optimize drawing.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.Font">
+            <summary>
+            The default font selected in the route control.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.Projection">
+            <summary>
+            A projection interface to translate GPS locations to pixels (and vice-versa).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.Center">
+            <summary>
+            The center of the route control. Used with the DrawRectangle and ZoomLevel
+            this determines what needs to be drawn where.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.ZoomLevel">
+            <summary>
+            The zoom level which is relevant to the map server.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.Highlight">
+            <summary>
+            Which object is currently highlighted, or null if none.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.Selected">
+            <summary>
+            Which objects are currently selected.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.DistanceUnits">
+            <summary>
+            The measurement units for distances (miles, kilometers, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.ElevationUnits">
+            <summary>
+            The measurement for elevation (meters, feet, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext.GPSLocationUnits">
+            <summary>
+            The style for showing GPS locations (decimal or minutes/seconds, etc)
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode">
+            <summary>
+            A pointer mode which is managed by the route control. Users can select a pointer mode
+            from the list by name. Mouse actions may be delegated to pointer modes, allowing for 
+            example the user to click a point and drag to measure a section of the map.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.EnterMode">
+            <summary>
+            Called when the pointer mode is selected to allow the pointer mode to go into a certain state.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.ExitMode">
+            <summary>
+            Called when a different pointer mode is selected.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.Draw(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            Draw anything associated with the pointer mode. The drawContext parameter indicates the level of zoom, location of the 
+            center of the control, the control bounds, which objects are selected, fonts, etc.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.OnLostFocus(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            Handle the map control losing focus.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.OnMouseDown(System.Windows.Forms.MouseEventArgs,ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlObject,System.Windows.Forms.Cursor@)">
+            <summary>
+            Handle a mouse down event after the layers have been hit-tested and the selection updated.
+            </summary>
+            <returns>True if the event was handled.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.OnMouseUp(System.Windows.Forms.MouseEventArgs,ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Windows.Forms.Cursor@)">
+            <summary>
+            Handle a mouse up event. The pointer mode will have an opportunity to handle
+            the event only after all layers have been hit-tested for objects and nothing is selected.
+            </summary>
+            <returns>True if the event was handled.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.OnMouseMove(System.Windows.Forms.MouseEventArgs,ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Windows.Forms.Cursor@)">
+            <summary>
+            Handle a mouse move event. The pointer mode will have an opportunity to handle
+            the event only after all layers have been hit-tested for objects and nothing is selected.
+            </summary>
+            <returns>True if the event was handled.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.OnKeyDown(System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Handle KeyDown event.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.Id">
+            <summary>
+            Return the unique identifier for this pointer mode type (not the instance).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.Name">
+            <summary>
+            Returns the display name of the pointer mode, eg "Select", "Move", "Measure", etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlPointerMode.ToolImage">
+            <summary>
+            Return the image associated with the pointer mode menu/action/tool.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.IJobMonitor">
+            <summary>
+            An interface which reports status of a running job.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IJobMonitor.StatusText">
+            <summary>
+            Set the text to be displayed in the status area.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IJobMonitor.PercentComplete">
+            <summary>
+            Set the percent complete (from 0 to 1)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IJobMonitor.Cancelled">
+            <summary>
+            Check whether the process has been cancelled.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IJobMonitor.ErrorText">
+            <summary>
+            Set the error text if the job failed.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IFileImporter">
+            <summary>
+            A source for importing data. Import sources will show up in the parts of the application
+            that allow a user to import data.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IFileImporter.FileExtension">
+            <summary>
+            Return the file extension which applies to this import source. Returning
+            a non-null value from this property will add the extension to the list of files available
+            in the import list when the user browses the file system. Do not include the leading period.
+            eg "hst", not ".hst"
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityExportActions">
+            <summary>
+            Provide an extension to the actions available in the export menu when one or more activities are selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityExportActions.GetActions(ZoneFiveSoftware.Common.Data.Fitness.IActivity)">
+            <summary>
+            Retrieve the list of actions when a single activity is selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityExportActions.GetActions(System.Collections.Generic.IList{ZoneFiveSoftware.Common.Data.Fitness.IActivity})">
+            <summary>
+            Retrieve the list of actions when a group of activities is selected
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendWeatherProviders">
+            <summary>
+            Provide an extension to the available weather providers. Each weather provider returned from the
+            WeatherProviders method will be listed in the weather settings.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendWeatherProviders.WeatherProviders">
+            <summary>
+            Return a list of IWeatherProvider instances. 
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendMapControlLayers">
+            <summary>
+            Provide an extension to the available map control layers. Each map layer returned from the
+            MapLayers method will be listed in the map selection for the routes control.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendMapControlLayers.MapLayers(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControl)">
+            <summary>
+            Return a list of IMapControlLayer instances. This method will be called once for each map control
+            that is created. Each method call should return a collection of new instances.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.Chart.ChartBase.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Chart.ChartBase.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Chart.ChartBase.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.DirectoryTreePopup.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.DirectoryTreePopup.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.DirectoryTreePopup.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.DirectoryTreePopup.Popup(System.Drawing.Rectangle)">
+            <summary>
+            Place at the bottom left point of the rectangle and adjust to fit the screen
+            </summary>
+            <param name="rect"></param>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.Button.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Button.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Button.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.TextBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TextBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TextBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendFitnessDevices">
+            <summary>
+            Provide an extension to the fitness devices available.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendFitnessDevices.FitnessDevices">
+            <summary>
+            Retrieve the list of the fitness devices.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Win32">
+            <summary>
+            Interface to Win32 DLL methods.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences">
+            <summary>
+            An interface to the system preferences in the application.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.StartOfWeek">
+            <summary>
+            The day of the week the calendar starts on.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.DistanceUnits">
+            <summary>
+            The default measurement for distances (miles, kilometers, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.ElevationUnits">
+            <summary>
+            The default measurement for elevation (meters, feet, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.WeightUnits">
+            <summary>
+            The default measurement for weight (kilograms, pounds, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.EnergyUnits">
+            <summary>
+            The default measurement for energy (calories, kJ)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.TemperatureUnits">
+            <summary>
+            The default measurement for temperature (celsius, fahrenheit, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.GPSLocationUnits">
+            <summary>
+            The style for showing GPS locations (decimal or minutes/seconds, etc)
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.RouteSettings">
+            <summary>
+            Route settings.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.InternetSettings">
+            <summary>
+            Internet settings.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.ImportSettings">
+            <summary>
+            Import settings.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.WebFilesFolder">
+            <summary>
+            The full path where web files are stored (one location for all users).
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.ISystemPreferences.FitnessDevices">
+            <summary>
+            A list of GPS devices which have been configured, "My Devices"
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendSettingsPages">
+            <summary>
+            Provide an extension to the pages shown in the settings view. A plugin may
+            provide it's own settings pages via this interface using the classes in Common.Visuals
+            to achieve a similar look and feel to the application.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendSettingsPages.SettingsPages">
+            <summary>
+            Retrieve the list of settings pages.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.ControlBorder">
+            <summary>
+            Summary description for ControlBorder.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.ITheme">
+            <summary>
+            A visual theme.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.IPageStatus">
+            <summary>
+            An interface to specify the page status for information, error or warnings in dialogs and wizards.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IPageStatus.Message">
+            <summary>
+            The message to display.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IPageStatus.Control">
+            <summary>
+            The relevant control for placing focus.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IPageStatus.Icon">
+            <summary>
+            An icon to display.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapImageReadyListener">
+            <summary>
+            A notification interface passed to the map server draw method which can be used to
+            notify the control that a map image is ready to be displayed. If the map server fetches
+            images asynchronously a reference to the listener should be stored for each image
+            requested, when the image is ready, a moniker for the map image is passed to this
+            interface. Ultimately the control will ask the map server for the pixel region of the map
+            image moniker object, and Invalidate the appropriate region.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapImageReadyListener.NotifyMapImageReady(System.Object)">
+            <summary>
+            Notify the route control an image is ready.
+            </summary>
+            <param name="mapImage">An object which has meaning to the map server.</param>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IImportResults">
+            <summary>
+            Interface for collecting the results of an import.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IImportResults.AddActivity(System.DateTime)">
+            <summary>
+            Add an activity to the import results.
+            </summary>
+            <param name="start">The starting date &amp; time.</param>
+            <returns>The activity.</returns>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.ActionBanner.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ActionBanner.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.ActionBanner.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ZoneFiveSoftware.Common.Visuals.TreeListPopup.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TreeListPopup.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TreeListPopup.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.TreeListPopup.Popup(System.Drawing.Rectangle)">
+            <summary>
+            Place at the bottom left point of the rectangle and adjust to fit the screen
+            </summary>
+            <param name="rect"></param>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer">
+            <summary>
+            A map control layer contains objects and draws them when requested from the route control.
+            The layers are arranged on top of the map background. Standard layers include the lat/lon lines
+            layer, the GPS route layer, GPS markers layer, etc.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer.HitTest(System.Drawing.Point,System.Boolean,ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext,System.Windows.Forms.Cursor@)">
+            <summary>
+            Return a map control object under the specified location. This is used for detecting the highlight
+            object when the mouse pointer is moved around, and when clicking for single selection. A route
+            control will manage the highlight and selection states, and the layer can draw them differently
+            depending on the state.
+            </summary>
+            <param name="ptClient">Point to test.</param>
+            <param name="bSelect">True if selecting, false if highlight.</param>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <param name="cursor">A cursor to display to indicate to the user the object can be interacted with, or Cursors.Default.</param>
+            <returns>An IMapControlObject or null.</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer.HitTest(System.Drawing.Rectangle,ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            A hit test for the rectangle specified when the user selects a range on the route control with the
+            selection tool.
+            </summary>
+            <param name="rectClient">Rectangle to test.</param>
+            <param name="drawContext">The drawing context of the route control.</param>
+            <returns>A list of IMapControlObject</returns>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer.Draw(ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapDrawContext)">
+            <summary>
+            Draw the map layer. The drawContext parameter indicates the level of zoom, location of the 
+            center of the control, the control bounds, which objects are selected, fonts, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer.Id">
+            <summary>
+            Return the unique identifier for this map layer.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer.Name">
+            <summary>
+            The name displayed in selection lists, menus, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.GPS.IMapControlLayer.Path">
+            <summary>
+            The path to the item if displayed in menus.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityEditActions">
+            <summary>
+            Provide an extension to the actions available in the edit menu when one or more activities are selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityEditActions.GetActions(ZoneFiveSoftware.Common.Data.Fitness.IActivity)">
+            <summary>
+            Retrieve the list of actions when a single activity is selected
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendActivityEditActions.GetActions(System.Collections.Generic.IList{ZoneFiveSoftware.Common.Data.Fitness.IActivity})">
+            <summary>
+            Retrieve the list of actions when a group of activities is selected
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IActivityDetailPage">
+            <summary>
+            A page which will be shown in the activity detail area.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IActivityDetailPage.RefreshPage">
+            <summary>
+            Refresh the controls based on the currently selected activity.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IActivityDetailPage.Activity">
+            <summary>
+            Set the activity which is displayed. If the value parameter is null, no activity is selected
+            and all controls should be set to blank and disabled.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.IAction">
+            <summary>
+            An IAction encapsulates an action selectable by the user in a menu, toolbar, etc.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IAction.Refresh">
+            <summary>
+            Determine valid state of action and fire property changed events for any changed properties.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.IAction.Run(System.Drawing.Rectangle)">
+            <summary>
+            Called when the action is invoked by user selection.
+            </summary>
+            <param name="rectButton">The rectangle of the button which invoked the command so a context menu can be placed appropriately.</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IAction.Title">
+            <summary>
+            The title to display to the user when shown in a menu or in a button tooltip.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IAction.Image">
+            <summary>
+            The image to display to the left of the text.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IAction.Enabled">
+            <summary>
+            Return true if the action is enabled.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.IAction.HasMenuArrow">
+            <summary>
+            True if the action has a right-facing menu arrow on the right side of the control.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IPlugin.ReadOptions(System.Xml.XmlDocument,System.Xml.XmlNamespaceManager,System.Xml.XmlElement)">
+            <summary>
+            Read any plugin-specific data from the user options xml data store.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IPlugin.WriteOptions(System.Xml.XmlDocument,System.Xml.XmlElement)">
+            <summary>
+            Write any plugin-specific data to the user options xml data store.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IPlugin.Id">
+            <summary>
+            Return the unique identifier for this plugin for storing options, versioning, etc.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IPlugin.Application">
+            <summary>
+            Set the application context that the plugin can use to drive the application.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IPlugin.Name">
+            <summary>
+            Return the display name of the plugin.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IPlugin.Version">
+            <summary>
+            Return the display version of the plugin.
+            </summary>
+        </member>
+        <member name="M:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.ShowView(System.Guid,System.String)">
+            <summary>
+            Show the specified view.
+            </summary>
+            <param name="view">The view</param>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.ActiveView">
+            <summary>
+            Get the active view.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.Calendar">
+            <summary>
+            Get the calendar control.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.VisualTheme">
+            <summary>
+            Get the selected visual theme.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.SystemPreferences">
+            <summary>
+            Get the system preferences.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.DisplayOptions">
+            <summary>
+            Get the visual options.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IApplication.Logbook">
+            <summary>
+            Get the logbook which is currently open.
+            </summary>
+        </member>
+        <member name="T:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendViews">
+            <summary>
+            Provide an extension to the available views.
+            </summary>
+        </member>
+        <member name="P:ZoneFiveSoftware.Common.Visuals.Fitness.IExtendViews.Views">
+            <summary>
+            Return a list of IView instances.
+            </summary>
+        </member>
+    </members>
+</doc>

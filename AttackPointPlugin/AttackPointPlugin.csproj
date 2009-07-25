@@ -1,0 +1,224 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Zone Five Software\SportTracks 2.0\SportTracks.exe</StartProgram>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8A7EBCE8-1745-43FA-A4AD-C0B67139A82F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GK.SportTracks.AttackPoint</RootNamespace>
+    <AssemblyName>AttackPointPlugin</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/AttackPointPlugin/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugST|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Data, Version=2.1.3326.18908, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Common.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Common.Visuals, Version=2.1.3326.18913, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Common.Visuals.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApConfig.cs" />
+    <Compile Include="ApProxy\ApActivity.cs" />
+    <Compile Include="ApProxy\ApConstantData.cs" />
+    <Compile Include="ApProxy\ApProfile.cs" />
+    <Compile Include="ApProxy\ApEntity.cs" />
+    <Compile Include="ApMapping.cs" />
+    <Compile Include="ApProxy\ApMetadata.cs" />
+    <Compile Include="ApProxy\ApShoes.cs" />
+    <Compile Include="ApProxy\ApProxy.cs" />
+    <Compile Include="ApProxy\EncodingUtils.cs" />
+    <Compile Include="StEntity.cs" />
+    <Compile Include="StEquipment.cs" />
+    <Compile Include="StIntensity.cs" />
+    <Compile Include="Export\ExportAction.cs" />
+    <Compile Include="Export\ExportNoteAction.cs" />
+    <Compile Include="IMappedEntity.cs" />
+    <Compile Include="ApProxy\ApNote.cs" />
+    <Compile Include="ApProxy\ApTraining.cs" />
+    <Compile Include="Export\ExportTrainingAction.cs" />
+    <Compile Include="Export\ExtendActions.cs" />
+    <Compile Include="Mapper.cs" />
+    <Compile Include="ApPlugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ExtendSettingsPages.cs" />
+    <Compile Include="Settings\SettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\SettingsControl.Designer.cs">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\SettingsPage.cs" />
+    <Compile Include="StCategory.cs" />
+    <Compile Include="UI\Activities\ApActivityControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Activities\ApActivityControl.Designer.cs">
+      <DependentUpon>ApActivityControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApActivityData.cs" />
+    <Compile Include="UI\Activities\ApActivityPage.cs" />
+    <Compile Include="UI\Activities\ExtendActivityDetailPages.cs" />
+    <Compile Include="UI\InformationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InformationDialog.Designer.cs">
+      <DependentUpon>InformationDialog.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\SettingsControl.resx">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Activities\ApActivityControl.resx">
+      <DependentUpon>ApActivityControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InformationDialog.resx">
+      <DependentUpon>InformationDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image_16_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApProxy\ap-constant-data.xml" />
+    <Content Include="ApProxy\ap-metadata.xml">
+    </Content>
+    <Content Include="Resources\favicon.ico" />
+    <Content Include="Resources\logo.bmp" />
+    <Content Include="plugin.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)ApProxy\ap-metadata.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+
+if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)ApProxy\ap-constant-data.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+
+if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)\plugin.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+
+if $(ConfigurationName) == DebugST copy /Y "$(TargetDir)*.dll" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+
+if $(ConfigurationName) == DebugST copy /Y "$(TargetDir)*.pdb" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+
+rd /s /q "$(ProjectDir)..\Install"
+md "$(ProjectDir)..\Install"
+copy /Y "$(TargetDir)*.dll" "$(ProjectDir)..\Install"
+copy /Y "$(TargetDir)*.pdb" "$(ProjectDir)..\Install"
+copy /Y "$(ProjectDir)ApProxy\ap-metadata.xml" "$(ProjectDir)..\Install" 
+copy /Y "$(ProjectDir)ApProxy\ap-constant-data.xml" "$(ProjectDir)..\Install"
+copy /Y "$(ProjectDir)\plugin.xml" "$(ProjectDir)..\Install"
+
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>

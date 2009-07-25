@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ap-constant-data xmlns="http://www.attackpoint.org/config/v0.1">
+  <Intensities>
+    <ApEntity Id="0" Title="0" />
+    <ApEntity Id="1" Title="1" />
+    <ApEntity Id="2" Title="2" />
+    <ApEntity Id="3" Title="3" />
+    <ApEntity Id="4" Title="4" />
+    <ApEntity Id="5" Title="5" />
+  </Intensities>
+  <Workouts>
+    <ApEntity Id="1" Title="&quot;Training&quot;" />
+    <ApEntity Id="2" Title="Race" />
+    <ApEntity Id="3" Title="Long" />
+    <ApEntity Id="4" Title="Intervals" />
+    <ApEntity Id="5" Title="Hills" />
+    <ApEntity Id="6" Title="Tempo" />
+    <ApEntity Id="7" Title="Warm up/down" />
+    <ApEntity Id="null" Title="[None]" />
+  </Workouts>
+  <TechnicalIntensities>
+    <ApEntity Id="0" Title="No Map" />
+    <ApEntity Id="1" Title="* Street / Trail" />
+    <ApEntity Id="2" Title="* * Topo / Simplified" />
+    <ApEntity Id="3" Title="* * * Advanced O'" />
+    <ApEntity Id="4" Title="* * * * Complex" />
+    <ApEntity Id="5" Title="* * * * * Intense!" />
+  </TechnicalIntensities>
+</ap-constant-data>

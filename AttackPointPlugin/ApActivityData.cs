@@ -106,7 +106,7 @@ namespace GK.SportTracks.AttackPoint
                 return ts;
             }
             catch (Exception ex) {
-                Debug.WriteLine("Unable to parse intensity time: " + ex);
+                ApPlugin.Logger.LogMessage("Unable to parse intensity time.", ex);
                 return TimeSpan.Zero;
             }
         }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZoneFiveSoftware.Common.Visuals;
 using System.Diagnostics;
+using System.Web;
 
 namespace GK.SportTracks.AttackPoint.UI
 {
@@ -75,10 +76,15 @@ namespace GK.SportTracks.AttackPoint.UI
                     return;
                 }
 
-                actionBanner1.Text = "Operation failed";
+                actionBanner1.Text = "Operation failed.";
                 tbError.Visible = llFeedback.Visible = true;
-                tbError.Text = string.Format("{0}{2}Stack trace:{2}{1}", ex.Message, ex.StackTrace, Environment.NewLine);
-                Height = 222;
+
+                if (!(ex is ApplicationException)) {
+                    ApPlugin.Logger.LogMessage("Operation failed.", ex);
+                }
+
+                tbError.Text = string.Format("{0}", ex.Message);
+                Height = 170;
             }
             else if (_closeAfterComplete) {
                 Close();
@@ -95,7 +101,7 @@ namespace GK.SportTracks.AttackPoint.UI
         private void llFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             try {
                 var process = new Process();
-                process.StartInfo.FileName = string.Format("mailto:{0}?subject=AP Plugin Error", ApPlugin.FeedbackEmail);
+                process.StartInfo.FileName = string.Format("mailto:{0}?subject=AttackPoint Plugin Error", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail));
                 process.Start();
             }
             catch (Exception ex) {

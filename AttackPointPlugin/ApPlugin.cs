@@ -20,46 +20,55 @@ namespace GK.SportTracks.AttackPoint
 {
     class ApPlugin : IPlugin
     {
-        private const string ApConstantDataFileName = "ap-constant-data.xml";
         public const string FeedbackEmail = "gregory.kh+st2ap@gmail.com";
+        public const string PluginWebPage = "http://st2ap.codeplex.com/";
+        private const string ApConstantDataFileName = "ap-constant-data.xml";
 
         private static IApplication _application;
+        private static bool _initialized;
         private static Guid PluginId = new Guid("{1eec167a-0605-479e-8def-08633ac68a22}");
         private static ApProxy Proxy;
         private static XmlWriterSettings DataSerSettings;
         private static string BasePath;
-        private static string LogFile;
 
         static ApPlugin() {
             try {
+                LogManager.Logger = new Logger();
                 DataSerSettings = new XmlWriterSettings();
                 DataSerSettings.OmitXmlDeclaration = true;
                 DataSerSettings.Indent = false;
                 BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"ZoneFiveSoftware\SportTracks");
-                if (!Directory.Exists(path)) {
-                    Directory.CreateDirectory(path);
-                }
-
-                LogFile = Path.Combine(path, "attackpoint-plugin.log");
+                _initialized = true;
             }
             catch (Exception ex) {
-                MessageBox.Show(string.Format("Unable to initialize AttckPoint plugin. Please uninstall it and report this error to {0}.{2}{1}", FeedbackEmail, ex, Environment.NewLine));
+                MessageBox.Show("Unable to initialize AttackPoint plugin. Please see log for details.");
+                if (LogManager.Logger != null) {
+                    Logger.LogMessage("Failed to initialize AP plugin.", ex);
+                }
             }
         }
 
+        public static ILogger Logger { get { return LogManager.Logger; } }
         public IApplication Application { set { _application = value; } }
         public static ApConfig ApConfig { get; set; }
         public Guid Id { get { return PluginId; } }
         public string Name { get { return Resources.Plugin_Name; } }
+        public string Version { get { return GetType().Assembly.GetName().Version.ToString(3); } }
+        public static IApplication GetApplication() { return _application; }
 
         public static ApProxy GetProxy() {
+            if (!_initialized)
+                throw new ApplicationException("Plugin was not properly initialized. Unable to proceed.");
+
             if (string.IsNullOrEmpty(ApConfig.Profile.Username) || string.IsNullOrEmpty(ApConfig.Profile.Password))
                 throw new ApplicationException(Resources.Error_ApCredentialsNotSpecified);
 
-            if (ApConfig.Profile.CredentialsChanged || (Proxy == null || Proxy.Expired)) {
-                Proxy = ApProxy.Connect(LogFile, BasePath, ApConfig.Profile.Username, ApConfig.Profile.Password);
+            if (ApConfig.Profile.CredentialsChanged ||
+                (Proxy == null || Proxy.Expired ||
+                Proxy.Username != ApConfig.Profile.Username ||
+                Proxy.Password != ApConfig.Profile.Password)) {
+
+                Proxy = ApProxy.Connect(BasePath, ApConfig.Profile.Username, ApConfig.Profile.Password);
             }
 
             return Proxy;
@@ -67,6 +76,8 @@ namespace GK.SportTracks.AttackPoint
 
         public void ReadOptions(XmlDocument xmlDoc, XmlNamespaceManager nsmgr, XmlElement pluginNode)
         {
+            if (!_initialized) return;
+
             try {
                 ApConfig = null;
                 var innerXml = pluginNode.InnerXml;
@@ -95,18 +106,15 @@ namespace GK.SportTracks.AttackPoint
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show("Unable to read AttackPoint config: " + ex);
-                Debug.WriteLine("Unable to read AttackPoint config: " + ex);
+                MessageBox.Show("Unable to read AttackPoint config:" + Environment.NewLine + ex.Message);
+                Logger.LogMessage("Unable to read AttackPoint config.", ex);
             }
-        }
-
-        public string Version
-        {
-            get { return GetType().Assembly.GetName().Version.ToString(3); }
         }
 
         public void WriteOptions(XmlDocument xmlDoc, XmlElement pluginNode)
         {
+            if (!_initialized) return;
+
             try {
                 var ser = new XmlSerializer(typeof(ApConfig));
                 var settings = new XmlWriterSettings();
@@ -120,13 +128,9 @@ namespace GK.SportTracks.AttackPoint
                 pluginNode.InnerXml = sb.ToString();
             }
             catch (Exception ex) {
-                Debug.WriteLine("Unable to write AttackPoint config: " + ex);
+                MessageBox.Show("Unable to save AttackPoint config:" + Environment.NewLine + ex.Message);
+                Logger.LogMessage("Unable to save AttackPoint config.", ex);
             }
-        }
-
-        public static IApplication GetApplication()
-        {
-            return _application;
         }
 
         internal static List<StIntensity> GetStIntensities() {
@@ -262,7 +266,7 @@ namespace GK.SportTracks.AttackPoint
         private static void SerializeApActivityData(ApActivityData data) {
             if (data == null) return;
             if (data.IsEmpty()) {
-                Debug.WriteLine("Data is empty!");
+                Logger.PrintMessage("ApActivity data is empty.");
                 return;
             }
             var sb = new StringBuilder();
@@ -270,7 +274,7 @@ namespace GK.SportTracks.AttackPoint
                 var ser = new XmlSerializer(typeof(ApActivityData));
                 ser.Serialize(w, data);
             }
-            Debug.WriteLine(sb);
+            Logger.PrintMessage("ApActivityData:" + Environment.NewLine + sb);
         }
 
         internal static Units GetDistanceUnits() {

@@ -59,7 +59,7 @@
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Percent = 0F;
-            this.progressBar1.Size = new System.Drawing.Size(310, 28);
+            this.progressBar1.Size = new System.Drawing.Size(310, 24);
             this.progressBar1.TabIndex = 1;
             // 
             // tbError
@@ -69,6 +69,7 @@
             this.tbError.BackColor = System.Drawing.Color.White;
             this.tbError.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
             this.tbError.ButtonImage = null;
+            this.tbError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbError.Location = new System.Drawing.Point(13, 32);
             this.tbError.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbError.MaxLength = 32767;
@@ -78,7 +79,7 @@
             this.tbError.ReadOnlyColor = System.Drawing.SystemColors.Control;
             this.tbError.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbError.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbError.Size = new System.Drawing.Size(310, 113);
+            this.tbError.Size = new System.Drawing.Size(310, 62);
             this.tbError.TabIndex = 3;
             this.tbError.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
@@ -90,7 +91,7 @@
             this.llFeedback.Location = new System.Drawing.Point(10, 10);
             this.llFeedback.Name = "llFeedback";
             this.llFeedback.Size = new System.Drawing.Size(103, 17);
-            this.llFeedback.TabIndex = 5;
+            this.llFeedback.TabIndex = 4;
             this.llFeedback.TabStop = true;
             this.llFeedback.Text = "Send feedback";
             this.llFeedback.VisitedLinkColor = System.Drawing.Color.Blue;
@@ -119,7 +120,7 @@
             this.bClose.PushStyle = true;
             this.bClose.RightImage = null;
             this.bClose.Size = new System.Drawing.Size(76, 24);
-            this.bClose.TabIndex = 4;
+            this.bClose.TabIndex = 5;
             this.bClose.Text = "Close";
             this.bClose.TextAlign = System.Drawing.StringAlignment.Center;
             this.bClose.TextLeftMargin = 2;
@@ -132,7 +133,7 @@
             this.panel1.Controls.Add(this.bClose);
             this.panel1.Controls.Add(this.llFeedback);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 152);
+            this.panel1.Location = new System.Drawing.Point(0, 104);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(336, 38);
             this.panel1.TabIndex = 6;
@@ -141,7 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 190);
+            this.ClientSize = new System.Drawing.Size(336, 142);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tbError);
             this.Controls.Add(this.progressBar1);

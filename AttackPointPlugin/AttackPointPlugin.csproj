@@ -95,6 +95,9 @@
     <Compile Include="ApProxy\ApShoes.cs" />
     <Compile Include="ApProxy\ApProxy.cs" />
     <Compile Include="ApProxy\EncodingUtils.cs" />
+    <Compile Include="ApProxy\ILogger.cs" />
+    <Compile Include="ApProxy\LogManager.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="StEntity.cs" />
     <Compile Include="StEquipment.cs" />
     <Compile Include="StIntensity.cs" />

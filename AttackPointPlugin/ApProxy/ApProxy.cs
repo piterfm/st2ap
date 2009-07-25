@@ -18,19 +18,19 @@ namespace GK.AttackPoint
         private Dictionary<string, ApOperation> _apOperations = new Dictionary<string, ApOperation>();
         private CookieContainer _cookieContainer;
         private Cookie _loginCookie;
-        private static string _logFile;
 
         public ApMetadata Metadata { get; private set; }
         public string UserId { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
 
         public bool Expired {
             get { return _loginCookie == null || _loginCookie.Expired; }
         }
 
-        public static ApProxy Connect(string logFile, string path, string username, string password) {
+        public static ApProxy Connect(string path, string username, string password) {
             var proxy = new ApProxy();
 
-            _logFile = logFile;
             // Read metadata
             var ser = new XmlSerializer(typeof(ApMetadata));
             ApMetadata m;
@@ -52,6 +52,8 @@ namespace GK.AttackPoint
                     throw new WebException(string.Format("Unable to authenticate on AttackPoint. HTTP status code: {0} - {1}", response.StatusCode, response.StatusDescription));
             }
 
+            proxy.Username = username;
+            proxy.Password = password;
             return proxy;
         }
 
@@ -62,7 +64,7 @@ namespace GK.AttackPoint
             var parameters = note.Pack(operation);
 
             using (var response = PostRequest(operation.PageUrl, parameters)) {
-                LogResponse(response);
+                LogManager.Logger.LogWebResponse(response);
             }
 
             return id;
@@ -171,7 +173,7 @@ namespace GK.AttackPoint
                 payload.AppendFormat("{0}={1}&", HttpUtility.UrlEncode(p.Key), EncodingUtils.UrlEncodeForLatin1(p.Value));
             }
 
-            Debug.WriteLine(payload);
+            LogManager.Logger.PrintMessage(payload.ToString());
             payload.Length = payload.Length - 1;
             byte[] bytes = new ASCIIEncoding().GetBytes(payload.ToString());
 
@@ -191,13 +193,12 @@ namespace GK.AttackPoint
             }
 
             HttpWebResponse response = null;
-
             try {
                 response = (HttpWebResponse)request.GetResponse();
             }
             catch (WebException ex) {
                 if (ex.Status == WebExceptionStatus.ProtocolError) {
-                    LogResponse((HttpWebResponse)ex.Response);
+                    LogManager.Logger.LogWebResponse((HttpWebResponse)ex.Response);
                     throw new ApplicationException(string.Format("Request failed with status {0}: {1}. See log file for the full response.", ex.Status, ex));
                 }
 
@@ -209,14 +210,14 @@ namespace GK.AttackPoint
                 var cookies = _cookieContainer.GetCookies(request.RequestUri);
                 _loginCookie = cookies[Metadata.LoginCookieName];
                 if (_loginCookie == null) {
-                    LogResponse(response);
-                    throw new ApplicationException("Unable to authenticate on AttackPoint. See log for the response.");
+                    LogManager.Logger.LogWebResponse(response);
+                    throw new ApplicationException("Unable to authenticate on AttackPoint. See log file for the response.");
                 }
                 
                 var k = _loginCookie.Value.IndexOf(':');
                 if (k <= 0) {
-                    LogMessage("Can't find user ID in the cookie: " + _loginCookie.Value);
-                    throw new ApplicationException("Unable to retrieve AP user ID. Perhaps the format of authentication has been changed. See log for details.");
+                    LogManager.Logger.LogMessage("Can't find user ID in the cookie: " + _loginCookie.Value);
+                    throw new ApplicationException("Unable to retrieve AP user ID. Perhaps the format of authentication has been changed. See log file for details.");
                 }
 
                 UserId = _loginCookie.Value.Substring(0, k);
@@ -231,10 +232,21 @@ namespace GK.AttackPoint
             request.CookieContainer = _cookieContainer;
 
             try {
-                using (var response = (HttpWebResponse)request.GetResponse()) {
+                using (var stream = new StreamReader(request.GetResponse().GetResponseStream(), Encoding.GetEncoding("utf-8"))) {
                     var sb = new StringBuilder();
-                    using (var writer = new StringWriter(sb)) {
-                        OutputResponseStream(response, writer);
+                    var writer = new StringWriter(sb);
+                    try {
+                        var read = new char[256];
+                        // Reads 256 characters at a time.    
+                        var count = stream.Read(read, 0, 256);
+                        while (count > 0) {
+                            var str = new string(read, 0, count);
+                            writer.Write(str);
+                            count = stream.Read(read, 0, 256);
+                        }
+                    }
+                    finally {
+                        if (stream != null) stream.Close();
                     }
 
                     return sb.ToString();
@@ -242,79 +254,15 @@ namespace GK.AttackPoint
             }
             catch (WebException ex) {
                 if (ex.Status == WebExceptionStatus.ProtocolError) {
-                    LogResponse((HttpWebResponse)ex.Response);
-                    throw new ApplicationException(string.Format("Request failed with status {0}: {1}. See log file for the full response.", ex.Status, ex));
+                    LogManager.Logger.LogWebResponse((HttpWebResponse)ex.Response);
+                    throw new ApplicationException(string.Format("Request failed with status {0}: {1}. See log file for the response.", ex.Status, ex));
                 }
 
                 throw new ApplicationException(string.Format("Request failed with status {0}: {1}", ex.Status, ex));
             }
         }
-        private static void LogMessage(string message) {
-            try {
-                using (StreamWriter writer = new StreamWriter("attackpoint-client.log", true)) {
-                    writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, message));
-                }
-            }
-            catch (Exception ex) {
-                Debug.WriteLine("Unable to log message: " + ex);
-            }
 
-        }
 
-        private static void LogResponse(HttpWebResponse response) {
-            try {
-                using (StreamWriter writer = new StreamWriter(_logFile, true)) {
-                    OutputResponseStream(response, writer, true);
-                }
-            }
-            catch (Exception ex) {
-                Debug.WriteLine("Unable to log response: " + ex);
-            }
-        }
-
-        private static void OutputResponseStream(HttpWebResponse response, TextWriter writer) {
-            OutputResponseStream(response, writer, false);
-        }
-
-        private static void OutputResponseStream(HttpWebResponse response, TextWriter writer, bool log) {
-            StreamReader readStream = null;
-            try {
-                Stream stream = response.GetResponseStream();
-                Encoding encoding = Encoding.GetEncoding("utf-8");
-                // Pipes the stream to a higher level stream reader with the required encoding format. 
-                readStream = new StreamReader(stream, encoding);
-                if (log) {
-                    Debug.WriteLine(string.Format("\r\n{0}: Response stream received. Status: {1} - {2} ****************",
-                        DateTime.Now, response.StatusCode, response.StatusDescription));
-                    writer.WriteLine(string.Format("\r\n{0}: Response stream received. Status: {1} - {2} ****************",
-                        DateTime.Now, response.StatusCode, response.StatusDescription));
-                }
-                char[] read = new char[256];
-                // Reads 256 characters at a time.    
-                int count = readStream.Read(read, 0, 256);
-                if (log) {
-                    Debug.WriteLine("HTML...\r\n");
-                    writer.WriteLine("HTML...\r\n");
-                }
-                while (count > 0) {
-                    string str = new String(read, 0, count);
-                    Debug.Write(str);
-                    writer.Write(str);
-                    count = readStream.Read(read, 0, 256);
-                }
-                if (log) {
-                    Debug.WriteLine("");
-                    writer.WriteLine("");
-                }
-
-            }
-            catch (Exception ex) {
-                Debug.WriteLine("Unable to print response: " + ex);
-            }
-            finally {
-                if (readStream != null) readStream.Close();
-            }
-        }
 
     }
 

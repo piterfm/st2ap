@@ -70,7 +70,7 @@ namespace GK.AttackPoint
                 }
                 catch (Exception ex) {
                     Password = null;
-                    Debug.WriteLine("Unable to decrypt password: " + ex);
+                    LogManager.Logger.LogMessage("Unable to decrypt password.", ex);
                 }
             }
         }

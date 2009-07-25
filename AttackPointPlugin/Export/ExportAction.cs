@@ -55,7 +55,7 @@ namespace GK.SportTracks.AttackPoint.Export
                                     var ser = new XmlSerializer(typeof(ApNote));
                                     ser.Serialize(w, note);
                                 }
-                                Debug.WriteLine(sb);
+                                ApPlugin.Logger.PrintMessage(sb.ToString());
                                 proxy.Upload(note);
                                 ee.Result = "Export completed.";
                             }

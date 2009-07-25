@@ -183,7 +183,7 @@ namespace GK.SportTracks.AttackPoint.Settings
                     try {
                         ApPlugin.GetProxy().ScrapeApData(ApConfig.Profile);
                         //System.Threading.Thread.Sleep(7000);
-                        //throw new ApplicationException("EEEEEROOORR!!!");
+                        //throw new Exception("EEEEEROOORR!!!");
                         ee.Result = "Completed";
                     }
                     catch (Exception ex) {

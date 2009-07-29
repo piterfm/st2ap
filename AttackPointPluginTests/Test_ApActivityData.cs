@@ -127,14 +127,14 @@ namespace AttackPointPluginTests
             data.Intensities[2] = "2256";
             data.Intensities[3] = "330";
 
-            Assert.False(data.IsSingleIntensitySpecidied(new TimeSpan(0, 3, 30), 3));
+            Assert.False(data.IsSingleIntensitySpecified(new TimeSpan(0, 3, 30), 3));
         }
 
         [Fact]
         public void TestSingleIntensity2() {
             var data = new ApActivityData();
 
-            Assert.False(data.IsSingleIntensitySpecidied(new TimeSpan(0, 3, 30), 3));
+            Assert.False(data.IsSingleIntensitySpecified(new TimeSpan(0, 3, 30), 3));
         }
 
         [Fact]
@@ -143,7 +143,7 @@ namespace AttackPointPluginTests
 
             data.Intensities[2] = "2256";
 
-            Assert.False(data.IsSingleIntensitySpecidied(new TimeSpan(0, 22, 56), 3));
+            Assert.False(data.IsSingleIntensitySpecified(new TimeSpan(0, 22, 56), 3));
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace AttackPointPluginTests
 
             data.Intensities[2] = "2256";
 
-            Assert.False(data.IsSingleIntensitySpecidied(new TimeSpan(0, 22, 57), 2));
+            Assert.False(data.IsSingleIntensitySpecified(new TimeSpan(0, 22, 57), 2));
         }
 
         [Fact]
@@ -161,7 +161,7 @@ namespace AttackPointPluginTests
 
             data.Intensities[2] = "2256";
 
-            Assert.True(data.IsSingleIntensitySpecidied(new TimeSpan(0, 22, 56), 2));
+            Assert.True(data.IsSingleIntensitySpecified(new TimeSpan(0, 22, 56), 2));
         }
     }
 }

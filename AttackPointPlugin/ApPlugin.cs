@@ -21,7 +21,7 @@ namespace GK.SportTracks.AttackPoint
     class ApPlugin : IPlugin
     {
         public const string FeedbackEmail = "gregory.kh+st2ap@gmail.com";
-        public const string PluginWebPage = "http://st2ap.codeplex.com/";
+        public const string WebPage = "http://st2ap.codeplex.com/";
         private const string ApConstantDataFileName = "ap-constant-data.xml";
 
         private static IApplication _application;
@@ -132,6 +132,21 @@ namespace GK.SportTracks.AttackPoint
                 Logger.LogMessage("Unable to save AttackPoint config.", ex);
             }
         }
+
+        /*
+        internal static List<StHeartZoneCategory> GetStHeartrateZones() {
+            var hrc = _application.Logbook.HeartRateZones;
+            List<StHeartZoneCategory> list = null;
+
+            if (ApConfig.Mapping.HeartZoneCatogories == null) {
+                ApConfig.Mapping.HeartZoneCatogories = new List<StHeartZoneCategory>();
+            }
+            else {
+                list = new List<StHeartZoneCategory>(ApConfig.Mapping.HeartZoneCatogories);
+            }
+
+            return ApConfig.Mapping.HeartZoneCatogories;
+        }*/
 
         internal static List<StIntensity> GetStIntensities() {
             if (ApConfig.Mapping.Intensities == null || ApConfig.Mapping.Intensities.Count == 0) {
@@ -280,6 +295,22 @@ namespace GK.SportTracks.AttackPoint
         internal static Units GetDistanceUnits() {
             var units = GetApplication().SystemPreferences.DistanceUnits;
             return units == Length.Units.Centimeter || units == Length.Units.Kilometer || units == Length.Units.Meter ? Units.Metric : Units.English;
+        }
+
+        internal static bool IsNotesFormatValid(string format) {
+            // TODO: Implement
+            return true;
+        }
+
+        internal static void ShowWebPage() {
+            try {
+                var process = new Process();
+                process.StartInfo.FileName = ApPlugin.WebPage;
+                process.Start();
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Unable to open your browser:\n" + ex.Message);
+            }
         }
     }
 }

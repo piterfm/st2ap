@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml.Serialization;
 using GK.AttackPoint;
 using GK.SportTracks.AttackPoint;
+using System.Reflection;
 
 namespace AttackPointPluginTests
 {
@@ -16,15 +17,16 @@ namespace AttackPointPluginTests
         protected ApProfile _profile;
 
         protected BaseTest() {
-            using (var reader = new StreamReader("ap-metadata.xml")) {
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            using (var reader = new StreamReader(Path.Combine(path, "ap-metadata.xml"))) {
                 _metadata = (ApMetadata)new XmlSerializer(typeof(ApMetadata)).Deserialize(reader);
             }
 
-            using (var reader = new StreamReader("ap-configuration.xml")) {
+            using (var reader = new StreamReader(Path.Combine(path, "ap-configuration.xml"))) {
                 _config = (ApConfig)new XmlSerializer(typeof(ApConfig)).Deserialize(reader);
             }
 
-            using (var reader = new StreamReader("ap-constant-data.xml")) {
+            using (var reader = new StreamReader(Path.Combine(path, "ap-constant-data.xml"))) {
                 var ser = new XmlSerializer(typeof(ApConstantData));
                 _config.Profile.ConstantData = (ApConstantData)ser.Deserialize(reader);
             }

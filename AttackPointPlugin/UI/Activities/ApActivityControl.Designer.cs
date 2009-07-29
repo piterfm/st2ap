@@ -26,7 +26,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.lblClimb = new System.Windows.Forms.Label();
-            this.lblDistance = new System.Windows.Forms.Label();
+            this.lblCourseName = new System.Windows.Forms.Label();
             this.comboTechnicalIntensity = new System.Windows.Forms.ComboBox();
             this.lblTechnicalIntensity = new System.Windows.Forms.Label();
             this.lblTotalControls = new System.Windows.Forms.Label();
@@ -41,8 +41,11 @@
             this.lblWorkoutType = new System.Windows.Forms.Label();
             this.lblOrienteering = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblWorkout = new System.Windows.Forms.Label();
+            this.tbPrivateNote = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.lblPrivateNote = new System.Windows.Forms.Label();
             this.pIntensity = new System.Windows.Forms.Panel();
+            this.lblTotalTime = new System.Windows.Forms.Label();
             this.lblTotalCaption = new System.Windows.Forms.Label();
             this.lTimePerIntensity = new System.Windows.Forms.Label();
             this.lI5 = new System.Windows.Forms.Label();
@@ -61,9 +64,7 @@
             this.lblTipSubtype = new System.Windows.Forms.Label();
             this.tbSubtype = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.lblActivitySubtype = new System.Windows.Forms.Label();
-            this.tbPrivateNote = new ZoneFiveSoftware.Common.Visuals.TextBox();
-            this.lblWorkout = new System.Windows.Forms.Label();
-            this.lblTotalTime = new System.Windows.Forms.Label();
+            this.comboBoxCourseName = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.pIntensity.SuspendLayout();
             this.pOrienteering.SuspendLayout();
@@ -72,27 +73,27 @@
             // lblClimb
             // 
             this.lblClimb.AutoSize = true;
-            this.lblClimb.Location = new System.Drawing.Point(3, 140);
+            this.lblClimb.Location = new System.Drawing.Point(3, 130);
             this.lblClimb.Name = "lblClimb";
-            this.lblClimb.Size = new System.Drawing.Size(95, 17);
+            this.lblClimb.Size = new System.Drawing.Size(100, 17);
             this.lblClimb.TabIndex = 9;
-            this.lblClimb.Text = "Course Climb:";
+            this.lblClimb.Text = "Course Specs:";
             // 
-            // lblDistance
+            // lblCourseName
             // 
-            this.lblDistance.AutoSize = true;
-            this.lblDistance.Location = new System.Drawing.Point(3, 115);
-            this.lblDistance.Name = "lblDistance";
-            this.lblDistance.Size = new System.Drawing.Size(105, 17);
-            this.lblDistance.TabIndex = 8;
-            this.lblDistance.Text = "Course Length:";
+            this.lblCourseName.AutoSize = true;
+            this.lblCourseName.Location = new System.Drawing.Point(3, 105);
+            this.lblCourseName.Name = "lblCourseName";
+            this.lblCourseName.Size = new System.Drawing.Size(98, 17);
+            this.lblCourseName.TabIndex = 8;
+            this.lblCourseName.Text = "Course Name:";
             // 
             // comboTechnicalIntensity
             // 
             this.comboTechnicalIntensity.BackColor = System.Drawing.SystemColors.Window;
             this.comboTechnicalIntensity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboTechnicalIntensity.FormattingEnabled = true;
-            this.comboTechnicalIntensity.Location = new System.Drawing.Point(133, 82);
+            this.comboTechnicalIntensity.Location = new System.Drawing.Point(133, 72);
             this.comboTechnicalIntensity.Name = "comboTechnicalIntensity";
             this.comboTechnicalIntensity.Size = new System.Drawing.Size(144, 24);
             this.comboTechnicalIntensity.TabIndex = 10;
@@ -101,7 +102,7 @@
             // lblTechnicalIntensity
             // 
             this.lblTechnicalIntensity.AutoSize = true;
-            this.lblTechnicalIntensity.Location = new System.Drawing.Point(3, 85);
+            this.lblTechnicalIntensity.Location = new System.Drawing.Point(3, 75);
             this.lblTechnicalIntensity.Name = "lblTechnicalIntensity";
             this.lblTechnicalIntensity.Size = new System.Drawing.Size(129, 17);
             this.lblTechnicalIntensity.TabIndex = 4;
@@ -110,7 +111,7 @@
             // lblTotalControls
             // 
             this.lblTotalControls.AutoSize = true;
-            this.lblTotalControls.Location = new System.Drawing.Point(3, 56);
+            this.lblTotalControls.Location = new System.Drawing.Point(3, 46);
             this.lblTotalControls.Name = "lblTotalControls";
             this.lblTotalControls.Size = new System.Drawing.Size(98, 17);
             this.lblTotalControls.TabIndex = 1;
@@ -119,7 +120,7 @@
             // lblSpikedControls
             // 
             this.lblSpikedControls.AutoSize = true;
-            this.lblSpikedControls.Location = new System.Drawing.Point(3, 32);
+            this.lblSpikedControls.Location = new System.Drawing.Point(3, 22);
             this.lblSpikedControls.Name = "lblSpikedControls";
             this.lblSpikedControls.Size = new System.Drawing.Size(109, 17);
             this.lblSpikedControls.TabIndex = 0;
@@ -132,7 +133,7 @@
             this.tbSpiked.BackColor = System.Drawing.Color.White;
             this.tbSpiked.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
             this.tbSpiked.ButtonImage = null;
-            this.tbSpiked.Location = new System.Drawing.Point(133, 30);
+            this.tbSpiked.Location = new System.Drawing.Point(133, 20);
             this.tbSpiked.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbSpiked.MaxLength = 32767;
             this.tbSpiked.Multiline = false;
@@ -153,7 +154,7 @@
             this.tbTotal.BackColor = System.Drawing.Color.White;
             this.tbTotal.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
             this.tbTotal.ButtonImage = null;
-            this.tbTotal.Location = new System.Drawing.Point(133, 56);
+            this.tbTotal.Location = new System.Drawing.Point(133, 46);
             this.tbTotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbTotal.MaxLength = 32767;
             this.tbTotal.Multiline = false;
@@ -174,7 +175,7 @@
             this.tbDistance.BackColor = System.Drawing.Color.White;
             this.tbDistance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
             this.tbDistance.ButtonImage = null;
-            this.tbDistance.Location = new System.Drawing.Point(133, 114);
+            this.tbDistance.Location = new System.Drawing.Point(133, 130);
             this.tbDistance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbDistance.MaxLength = 32767;
             this.tbDistance.Multiline = false;
@@ -195,7 +196,7 @@
             this.tbClimb.BackColor = System.Drawing.Color.White;
             this.tbClimb.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
             this.tbClimb.ButtonImage = null;
-            this.tbClimb.Location = new System.Drawing.Point(133, 141);
+            this.tbClimb.Location = new System.Drawing.Point(201, 130);
             this.tbClimb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbClimb.MaxLength = 32767;
             this.tbClimb.Multiline = false;
@@ -213,7 +214,7 @@
             // 
             this.lblKm.AutoSize = true;
             this.lblKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblKm.Location = new System.Drawing.Point(168, 115);
+            this.lblKm.Location = new System.Drawing.Point(168, 132);
             this.lblKm.Name = "lblKm";
             this.lblKm.Size = new System.Drawing.Size(26, 17);
             this.lblKm.TabIndex = 14;
@@ -223,7 +224,7 @@
             // 
             this.lblMeters.AutoSize = true;
             this.lblMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblMeters.Location = new System.Drawing.Point(168, 142);
+            this.lblMeters.Location = new System.Drawing.Point(240, 132);
             this.lblMeters.Name = "lblMeters";
             this.lblMeters.Size = new System.Drawing.Size(19, 17);
             this.lblMeters.TabIndex = 15;
@@ -252,7 +253,7 @@
             // 
             this.lblOrienteering.AutoSize = true;
             this.lblOrienteering.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblOrienteering.Location = new System.Drawing.Point(2, 7);
+            this.lblOrienteering.Location = new System.Drawing.Point(2, 1);
             this.lblOrienteering.Name = "lblOrienteering";
             this.lblOrienteering.Size = new System.Drawing.Size(99, 17);
             this.lblOrienteering.TabIndex = 16;
@@ -273,14 +274,44 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(358, 443);
+            this.panel1.Size = new System.Drawing.Size(358, 423);
             this.panel1.TabIndex = 17;
+            // 
+            // lblWorkout
+            // 
+            this.lblWorkout.AutoSize = true;
+            this.lblWorkout.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblWorkout.Location = new System.Drawing.Point(6, 9);
+            this.lblWorkout.Name = "lblWorkout";
+            this.lblWorkout.Size = new System.Drawing.Size(68, 17);
+            this.lblWorkout.TabIndex = 24;
+            this.lblWorkout.Text = "Workout";
+            // 
+            // tbPrivateNote
+            // 
+            this.tbPrivateNote.AcceptsReturn = false;
+            this.tbPrivateNote.AcceptsTab = false;
+            this.tbPrivateNote.BackColor = System.Drawing.Color.White;
+            this.tbPrivateNote.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
+            this.tbPrivateNote.ButtonImage = null;
+            this.tbPrivateNote.Location = new System.Drawing.Point(5, 362);
+            this.tbPrivateNote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPrivateNote.MaxLength = 32767;
+            this.tbPrivateNote.Multiline = true;
+            this.tbPrivateNote.Name = "tbPrivateNote";
+            this.tbPrivateNote.ReadOnly = false;
+            this.tbPrivateNote.ReadOnlyColor = System.Drawing.SystemColors.Control;
+            this.tbPrivateNote.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
+            this.tbPrivateNote.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbPrivateNote.Size = new System.Drawing.Size(348, 57);
+            this.tbPrivateNote.TabIndex = 13;
+            this.tbPrivateNote.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // lblPrivateNote
             // 
             this.lblPrivateNote.AutoSize = true;
             this.lblPrivateNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPrivateNote.Location = new System.Drawing.Point(2, 358);
+            this.lblPrivateNote.Location = new System.Drawing.Point(2, 341);
             this.lblPrivateNote.Name = "lblPrivateNote";
             this.lblPrivateNote.Size = new System.Drawing.Size(103, 17);
             this.lblPrivateNote.TabIndex = 22;
@@ -305,13 +336,22 @@
             this.pIntensity.Controls.Add(this.tbI0);
             this.pIntensity.Location = new System.Drawing.Point(0, 101);
             this.pIntensity.Name = "pIntensity";
-            this.pIntensity.Size = new System.Drawing.Size(355, 87);
+            this.pIntensity.Size = new System.Drawing.Size(355, 80);
             this.pIntensity.TabIndex = 2;
+            // 
+            // lblTotalTime
+            // 
+            this.lblTotalTime.AutoSize = true;
+            this.lblTotalTime.Location = new System.Drawing.Point(274, 63);
+            this.lblTotalTime.Name = "lblTotalTime";
+            this.lblTotalTime.Size = new System.Drawing.Size(31, 17);
+            this.lblTotalTime.TabIndex = 36;
+            this.lblTotalTime.Text = "N/A";
             // 
             // lblTotalCaption
             // 
             this.lblTotalCaption.AutoSize = true;
-            this.lblTotalCaption.Location = new System.Drawing.Point(229, 67);
+            this.lblTotalCaption.Location = new System.Drawing.Point(229, 63);
             this.lblTotalCaption.Name = "lblTotalCaption";
             this.lblTotalCaption.Size = new System.Drawing.Size(48, 17);
             this.lblTotalCaption.TabIndex = 35;
@@ -508,10 +548,11 @@
             // 
             // pOrienteering
             // 
+            this.pOrienteering.Controls.Add(this.comboBoxCourseName);
             this.pOrienteering.Controls.Add(this.lblTotalControls);
             this.pOrienteering.Controls.Add(this.tbDistance);
             this.pOrienteering.Controls.Add(this.tbTotal);
-            this.pOrienteering.Controls.Add(this.lblDistance);
+            this.pOrienteering.Controls.Add(this.lblCourseName);
             this.pOrienteering.Controls.Add(this.tbClimb);
             this.pOrienteering.Controls.Add(this.tbSpiked);
             this.pOrienteering.Controls.Add(this.comboTechnicalIntensity);
@@ -521,9 +562,9 @@
             this.pOrienteering.Controls.Add(this.lblOrienteering);
             this.pOrienteering.Controls.Add(this.lblSpikedControls);
             this.pOrienteering.Controls.Add(this.lblKm);
-            this.pOrienteering.Location = new System.Drawing.Point(0, 188);
+            this.pOrienteering.Location = new System.Drawing.Point(0, 183);
             this.pOrienteering.Name = "pOrienteering";
-            this.pOrienteering.Size = new System.Drawing.Size(355, 167);
+            this.pOrienteering.Size = new System.Drawing.Size(355, 157);
             this.pOrienteering.TabIndex = 3;
             // 
             // lblTipSubtype
@@ -566,44 +607,29 @@
             this.lblActivitySubtype.TabIndex = 17;
             this.lblActivitySubtype.Text = "Activity Sub-type:";
             // 
-            // tbPrivateNote
+            // comboBoxCourseName
             // 
-            this.tbPrivateNote.AcceptsReturn = false;
-            this.tbPrivateNote.AcceptsTab = false;
-            this.tbPrivateNote.BackColor = System.Drawing.Color.White;
-            this.tbPrivateNote.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(114)))), ((int)(((byte)(108)))));
-            this.tbPrivateNote.ButtonImage = null;
-            this.tbPrivateNote.Location = new System.Drawing.Point(5, 379);
-            this.tbPrivateNote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tbPrivateNote.MaxLength = 32767;
-            this.tbPrivateNote.Multiline = true;
-            this.tbPrivateNote.Name = "tbPrivateNote";
-            this.tbPrivateNote.ReadOnly = false;
-            this.tbPrivateNote.ReadOnlyColor = System.Drawing.SystemColors.Control;
-            this.tbPrivateNote.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
-            this.tbPrivateNote.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbPrivateNote.Size = new System.Drawing.Size(348, 57);
-            this.tbPrivateNote.TabIndex = 13;
-            this.tbPrivateNote.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // lblWorkout
-            // 
-            this.lblWorkout.AutoSize = true;
-            this.lblWorkout.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblWorkout.Location = new System.Drawing.Point(6, 9);
-            this.lblWorkout.Name = "lblWorkout";
-            this.lblWorkout.Size = new System.Drawing.Size(68, 17);
-            this.lblWorkout.TabIndex = 24;
-            this.lblWorkout.Text = "Workout";
-            // 
-            // lblTotalTime
-            // 
-            this.lblTotalTime.AutoSize = true;
-            this.lblTotalTime.Location = new System.Drawing.Point(274, 67);
-            this.lblTotalTime.Name = "lblTotalTime";
-            this.lblTotalTime.Size = new System.Drawing.Size(31, 17);
-            this.lblTotalTime.TabIndex = 36;
-            this.lblTotalTime.Text = "N/A";
+            this.comboBoxCourseName.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxCourseName.FormattingEnabled = true;
+            this.comboBoxCourseName.Items.AddRange(new object[] {
+            "Long",
+            "Middle",
+            "Sprint",
+            "Relay",
+            "Ultra long",
+            "Score-O",
+            "Rogaine",
+            "Blue",
+            "Red",
+            "Green",
+            "Brown",
+            "Orange",
+            "Yellow",
+            "White"});
+            this.comboBoxCourseName.Location = new System.Drawing.Point(133, 102);
+            this.comboBoxCourseName.Name = "comboBoxCourseName";
+            this.comboBoxCourseName.Size = new System.Drawing.Size(144, 24);
+            this.comboBoxCourseName.TabIndex = 17;
             // 
             // ApActivityControl
             // 
@@ -611,7 +637,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "ApActivityControl";
-            this.Size = new System.Drawing.Size(358, 443);
+            this.Size = new System.Drawing.Size(358, 423);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.pIntensity.ResumeLayout(false);
@@ -628,7 +654,7 @@
         private System.Windows.Forms.Label lblSpikedControls;
         private System.Windows.Forms.Label lblTechnicalIntensity;
         private System.Windows.Forms.Label lblClimb;
-        private System.Windows.Forms.Label lblDistance;
+        private System.Windows.Forms.Label lblCourseName;
         private System.Windows.Forms.ComboBox comboTechnicalIntensity;
         private ZoneFiveSoftware.Common.Visuals.TextBox tbTotal;
         private ZoneFiveSoftware.Common.Visuals.TextBox tbSpiked;
@@ -663,5 +689,6 @@
         private System.Windows.Forms.Label lblWorkout;
         private ZoneFiveSoftware.Common.Visuals.TextBox tbPrivateNote;
         private System.Windows.Forms.Label lblTotalTime;
+        private System.Windows.Forms.ComboBox comboBoxCourseName;
     }
 }

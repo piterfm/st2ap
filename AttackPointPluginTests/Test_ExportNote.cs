@@ -23,7 +23,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.DateNotSpecified, error);
         }
@@ -41,7 +49,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
@@ -71,7 +87,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
@@ -101,7 +125,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
@@ -109,7 +141,7 @@ namespace AttackPointPluginTests
             // Check conversion from UTC to local time zone
             DateTime utcDate = date.ToUniversalTime();
             activity.SetupGet(a => a.StartTime).Returns(utcDate);
-            error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            error = action.Populate(note, activity.Object, edata);
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
         }
@@ -127,7 +159,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
@@ -157,7 +197,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, null, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
@@ -190,7 +238,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, apActivityData, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = apActivityData,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);
@@ -224,7 +280,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportNoteAction(activity.Object);
             var note = new ApNote();
-            var error = action.Populate(note, activity.Object, apActivityData, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = apActivityData,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             Assert.Equal(date, note.Date);

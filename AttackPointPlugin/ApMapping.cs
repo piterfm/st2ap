@@ -14,6 +14,9 @@ namespace GK.SportTracks.AttackPoint
         [XmlArray("Shoez")]
         [XmlArrayItem("Shoes")]
         public List<StEquipment> Shoes { get; set; }
+        [XmlArray("HeartZoneCategories")]
+        [XmlArrayItem("HeartZoneCategory")]
+        public List<StHeartZoneCategory> HeartZoneCatogories { get; set; }
     }
 
 }

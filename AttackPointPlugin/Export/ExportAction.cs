@@ -18,6 +18,7 @@ using System.Text;
 using System.Diagnostics;
 using GK.SportTracks.AttackPoint.Properties;
 using GK.SportTracks.AttackPoint.UI;
+using System.Collections.Generic;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
@@ -25,6 +26,14 @@ namespace GK.SportTracks.AttackPoint.Export
     {
         private IActivity activity;
         private bool _batchMode = false;
+        private static List<ExportWarning> Warnings = new List<ExportWarning>();
+
+        static ExportAction() {
+            var warnings = Enum.GetNames(typeof(ExportWarning));
+            for (int i = 1; i < warnings.Length; ++i) { // Skip None
+                Warnings.Add((ExportWarning)Enum.Parse(typeof(ExportWarning), warnings[i]));
+            }
+        }
 
         public ExportAction(IActivity activity) {
             this.activity = activity;
@@ -42,11 +51,33 @@ namespace GK.SportTracks.AttackPoint.Export
                     try {
                         var proxy = ApPlugin.GetProxy();
                         var note = CreateNote();
-                        var error = Populate(note, activity, ApPlugin.GetApData(activity), ApPlugin.GetApplication().Logbook, proxy.Metadata, ApPlugin.ApConfig);
-                        if (error == null || error == ExportError.EquipmentNotMapped) {
+                        var edata = new ExportConfig() {
+                            ActivityData = ApPlugin.GetApData(activity),
+                            Logbook = ApPlugin.GetApplication().Logbook,
+                            Metadata = proxy.Metadata,
+                            Config = ApPlugin.ApConfig
+                        };
+
+                        var error = Populate(note, activity, edata);
+
+                        if (error == null) {
                             bool upload = true;
-                            if (ApPlugin.ApConfig.WarnOnNotMappedEquipment && error == ExportError.EquipmentNotMapped) {
-                                upload = ShowWarning(dialog, GetMessage(error.Value), "Warning");
+                            if (edata.Warnings != ExportWarning.None) {
+                                var sb = new StringBuilder();
+                                foreach (var warning in Warnings) {
+                                    if (warning == ExportWarning.EquipmentNotMapped && !ApPlugin.ApConfig.WarnOnNotMappedEquipment) {
+                                        continue;
+                                    }
+                                    else if (warning == ExportWarning.IntensityNotSpecified && !ApPlugin.ApConfig.WarnOnUnspecifiedIntensity) {
+                                        continue;
+                                    }
+
+                                    if ((warning & edata.Warnings) != 0) {
+                                        sb.AppendLine(GetMessage(warning));
+                                    }
+                                }
+                                sb.AppendLine("Do you want to proceed with export?");
+                                upload = ShowWarning(dialog, sb.ToString());
                             }
 
                             if (upload) {
@@ -55,6 +86,7 @@ namespace GK.SportTracks.AttackPoint.Export
                                     var ser = new XmlSerializer(typeof(ApNote));
                                     ser.Serialize(w, note);
                                 }
+
                                 ApPlugin.Logger.PrintMessage(sb.ToString());
                                 proxy.Upload(note);
                                 ee.Result = "Export completed.";
@@ -77,11 +109,10 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         protected abstract ApNote CreateNote();
-        public abstract ExportError? Populate(ApNote note, IActivity activity, ApActivityData data, ILogbook logbook, ApMetadata metadata, ApConfig config);
+        public abstract ExportError? Populate(ApNote note, IActivity activity, ExportConfig edata);
         public abstract string Title { get; }
         public virtual Image Image { get { return Properties.Resources.FavIcon.ToBitmap(); } }
         public virtual bool HasMenuArrow { get { return false; } }
-
         public virtual bool Enabled { get { return !ApPlugin.ApConfig.IsMappingEmpty; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -112,11 +143,6 @@ namespace GK.SportTracks.AttackPoint.Export
             return !double.IsNaN(p) && p != 0;
         }
 
-
-        protected string ConvertToEmptyIfNull(string s) {
-            return s == null ? string.Empty : s;
-        }
-
         protected string ConvertToString(float f) {
             return float.IsNaN(f) ? null : f.ToString();
         }
@@ -139,8 +165,8 @@ namespace GK.SportTracks.AttackPoint.Export
             MessageBox.Show(parent, message, caption);
         }
 
-        protected bool ShowWarning(Form parent, string message, string caption) {
-            return (bool)parent.Invoke(new ShowWarningHandler(ShowWarningDialog), parent, message, caption);
+        protected bool ShowWarning(Form parent, string message) {
+            return (bool)parent.Invoke(new ShowWarningHandler(ShowWarningDialog), parent, message, "Warning");
         }
 
         private bool ShowWarningDialog(Form parent, string message, string caption) {
@@ -149,6 +175,10 @@ namespace GK.SportTracks.AttackPoint.Export
 
         private string GetMessage(ExportError error) {
             return Resources.ResourceManager.GetString("ExportError_" + error.ToString()).Replace("\\n", "\n");
+        }
+
+        private string GetMessage(ExportWarning warning) {
+            return Resources.ResourceManager.GetString("ExportWarning_" + warning.ToString()).Replace("\\n", "\n");
         }
 
     }
@@ -162,7 +192,30 @@ namespace GK.SportTracks.AttackPoint.Export
         IntensityNotFound,
         IntensityNotMapped,
         DistanceNotSpecified,
-        EquipmentNotFound,
-        EquipmentNotMapped
+        EquipmentNotFound
     }
+
+    [Flags]
+    public enum ExportWarning
+    {
+        None = 0,
+        EquipmentNotMapped = 1,
+        IntensityNotSpecified = 2,
+        FormatNotesFailed = 4,
+        FormatPrivateNoteFailed = 8
+    }
+
+    public class ExportConfig
+    {
+        public ExportConfig() {
+            Warnings = ExportWarning.None;
+        }
+
+        public ApActivityData ActivityData { get; set; }
+        public ILogbook Logbook { get; set; }
+        public ApMetadata Metadata { get; set; }
+        public ApConfig Config { get; set; }
+        public ExportWarning Warnings { get; set; }
+    }
+
 }

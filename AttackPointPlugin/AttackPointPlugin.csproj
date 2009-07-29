@@ -97,6 +97,7 @@
     <Compile Include="ApProxy\EncodingUtils.cs" />
     <Compile Include="ApProxy\ILogger.cs" />
     <Compile Include="ApProxy\LogManager.cs" />
+    <Compile Include="StHeartZone.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="StEntity.cs" />
     <Compile Include="StEquipment.cs" />
@@ -125,6 +126,12 @@
     </Compile>
     <Compile Include="Settings\SettingsPage.cs" />
     <Compile Include="StCategory.cs" />
+    <Compile Include="UI\AboutBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AboutBoxForm.Designer.cs">
+      <DependentUpon>AboutBoxForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Activities\ApActivityControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Settings\SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AboutBoxForm.resx">
+      <DependentUpon>AboutBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Activities\ApActivityControl.resx">
       <DependentUpon>ApActivityControl.cs</DependentUpon>
@@ -194,6 +204,7 @@
     <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\logo.bmp" />
     <Content Include="plugin.xml" />
+    <None Include="Resources\ologo.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -43,7 +43,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             // If it corresponds with Activity Time and Intensity then, clear IntensityX property
             if (ActivityInfo != null &&
                 _data.IsMixedIntensitySpecified() &&
-                _data.IsSingleIntensitySpecidied(ActivityInfo.Time, intensity)) {
+                _data.IsSingleIntensitySpecified(ActivityInfo.Time, intensity)) {
                 for (int i = 0; i <= 5; ++i) {
                     _data.Intensities[i] = null;
                 }
@@ -57,6 +57,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             _data.SpikedControls = GetValue(tbSpiked.Text);
             _data.TotalControls = GetValue(tbTotal.Text);
             _data.TechnicalIntensityId = GetValue(comboTechnicalIntensity.SelectedValue);
+            _data.CourseName = GetValue(comboBoxCourseName.Text);
             _data.CourseLength = GetValue(tbDistance.Text);
             _data.CourseClimb = GetValue(tbClimb.Text);
             _data.PrivateNote = GetValue(tbPrivateNote.Text);
@@ -140,6 +141,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
                 tbSpiked.Text = _data.SpikedControls;
                 tbTotal.Text = _data.TotalControls;
+                comboBoxCourseName.Text = _data.CourseName;
                 tbDistance.Text = _data.CourseLength;
                 tbClimb.Text = _data.CourseClimb;
 
@@ -172,7 +174,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             lblClimb.ForeColor =
                 lblWorkout.ForeColor =
                 lblWorkoutType.ForeColor =
-                lblDistance.ForeColor =
+                lblCourseName.ForeColor =
                 lblKm.ForeColor =
                 lblMeters.ForeColor =
                 lblOrienteering.ForeColor =

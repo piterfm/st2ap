@@ -25,13 +25,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsControl));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbAccountInfo = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lAdvancedFeatures = new System.Windows.Forms.Label();
@@ -58,9 +57,10 @@
             this.StEquipment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ApShoes = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.cbWarnAboutIntensity = new System.Windows.Forms.CheckBox();
+            this.linkWebPage = new System.Windows.Forms.LinkLabel();
             this.comboNotes = new System.Windows.Forms.ComboBox();
             this.cbWarnAboutShoes = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tbHelp = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbInclusionFormat = new System.Windows.Forms.TextBox();
@@ -88,7 +88,7 @@
             this.gbAccountInfo.Controls.Add(this.label2);
             this.gbAccountInfo.Controls.Add(this.label1);
             this.gbAccountInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.gbAccountInfo.Location = new System.Drawing.Point(14, 84);
+            this.gbAccountInfo.Location = new System.Drawing.Point(14, 78);
             this.gbAccountInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbAccountInfo.Name = "gbAccountInfo";
             this.gbAccountInfo.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -159,7 +159,7 @@
             // bFetch
             // 
             this.bFetch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.bFetch.Location = new System.Drawing.Point(14, 194);
+            this.bFetch.Location = new System.Drawing.Point(14, 184);
             this.bFetch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bFetch.Name = "bFetch";
             this.bFetch.Size = new System.Drawing.Size(283, 34);
@@ -173,7 +173,7 @@
             this.gbMappings.Controls.Add(this.label5);
             this.gbMappings.Controls.Add(this.tabControl1);
             this.gbMappings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.gbMappings.Location = new System.Drawing.Point(14, 279);
+            this.gbMappings.Location = new System.Drawing.Point(14, 268);
             this.gbMappings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbMappings.Name = "gbMappings";
             this.gbMappings.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -227,14 +227,14 @@
             this.dgActivities.AllowUserToDeleteRows = false;
             this.dgActivities.BackgroundColor = System.Drawing.Color.Black;
             this.dgActivities.CausesValidation = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgActivities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgActivities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgActivities.ColumnHeadersHeight = 30;
             this.dgActivities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgActivities.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -242,14 +242,14 @@
             this.ApActivity,
             this.ApSubActivity,
             this.Workout});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgActivities.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgActivities.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgActivities.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgActivities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgActivities.EnableHeadersVisualStyles = false;
@@ -307,27 +307,27 @@
             this.dgIntensities.AllowUserToAddRows = false;
             this.dgIntensities.AllowUserToDeleteRows = false;
             this.dgIntensities.BackgroundColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgIntensities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgIntensities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgIntensities.ColumnHeadersHeight = 30;
             this.dgIntensities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgIntensities.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StIntensity,
             this.ApIntensity});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgIntensities.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgIntensities.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgIntensities.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgIntensities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgIntensities.EnableHeadersVisualStyles = false;
@@ -373,27 +373,27 @@
             this.dgShoes.AllowUserToAddRows = false;
             this.dgShoes.AllowUserToDeleteRows = false;
             this.dgShoes.BackgroundColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgShoes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgShoes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgShoes.ColumnHeadersHeight = 30;
             this.dgShoes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgShoes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StEquipment,
             this.ApShoes});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgShoes.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgShoes.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgShoes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgShoes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgShoes.EnableHeadersVisualStyles = false;
@@ -421,9 +421,10 @@
             // 
             // gbOptions
             // 
+            this.gbOptions.Controls.Add(this.cbWarnAboutIntensity);
+            this.gbOptions.Controls.Add(this.linkWebPage);
             this.gbOptions.Controls.Add(this.comboNotes);
             this.gbOptions.Controls.Add(this.cbWarnAboutShoes);
-            this.gbOptions.Controls.Add(this.label3);
             this.gbOptions.Controls.Add(this.tbHelp);
             this.gbOptions.Controls.Add(this.label6);
             this.gbOptions.Controls.Add(this.tbInclusionFormat);
@@ -432,10 +433,34 @@
             this.gbOptions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbOptions.Name = "gbOptions";
             this.gbOptions.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbOptions.Size = new System.Drawing.Size(618, 216);
+            this.gbOptions.Size = new System.Drawing.Size(618, 206);
             this.gbOptions.TabIndex = 3;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Export Options";
+            // 
+            // cbWarnAboutIntensity
+            // 
+            this.cbWarnAboutIntensity.AutoSize = true;
+            this.cbWarnAboutIntensity.ForeColor = System.Drawing.Color.White;
+            this.cbWarnAboutIntensity.Location = new System.Drawing.Point(17, 154);
+            this.cbWarnAboutIntensity.Name = "cbWarnAboutIntensity";
+            this.cbWarnAboutIntensity.Size = new System.Drawing.Size(236, 21);
+            this.cbWarnAboutIntensity.TabIndex = 8;
+            this.cbWarnAboutIntensity.Text = "Warn about unspecified intensity";
+            this.cbWarnAboutIntensity.UseVisualStyleBackColor = true;
+            // 
+            // linkWebPage
+            // 
+            this.linkWebPage.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            this.linkWebPage.AutoSize = true;
+            this.linkWebPage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            this.linkWebPage.Location = new System.Drawing.Point(14, 112);
+            this.linkWebPage.Name = "linkWebPage";
+            this.linkWebPage.Size = new System.Drawing.Size(169, 17);
+            this.linkWebPage.TabIndex = 7;
+            this.linkWebPage.TabStop = true;
+            this.linkWebPage.Text = "http://st2ap.codeplex.com";
+            this.linkWebPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkWebPage_LinkClicked);
             // 
             // comboNotes
             // 
@@ -450,22 +475,12 @@
             // 
             this.cbWarnAboutShoes.AutoSize = true;
             this.cbWarnAboutShoes.ForeColor = System.Drawing.Color.White;
-            this.cbWarnAboutShoes.Location = new System.Drawing.Point(17, 190);
+            this.cbWarnAboutShoes.Location = new System.Drawing.Point(17, 180);
             this.cbWarnAboutShoes.Name = "cbWarnAboutShoes";
             this.cbWarnAboutShoes.Size = new System.Drawing.Size(217, 21);
             this.cbWarnAboutShoes.TabIndex = 6;
             this.cbWarnAboutShoes.Text = "Warn about unmapped shoes";
             this.cbWarnAboutShoes.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 166);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(573, 17);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Leave the field blank to export activity notes exactly as they are entered in the" +
-                " Notes field.";
             // 
             // tbHelp
             // 
@@ -477,10 +492,12 @@
             this.tbHelp.Multiline = true;
             this.tbHelp.Name = "tbHelp";
             this.tbHelp.ReadOnly = true;
-            this.tbHelp.Size = new System.Drawing.Size(584, 84);
+            this.tbHelp.Size = new System.Drawing.Size(584, 36);
             this.tbHelp.TabIndex = 4;
             this.tbHelp.TabStop = false;
-            this.tbHelp.Text = resources.GetString("tbHelp.Text");
+            this.tbHelp.Text = "Specify format of the Notes field. Check AttackPoint plugin\'s home page for docum" +
+                "entation.\r\nLeave the field blank to export activity notes exactly as they are en" +
+                "tered in the Notes field.";
             // 
             // label6
             // 
@@ -509,7 +526,7 @@
             // 
             this.lblFetch.AutoSize = true;
             this.lblFetch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.lblFetch.Location = new System.Drawing.Point(18, 247);
+            this.lblFetch.Location = new System.Drawing.Point(18, 235);
             this.lblFetch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFetch.Name = "lblFetch";
             this.lblFetch.Size = new System.Drawing.Size(104, 17);
@@ -518,12 +535,14 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::GK.SportTracks.AttackPoint.Properties.Resources.Logo;
             this.pictureBox1.Location = new System.Drawing.Point(14, 15);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(283, 67);
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // SettingsControl
             // 
@@ -538,7 +557,7 @@
             this.Controls.Add(this.gbAccountInfo);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(935, 736);
+            this.Size = new System.Drawing.Size(935, 712);
             this.gbAccountInfo.ResumeLayout(false);
             this.gbAccountInfo.PerformLayout();
             this.gbMappings.ResumeLayout(false);
@@ -584,7 +603,6 @@
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.CheckBox cbWarnAboutShoes;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lAdvancedFeatures;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewTextBoxColumn StCategory;
@@ -594,5 +612,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboNotes;
+        private System.Windows.Forms.CheckBox cbWarnAboutIntensity;
+        private System.Windows.Forms.LinkLabel linkWebPage;
     }
 }

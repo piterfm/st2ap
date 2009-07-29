@@ -12,6 +12,7 @@ using ZoneFiveSoftware.Common.Data.Fitness;
 using GK.SportTracks.AttackPoint.Properties;
 using GK.SportTracks.AttackPoint.UI;
 using ZoneFiveSoftware.Common.Visuals;
+using System.Diagnostics;
 
 namespace GK.SportTracks.AttackPoint.Settings
 {
@@ -26,7 +27,7 @@ namespace GK.SportTracks.AttackPoint.Settings
 
         public SettingsControl() {
             InitializeComponent();
-
+            linkWebPage.Text = ApPlugin.WebPage;
             //RefreshPage();
 
         }
@@ -40,6 +41,7 @@ namespace GK.SportTracks.AttackPoint.Settings
                 comboNotes.Enabled = true;
                 tbInclusionFormat.Enabled = true;
                 cbWarnAboutShoes.Enabled = true;
+                cbWarnAboutIntensity.Enabled = true;
 
                 if (comboNotes.Items.Count == 0) {
                     comboNotes.Items.Clear();
@@ -53,12 +55,14 @@ namespace GK.SportTracks.AttackPoint.Settings
 
                 PopulateInclusionFormatTextBox();
                 cbWarnAboutShoes.Checked = ApConfig.WarnOnNotMappedEquipment;
+                cbWarnAboutIntensity.Checked = ApConfig.WarnOnUnspecifiedIntensity;
             }
             else {
                 lAdvancedFeatures.Text = Resources.AdvancedFeaturesUnknown;
                 comboNotes.Enabled = false;
                 tbInclusionFormat.Enabled = false;
                 cbWarnAboutShoes.Enabled = false;
+                cbWarnAboutIntensity.Enabled = false;
             }
 
             UpdateRetrieveButton();
@@ -149,6 +153,7 @@ namespace GK.SportTracks.AttackPoint.Settings
 
             //config.NotesFormat = tbInclusionFormat.Text;
             config.WarnOnNotMappedEquipment = cbWarnAboutShoes.Checked;
+            config.WarnOnUnspecifiedIntensity = cbWarnAboutIntensity.Checked;
 
             for (int i = 0; i < dgActivities.Rows.Count; ++i) {
                 var row = dgActivities.Rows[i];
@@ -307,6 +312,16 @@ namespace GK.SportTracks.AttackPoint.Settings
 
         private void PopulateInclusionFormatTextBox() {
             tbInclusionFormat.Text = comboNotes.SelectedIndex == 0 ? ApConfig.NotesFormat : ApConfig.PrivateNotesFormat;
+        }
+
+        private void linkWebPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            ApPlugin.ShowWebPage();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e) {
+            AboutBoxForm f = new AboutBoxForm();
+            f.ShowDialog(this);
+            f.Dispose();
         }
 
     }

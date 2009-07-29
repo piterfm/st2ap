@@ -24,6 +24,8 @@ namespace GK.SportTracks.AttackPoint
         public string SpikedControls { get; set; }
         [XmlAttribute("t")]
         public string TotalControls { get; set; }
+        [XmlAttribute("cn")]
+        public string CourseName { get; set; }
         [XmlAttribute("l")]
         public string CourseLength { get; set; }
         [XmlAttribute("c")]
@@ -50,6 +52,7 @@ namespace GK.SportTracks.AttackPoint
                 string.IsNullOrEmpty(SpikedControls) &&
                 string.IsNullOrEmpty(TotalControls) &&
                 (string.IsNullOrEmpty(TechnicalIntensityId) || (TechnicalIntensityId == "0")) &&
+                string.IsNullOrEmpty(CourseName) &&
                 string.IsNullOrEmpty(CourseLength) &&
                 string.IsNullOrEmpty(CourseClimb) ?
                 true : false;
@@ -111,7 +114,7 @@ namespace GK.SportTracks.AttackPoint
             }
         }
 
-        public bool IsSingleIntensitySpecidied(TimeSpan timeSpan, int intensity) {
+        public bool IsSingleIntensitySpecified(TimeSpan timeSpan, int intensity) {
             if (!IsMixedIntensitySpecified()) return false;
 
             for (int i = 0; i <= 5; ++i) {

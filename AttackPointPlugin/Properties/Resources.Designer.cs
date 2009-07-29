@@ -142,15 +142,6 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The equipment item is not mapped to any AP shoes.\nDo you still want to proceed with export?.
-        /// </summary>
-        internal static string ExportError_EquipmentNotMapped {
-            get {
-                return ResourceManager.GetString("ExportError_EquipmentNotMapped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to find intensity in AP&apos;s mapping configuraion.\nPlease visit AP plugin&apos;s settings..
         /// </summary>
         internal static string ExportError_IntensityNotFound {
@@ -169,11 +160,47 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t export a training when the total time is not specified.\nUse &apos;Export Note instead..
+        ///   Looks up a localized string similar to Can&apos;t export a training when the total time is not specified.\nUse &apos;Export Note&apos; instead..
         /// </summary>
         internal static string ExportError_TimeNotSpecified {
             get {
                 return ResourceManager.GetString("ExportError_TimeNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The equipment item is not mapped to any AP shoes..
+        /// </summary>
+        internal static string ExportWarning_EquipmentNotMapped {
+            get {
+                return ResourceManager.GetString("ExportWarning_EquipmentNotMapped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The format string specified in the plugin&apos;s settings is incorrect..
+        /// </summary>
+        internal static string ExportWarning_FormatNotesFailed {
+            get {
+                return ResourceManager.GetString("ExportWarning_FormatNotesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The format string specified in the plugin&apos;s settings is incorrect..
+        /// </summary>
+        internal static string ExportWarning_FormatPrivateNoteFailed {
+            get {
+                return ResourceManager.GetString("ExportWarning_FormatPrivateNoteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The intensity is not specified..
+        /// </summary>
+        internal static string ExportWarning_IntensityNotSpecified {
+            get {
+                return ResourceManager.GetString("ExportWarning_IntensityNotSpecified", resourceCulture);
             }
         }
         
@@ -194,6 +221,13 @@ namespace GK.SportTracks.AttackPoint.Properties {
         internal static System.Drawing.Bitmap Logo {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap OLogo {
+            get {
+                object obj = ResourceManager.GetObject("OLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

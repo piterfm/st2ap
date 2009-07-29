@@ -50,7 +50,15 @@ namespace AttackPointPluginTests
             _config.Profile.AdvancedFeaturesEnabled = false;
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             AssertDate(note, date);
@@ -120,7 +128,15 @@ namespace AttackPointPluginTests
             _config.Profile.AdvancedFeaturesEnabled = true;
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             AssertDate(note, date);
@@ -186,7 +202,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             AssertDate(note, date);
@@ -231,7 +255,15 @@ namespace AttackPointPluginTests
             var note = new ApTraining();
             // Remove category to emulate the error
             _config.Mapping.Activities.RemoveAt(11);
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.CategoryNotFound, error);
         }
@@ -255,7 +287,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.CategoryNotMapped, error);
         }
@@ -278,7 +318,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.TimeNotSpecified, error);
         }
@@ -303,9 +351,17 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
             // Remove intensity to emulate the error
             _config.Mapping.Intensities.RemoveAt(2);
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.IntensityNotFound, error);
         }
@@ -331,7 +387,15 @@ namespace AttackPointPluginTests
             _config.Profile.AdvancedFeaturesEnabled = false;
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.IntensityNotMapped, error);
         }
@@ -357,7 +421,15 @@ namespace AttackPointPluginTests
             _config.Profile.AdvancedFeaturesEnabled = true;
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.IntensityNotMapped, error);
         }
@@ -382,7 +454,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.DistanceNotSpecified, error);
         }
@@ -415,7 +495,15 @@ namespace AttackPointPluginTests
             _config.Mapping.Shoes.RemoveAt(5);
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(ExportError.EquipmentNotFound, error);
         }
@@ -448,9 +536,18 @@ namespace AttackPointPluginTests
             _config.WarnOnNotMappedEquipment = true;
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
 
-            Assert.Equal(ExportError.EquipmentNotMapped, error);
+            var error = action.Populate(note, activity.Object, edata);
+
+            Assert.Equal(null, error);
+            Assert.NotEqual(0, (int)(edata.Warnings & ExportWarning.EquipmentNotMapped));
         }
 
         [Fact]
@@ -481,10 +578,19 @@ namespace AttackPointPluginTests
             _config.WarnOnNotMappedEquipment = false;
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
 
-            // Still it must be an error even when the warning is off
-            Assert.Equal(ExportError.EquipmentNotMapped, error);
+            var error = action.Populate(note, activity.Object, edata);
+
+            // Still it must be a warning even when the warning is off
+            Assert.Equal(null, error);
+            Assert.NotEqual(0, (int)(edata.Warnings & ExportWarning.EquipmentNotMapped));
         }
 
         [Fact]
@@ -513,7 +619,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             AssertDate(note, date);
@@ -563,7 +677,15 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
             AssertDate(note, date);
@@ -594,11 +716,12 @@ namespace AttackPointPluginTests
 
             var data = new ApActivityData()
             {
+                CourseName = "Blue",
                 CourseLength = "10.2",
                 CourseClimb = "350"
             };
             // Description format
-            _config.NotesFormat = "[name] in [location]. Burned [calories]\r\n[course-spec]\r\n[notes]";
+            _config.NotesFormat = "[{Name}] [in {Location}.] [Burned {Calories}.]\r\n[{CourseSpec}]\r\n[{Notes}]";
 
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbook(DateTime.MinValue, out athlete);
@@ -625,10 +748,18 @@ namespace AttackPointPluginTests
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
-            var error = action.Populate(note, activity.Object, data, logbook.Object, _metadata, _config);
+            var edata = new ExportConfig()
+            {
+                ActivityData = data,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
 
             Assert.Equal(null, error);
-            Assert.Equal("Evening run in Rancho San Antonio. Burned 350.4\r\nCourse: 10.2 km, 350 m\r\nThis is a note", note.Description);
+            Assert.Equal("Evening run in Rancho San Antonio. Burned 350.4.\r\nCourse: Blue 10.2 km 350 m\r\nThis is a note", note.Description);
 
         }
 

@@ -15,6 +15,8 @@ namespace GK.SportTracks.AttackPoint
         public string PrivateNotesFormat { get; set; }
         [XmlAttribute]
         public bool WarnOnNotMappedEquipment { get; set; }
+        [XmlAttribute]
+        public bool WarnOnUnspecifiedIntensity { get; set; }
 
         public ApProfile Profile { get; set; }
         public ApMapping Mapping { get; set; }

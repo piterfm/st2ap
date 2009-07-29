@@ -144,9 +144,6 @@
   <data name="ExportError_EquipmentNotFound" xml:space="preserve">
     <value>Unable to find equipment in AP's mapping configuraion.\nPlease visit AP plugin's settings.</value>
   </data>
-  <data name="ExportError_EquipmentNotMapped" xml:space="preserve">
-    <value>The equipment item is not mapped to any AP shoes.\nDo you still want to proceed with export?</value>
-  </data>
   <data name="ExportError_IntensityNotFound" xml:space="preserve">
     <value>Unable to find intensity in AP's mapping configuraion.\nPlease visit AP plugin's settings.</value>
   </data>
@@ -154,7 +151,19 @@
     <value>Training's intensity is not mapped to any AP's intensity.\nPlease visit AP plugin's settins page.</value>
   </data>
   <data name="ExportError_TimeNotSpecified" xml:space="preserve">
-    <value>Can't export a training when the total time is not specified.\nUse 'Export Note instead.</value>
+    <value>Can't export a training when the total time is not specified.\nUse 'Export Note' instead.</value>
+  </data>
+  <data name="ExportWarning_EquipmentNotMapped" xml:space="preserve">
+    <value>The equipment item is not mapped to any AP shoes.</value>
+  </data>
+  <data name="ExportWarning_FormatNotesFailed" xml:space="preserve">
+    <value>The format string specified in the plugin's settings is incorrect.</value>
+  </data>
+  <data name="ExportWarning_FormatPrivateNoteFailed" xml:space="preserve">
+    <value>The format string specified in the plugin's settings is incorrect.</value>
+  </data>
+  <data name="ExportWarning_IntensityNotSpecified" xml:space="preserve">
+    <value>The intensity is not specified.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="FavIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1120,6 +1129,9 @@
         X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXl5eXl5eXl5eXV1dXV1dXV1dXFxc
         XFxcXFxcXFxcXFxcXFxcXUr/
 </value>
+  </data>
+  <data name="OLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ologo.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Plugin_Name" xml:space="preserve">
     <value>AttackPoint Plugin</value>

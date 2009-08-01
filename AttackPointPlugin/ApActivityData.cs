@@ -66,6 +66,11 @@ namespace GK.SportTracks.AttackPoint
             return false;
         }
 
+        public void ResetIntensity() {
+            for (int i = 0; i < _intensities.Length; ++i)
+                _intensities[i] = null;
+        }
+
         public TimeSpan GetMixedIntensityTime() {
             var result = TimeSpan.Zero;
             for (int i = 0; i <= 5; ++i) {

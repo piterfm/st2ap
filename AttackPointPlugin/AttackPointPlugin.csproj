@@ -201,6 +201,8 @@
     <Content Include="ApProxy\ap-constant-data.xml" />
     <Content Include="ApProxy\ap-metadata.xml">
     </Content>
+    <Content Include="Resources\ArrowDown.bmp" />
+    <None Include="Resources\ArrowDown.png" />
     <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\logo.bmp" />
     <Content Include="plugin.xml" />
@@ -232,7 +234,7 @@ copy /Y "$(TargetDir)*.pdb" "$(ProjectDir)..\Install"
 copy /Y "$(ProjectDir)ApProxy\ap-metadata.xml" "$(ProjectDir)..\Install" 
 copy /Y "$(ProjectDir)ApProxy\ap-constant-data.xml" "$(ProjectDir)..\Install"
 copy /Y "$(ProjectDir)\plugin.xml" "$(ProjectDir)..\Install"
-
+copy /Y "$(ProjectDir)\license.txt" "$(ProjectDir)..\Install"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

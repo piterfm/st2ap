@@ -61,10 +61,12 @@
             this.tbI1 = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.tbI0 = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.pOrienteering = new System.Windows.Forms.Panel();
+            this.comboBoxCourseName = new System.Windows.Forms.ComboBox();
             this.lblTipSubtype = new System.Windows.Forms.Label();
             this.tbSubtype = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.lblActivitySubtype = new System.Windows.Forms.Label();
-            this.comboBoxCourseName = new System.Windows.Forms.ComboBox();
+            this.bCalculateIntensity = new ZoneFiveSoftware.Common.Visuals.Button();
+            this.bClear = new ZoneFiveSoftware.Common.Visuals.Button();
             this.panel1.SuspendLayout();
             this.pIntensity.SuspendLayout();
             this.pOrienteering.SuspendLayout();
@@ -92,11 +94,12 @@
             // 
             this.comboTechnicalIntensity.BackColor = System.Drawing.SystemColors.Window;
             this.comboTechnicalIntensity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTechnicalIntensity.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboTechnicalIntensity.FormattingEnabled = true;
             this.comboTechnicalIntensity.Location = new System.Drawing.Point(133, 72);
             this.comboTechnicalIntensity.Name = "comboTechnicalIntensity";
             this.comboTechnicalIntensity.Size = new System.Drawing.Size(144, 24);
-            this.comboTechnicalIntensity.TabIndex = 10;
+            this.comboTechnicalIntensity.TabIndex = 13;
             this.comboTechnicalIntensity.SelectedValueChanged += new System.EventHandler(this.ControlEdited);
             // 
             // lblTechnicalIntensity
@@ -143,7 +146,7 @@
             this.tbSpiked.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbSpiked.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbSpiked.Size = new System.Drawing.Size(35, 19);
-            this.tbSpiked.TabIndex = 8;
+            this.tbSpiked.TabIndex = 11;
             this.tbSpiked.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbSpiked.Leave += new System.EventHandler(this.ControlEdited);
             // 
@@ -164,7 +167,7 @@
             this.tbTotal.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbTotal.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbTotal.Size = new System.Drawing.Size(35, 19);
-            this.tbTotal.TabIndex = 9;
+            this.tbTotal.TabIndex = 12;
             this.tbTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbTotal.Leave += new System.EventHandler(this.ControlEdited);
             // 
@@ -185,7 +188,7 @@
             this.tbDistance.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbDistance.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbDistance.Size = new System.Drawing.Size(35, 19);
-            this.tbDistance.TabIndex = 11;
+            this.tbDistance.TabIndex = 15;
             this.tbDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbDistance.Leave += new System.EventHandler(this.ControlEdited);
             // 
@@ -206,7 +209,7 @@
             this.tbClimb.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbClimb.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbClimb.Size = new System.Drawing.Size(35, 19);
-            this.tbClimb.TabIndex = 12;
+            this.tbClimb.TabIndex = 16;
             this.tbClimb.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbClimb.Leave += new System.EventHandler(this.ControlEdited);
             // 
@@ -233,6 +236,7 @@
             // comboWorkout
             // 
             this.comboWorkout.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboWorkout.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboWorkout.FormattingEnabled = true;
             this.comboWorkout.Location = new System.Drawing.Point(133, 34);
             this.comboWorkout.Name = "comboWorkout";
@@ -304,7 +308,7 @@
             this.tbPrivateNote.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbPrivateNote.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbPrivateNote.Size = new System.Drawing.Size(348, 57);
-            this.tbPrivateNote.TabIndex = 13;
+            this.tbPrivateNote.TabIndex = 17;
             this.tbPrivateNote.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // lblPrivateNote
@@ -319,6 +323,8 @@
             // 
             // pIntensity
             // 
+            this.pIntensity.Controls.Add(this.bClear);
+            this.pIntensity.Controls.Add(this.bCalculateIntensity);
             this.pIntensity.Controls.Add(this.lblTotalTime);
             this.pIntensity.Controls.Add(this.lblTotalCaption);
             this.pIntensity.Controls.Add(this.lTimePerIntensity);
@@ -437,7 +443,7 @@
             this.tbI5.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbI5.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbI5.Size = new System.Drawing.Size(57, 19);
-            this.tbI5.TabIndex = 7;
+            this.tbI5.TabIndex = 10;
             this.tbI5.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbI5.Leave += new System.EventHandler(this.ValidateTimePerIntensity);
             // 
@@ -458,7 +464,7 @@
             this.tbI4.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbI4.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbI4.Size = new System.Drawing.Size(57, 19);
-            this.tbI4.TabIndex = 6;
+            this.tbI4.TabIndex = 9;
             this.tbI4.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbI4.Leave += new System.EventHandler(this.ValidateTimePerIntensity);
             // 
@@ -479,7 +485,7 @@
             this.tbI3.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbI3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbI3.Size = new System.Drawing.Size(57, 19);
-            this.tbI3.TabIndex = 5;
+            this.tbI3.TabIndex = 8;
             this.tbI3.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbI3.Leave += new System.EventHandler(this.ValidateTimePerIntensity);
             // 
@@ -500,7 +506,7 @@
             this.tbI2.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbI2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbI2.Size = new System.Drawing.Size(57, 19);
-            this.tbI2.TabIndex = 4;
+            this.tbI2.TabIndex = 7;
             this.tbI2.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbI2.Leave += new System.EventHandler(this.ValidateTimePerIntensity);
             // 
@@ -521,7 +527,7 @@
             this.tbI1.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbI1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbI1.Size = new System.Drawing.Size(57, 19);
-            this.tbI1.TabIndex = 3;
+            this.tbI1.TabIndex = 6;
             this.tbI1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbI1.Leave += new System.EventHandler(this.ValidateTimePerIntensity);
             // 
@@ -542,7 +548,7 @@
             this.tbI0.ReadOnlyTextColor = System.Drawing.SystemColors.ControlLight;
             this.tbI0.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbI0.Size = new System.Drawing.Size(57, 19);
-            this.tbI0.TabIndex = 2;
+            this.tbI0.TabIndex = 5;
             this.tbI0.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbI0.Leave += new System.EventHandler(this.ValidateTimePerIntensity);
             // 
@@ -566,6 +572,31 @@
             this.pOrienteering.Name = "pOrienteering";
             this.pOrienteering.Size = new System.Drawing.Size(355, 157);
             this.pOrienteering.TabIndex = 3;
+            // 
+            // comboBoxCourseName
+            // 
+            this.comboBoxCourseName.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxCourseName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBoxCourseName.FormattingEnabled = true;
+            this.comboBoxCourseName.Items.AddRange(new object[] {
+            "Long",
+            "Middle",
+            "Sprint",
+            "Relay",
+            "Ultra long",
+            "Score-O",
+            "Rogaine",
+            "Blue",
+            "Red",
+            "Green",
+            "Brown",
+            "Orange",
+            "Yellow",
+            "White"});
+            this.comboBoxCourseName.Location = new System.Drawing.Point(133, 102);
+            this.comboBoxCourseName.Name = "comboBoxCourseName";
+            this.comboBoxCourseName.Size = new System.Drawing.Size(144, 24);
+            this.comboBoxCourseName.TabIndex = 14;
             // 
             // lblTipSubtype
             // 
@@ -607,29 +638,49 @@
             this.lblActivitySubtype.TabIndex = 17;
             this.lblActivitySubtype.Text = "Activity Sub-type:";
             // 
-            // comboBoxCourseName
+            // bCalculateIntensity
             // 
-            this.comboBoxCourseName.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBoxCourseName.FormattingEnabled = true;
-            this.comboBoxCourseName.Items.AddRange(new object[] {
-            "Long",
-            "Middle",
-            "Sprint",
-            "Relay",
-            "Ultra long",
-            "Score-O",
-            "Rogaine",
-            "Blue",
-            "Red",
-            "Green",
-            "Brown",
-            "Orange",
-            "Yellow",
-            "White"});
-            this.comboBoxCourseName.Location = new System.Drawing.Point(133, 102);
-            this.comboBoxCourseName.Name = "comboBoxCourseName";
-            this.comboBoxCourseName.Size = new System.Drawing.Size(144, 24);
-            this.comboBoxCourseName.TabIndex = 17;
+            this.bCalculateIntensity.BackColor = System.Drawing.Color.Transparent;
+            this.bCalculateIntensity.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(120)))));
+            this.bCalculateIntensity.CenterImage = null;
+            this.bCalculateIntensity.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bCalculateIntensity.HyperlinkStyle = false;
+            this.bCalculateIntensity.ImageMargin = 2;
+            this.bCalculateIntensity.LeftImage = null;
+            this.bCalculateIntensity.Location = new System.Drawing.Point(254, 4);
+            this.bCalculateIntensity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bCalculateIntensity.Name = "bCalculateIntensity";
+            this.bCalculateIntensity.PushStyle = true;
+            this.bCalculateIntensity.RightImage = null;
+            this.bCalculateIntensity.Size = new System.Drawing.Size(89, 24);
+            this.bCalculateIntensity.TabIndex = 3;
+            this.bCalculateIntensity.Text = "Recalculate";
+            this.bCalculateIntensity.TextAlign = System.Drawing.StringAlignment.Center;
+            this.bCalculateIntensity.TextLeftMargin = 2;
+            this.bCalculateIntensity.TextRightMargin = 2;
+            this.bCalculateIntensity.Click += new System.EventHandler(this.bCalculateIntensity_Click);
+            // 
+            // bClear
+            // 
+            this.bClear.BackColor = System.Drawing.Color.Transparent;
+            this.bClear.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(120)))));
+            this.bClear.CenterImage = null;
+            this.bClear.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bClear.HyperlinkStyle = false;
+            this.bClear.ImageMargin = 2;
+            this.bClear.LeftImage = null;
+            this.bClear.Location = new System.Drawing.Point(171, 4);
+            this.bClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bClear.Name = "bClear";
+            this.bClear.PushStyle = true;
+            this.bClear.RightImage = null;
+            this.bClear.Size = new System.Drawing.Size(73, 24);
+            this.bClear.TabIndex = 2;
+            this.bClear.Text = "Clear";
+            this.bClear.TextAlign = System.Drawing.StringAlignment.Center;
+            this.bClear.TextLeftMargin = 2;
+            this.bClear.TextRightMargin = 2;
+            this.bClear.Click += new System.EventHandler(this.bClear_Click);
             // 
             // ApActivityControl
             // 
@@ -690,5 +741,7 @@
         private ZoneFiveSoftware.Common.Visuals.TextBox tbPrivateNote;
         private System.Windows.Forms.Label lblTotalTime;
         private System.Windows.Forms.ComboBox comboBoxCourseName;
+        private ZoneFiveSoftware.Common.Visuals.Button bCalculateIntensity;
+        private ZoneFiveSoftware.Common.Visuals.Button bClear;
     }
 }

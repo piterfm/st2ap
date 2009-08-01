@@ -93,6 +93,20 @@ namespace GK.SportTracks.AttackPoint
             return distance == 0 ? null : list[index];
         }
 
+
+        internal static ApEntity MapHeartRateZone(ApProfile data, StHeartZone zone, bool guess) {
+            if (data.Intensities == null || data.Intensities.Count == 0)
+                return null;
+
+            var apIntensity = data.Intensities.Find(i => i.Id == zone.ApId);
+
+            // TODO: Implement guess
+            //if (apIntensity == null && guess) {
+            //    apIntensity = data.Intensities.Find(i => i.Id == IntensityMap[intensity.StId]);
+            //}
+
+            return apIntensity;
+        }
     }
 
 }

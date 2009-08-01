@@ -9,11 +9,31 @@ namespace GK.SportTracks.AttackPoint
 {
     public class StHeartZoneCategory
     {
+        private IZoneCategory _instance;
+
+        public StHeartZoneCategory() { }
+        public StHeartZoneCategory(IZoneCategory category) { Instance = category; }
+
         [XmlAttribute("Id")]
         public string Id { get; set; }
         [XmlArray("HeartZones")]
         [XmlArrayItem("HeartZone")]
         public List<StHeartZone> HeartZones { get; set; }
+        [XmlIgnore]
+        public string Title { get { return _instance == null ? "<Unknown>" : _instance.Name; } }
+
+        [XmlIgnore]
+        public IZoneCategory Instance {
+            get { return _instance; }
+            set {
+                _instance = value;
+                Id = _instance.ReferenceId;
+            }
+        }
+
+        public override string ToString() {
+            return Title;
+        }
     }
 
 
@@ -28,6 +48,9 @@ namespace GK.SportTracks.AttackPoint
         }
 
         [XmlIgnore]
+        public string Title { get { return StId; } }
+
+        [XmlIgnore]
         public INamedLowHighZone Instance {
             get { return _instance; }
             set {
@@ -37,7 +60,7 @@ namespace GK.SportTracks.AttackPoint
         }
 
         public override string ToString() {
-            return Instance.Name;
+            return Title;
         }
 
 

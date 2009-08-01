@@ -19,7 +19,7 @@ namespace GK.AttackPoint
         public string Username {
             get { return _username; }
             set {
-                _oldUsername = _username;
+                _oldUsername = _username ?? value;
                 _username = value;
             }
         }
@@ -28,7 +28,7 @@ namespace GK.AttackPoint
         public string Password {
             get { return _password; }
             set {
-                _oldPassword = _password;
+                _oldPassword = _password ?? value;
                 _password = value;
             }
         }
@@ -75,8 +75,23 @@ namespace GK.AttackPoint
             }
         }
 
+        public bool UsernameChanged {
+            get { return _oldUsername != _username; }
+        }
+
         public bool CredentialsChanged {
             get { return _oldUsername != _username || _oldPassword != _password; }
+        }
+
+        public bool IsEmpty {
+            get {
+                return
+                    !AdvancedFeaturesEnabledSpecified ||
+                    string.IsNullOrEmpty(Username) ||
+                    string.IsNullOrEmpty(Password) ||
+                    Activities == null ||
+                    Shoes == null;
+            }
         }
 
         internal ApEntity GetActivity(string id) {

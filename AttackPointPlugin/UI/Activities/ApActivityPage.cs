@@ -91,6 +91,8 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         }
 
         public void ShowPage(string bookmark) {
+            if (_control != null)
+                _control.RefreshPage();
         }
 
         public IPageStatus Status {

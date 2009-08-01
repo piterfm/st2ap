@@ -17,6 +17,8 @@ namespace GK.SportTracks.AttackPoint
         public bool WarnOnNotMappedEquipment { get; set; }
         [XmlAttribute]
         public bool WarnOnUnspecifiedIntensity { get; set; }
+        [XmlAttribute]
+        public bool AutoCalculateMixedIntensity { get; set; }
 
         public ApProfile Profile { get; set; }
         public ApMapping Mapping { get; set; }
@@ -33,6 +35,15 @@ namespace GK.SportTracks.AttackPoint
                     Mapping.Shoes == null ||
                     Mapping.Shoes.Count == 0;
             }
+        }
+
+        public void Clear() {
+            NotesFormat = null;
+            PrivateNotesFormat = null;
+            Profile.AdvancedFeaturesEnabledSpecified = false;
+            Profile.Activities = null;
+            Profile.Shoes = null;
+            Mapping = new ApMapping();
         }
     }
 }

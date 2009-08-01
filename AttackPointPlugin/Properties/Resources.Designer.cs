@@ -87,6 +87,13 @@ namespace GK.SportTracks.AttackPoint.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ArrowDown {
+            get {
+                object obj = ResourceManager.GetObject("ArrowDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Username and/or password are not configured for AttackPoint website. Please set up your account in the &quot;Settings&quot; menu first..
         /// </summary>

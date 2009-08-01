@@ -70,7 +70,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         }
 
         public void RefreshPage() {
-            var apData = ApPlugin.ApConfig.Profile;
+            var profile = ApPlugin.ApConfig.Profile;
 
             // Display total time and intensities' time
             if (ActivityInfo != null && !ApPlugin.ApConfig.IsMappingEmpty) {
@@ -80,19 +80,24 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                 else {
                     Array.ForEach(_iTextBoxes, t => t.Text = null);
 
-                    var defaultTextBox = tbI3; // the default intensity is 3
+                    bool calculated = ApPlugin.ApConfig.AutoCalculateMixedIntensity &&
+                        CalculateMixedIntensity(false);
 
-                    // If intensities's times are not specified,
-                    // choose a default intensity and set its time to be activity time
-                    var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
-                    if (stIntensity != null && stIntensity.ApId != "-1") {
-                        var index = int.Parse(stIntensity.ApId);
-                        _data.Intensities[index] = FormatTime(ActivityInfo.Time);
-                        defaultTextBox = _iTextBoxes[index];
-                    }
+                    //if (!calculated) {
+                    //    var defaultTextBox = tbI3; // the default intensity is 3
 
-                    defaultTextBox.Text = lblTotalTime.Text =
-                        FormatTime(ActivityInfo.Time);
+                    //    // If intensities's times are not specified,
+                    //    // choose a default intensity and set its time to be activity time
+                    //    var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
+                    //    if (stIntensity != null && stIntensity.ApId != "-1") {
+                    //        var index = int.Parse(stIntensity.ApId);
+                    //        _data.Intensities[index] = FormatTime(ActivityInfo.Time);
+                    //        defaultTextBox = _iTextBoxes[index];
+                    //    }
+
+                    //    defaultTextBox.Text = lblTotalTime.Text =
+                    //        FormatTime(ActivityInfo.Time);
+                    //}
                 }
             }
             else {
@@ -101,11 +106,11 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
             comboWorkout.DisplayMember = "Title";
             comboWorkout.ValueMember = "Id";
-            comboWorkout.DataSource = apData.Workouts;
+            comboWorkout.DataSource = profile.Workouts;
 
             comboTechnicalIntensity.DisplayMember = "Title";
             comboTechnicalIntensity.ValueMember = "Id";
-            comboTechnicalIntensity.DataSource = apData.TechnicalIntensities;
+            comboTechnicalIntensity.DataSource = profile.TechnicalIntensities;
 
             var workoutId = _data != null ? _data.WorkoutId : null;
             if (workoutId == null && Activity != null && !ApPlugin.ApConfig.IsMappingEmpty) {
@@ -123,7 +128,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             }
 
             if (Activity != null && !ApPlugin.ApConfig.IsMappingEmpty) {
-                if (apData.ContainsTechnicalIntensityId(_data.TechnicalIntensityId)) {
+                if (profile.ContainsTechnicalIntensityId(_data.TechnicalIntensityId)) {
                     comboTechnicalIntensity.SelectedValue = _data.TechnicalIntensityId;
                 }
                 else {
@@ -148,8 +153,8 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                 tbPrivateNote.Text = _data.PrivateNote;
 
                 panel1.Enabled = true;
-                pIntensity.Enabled = apData.AdvancedFeaturesEnabled;
-                tbPrivateNote.Enabled = apData.AdvancedFeaturesEnabled;
+                pIntensity.Enabled = profile.AdvancedFeaturesEnabled;
+                tbPrivateNote.Enabled = profile.AdvancedFeaturesEnabled;
             }
             else {
                 comboWorkout.SelectedIndex = -1;
@@ -249,5 +254,64 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             }
         }
 
-     }
+        private void bCalculateIntensity_Click(object sender, EventArgs e) {
+            CalculateMixedIntensity(true);
+        }
+
+        private bool CalculateMixedIntensity(bool recalculate) {
+            if (_data == null) return false;
+
+            if (ApPlugin.ApConfig.Mapping.HeartZoneCatogories == null ||
+                ApPlugin.ApConfig.Mapping.HeartZoneCatogories.Count == 0) {
+                DisplayHeartZoneMappingError(recalculate);
+                return false;
+            }
+
+            var zoneCategory = Activity.Category.HeartRateZone;
+            var stZoneCategory = ApPlugin.ApConfig.Mapping.HeartZoneCatogories.Find(x => x.Id == zoneCategory.ReferenceId);
+            if (stZoneCategory == null || stZoneCategory.HeartZones == null || stZoneCategory.HeartZones.Count == 0) {
+                DisplayHeartZoneMappingError(recalculate);
+                return false;
+            }
+
+            var intensities = new string[6];
+            var categoryInfo = ActivityInfo.HeartRateZoneInfo(zoneCategory);
+            foreach (var info in categoryInfo.Zones) {
+                if (info.Name == "Total") continue;
+                var stHRZone = stZoneCategory.HeartZones.Find(x => x.StId == info.Zone.Name);
+                int index;
+                if (stHRZone == null ||
+                    string.IsNullOrEmpty(stHRZone.ApId) ||
+                    ((index = int.Parse(stHRZone.ApId)) < 0)) {
+                    DisplayHeartZoneMappingError(recalculate);
+                    return false;
+                }
+
+                intensities[index] = FormatTime(
+                    info.TotalTime +
+                    ApActivityData.GetIntensityTime(intensities[index]));
+            }
+
+            _data.Intensities = intensities;
+            for (int i = 0; i < intensities.Length; ++i)
+                _iTextBoxes[i].Text = intensities[i];
+
+            return true;
+        }
+
+        private void DisplayHeartZoneMappingError(bool recalculate) {
+            if (!recalculate) return;
+            MessageBox.Show(this, "Unable to recalculate mixed intensity.\nMapping for active heart rate zone category is not specified.\nCheck plugin settings.", "Mapping error");
+        }
+
+        private void bClear_Click(object sender, EventArgs e) {
+            for (int i = 0; i < _iTextBoxes.Length; ++i) {
+                _iTextBoxes[i].Text = null;
+                if (_data != null) {
+                    _data.Intensities[i] = null;
+                }
+            }
+        }
+
+    }
 }

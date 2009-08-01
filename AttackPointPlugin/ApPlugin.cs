@@ -133,22 +133,7 @@ namespace GK.SportTracks.AttackPoint
             }
         }
 
-        /*
-        internal static List<StHeartZoneCategory> GetStHeartrateZones() {
-            var hrc = _application.Logbook.HeartRateZones;
-            List<StHeartZoneCategory> list = null;
-
-            if (ApConfig.Mapping.HeartZoneCatogories == null) {
-                ApConfig.Mapping.HeartZoneCatogories = new List<StHeartZoneCategory>();
-            }
-            else {
-                list = new List<StHeartZoneCategory>(ApConfig.Mapping.HeartZoneCatogories);
-            }
-
-            return ApConfig.Mapping.HeartZoneCatogories;
-        }*/
-
-        internal static List<StIntensity> GetStIntensities() {
+        internal static List<StIntensity> UpdateStIntensities() {
             if (ApConfig.Mapping.Intensities == null || ApConfig.Mapping.Intensities.Count == 0) {
                 ApConfig.Mapping.Intensities = new List<StIntensity>();
                 for (int i = 0; i <= 10; ++i) {
@@ -160,7 +145,57 @@ namespace GK.SportTracks.AttackPoint
             return ApConfig.Mapping.Intensities;
         }
 
-        internal static List<StEquipment> GetStEquipmentItems() {
+        internal static List<StHeartZoneCategory> UpdateStHeartRateZones() {
+            var hrCategories = _application.Logbook.HeartRateZones;
+            List<StHeartZoneCategory> list = null;
+
+            if (ApConfig.Mapping.HeartZoneCatogories == null) {
+                ApConfig.Mapping.HeartZoneCatogories = new List<StHeartZoneCategory>();
+            }
+            else {
+                list = new List<StHeartZoneCategory>(ApConfig.Mapping.HeartZoneCatogories);
+            }
+
+            ApConfig.Mapping.HeartZoneCatogories.Clear();
+            foreach (var cat in hrCategories) {
+                StHeartZoneCategory c = null;
+                if (list == null ||
+                    (c = list.Find(t => t.Id == cat.ReferenceId)) == null) {
+                    c = new StHeartZoneCategory(cat);
+                }
+                else {
+                    c.Instance = cat;
+                }
+
+                ApConfig.Mapping.HeartZoneCatogories.Add(c);
+
+                // Deal with zones in this category
+                List<StHeartZone> zones = null;
+                if (c.HeartZones == null) {
+                    c.HeartZones = new List<StHeartZone>();
+                }
+                else {
+                    zones = new List<StHeartZone>(c.HeartZones);
+                }
+
+                c.HeartZones.Clear();
+                foreach (var zone in cat.Zones) {
+                    StHeartZone z = null;
+                    if (zones == null ||
+                        ((z = zones.Find(t => t.StId == zone.Name)) == null)) {
+                        z = new StHeartZone(zone);
+                    }
+                    else {
+                        z.Instance = zone;
+                    }
+                    c.HeartZones.Add(z);
+                }
+            }
+
+            return ApConfig.Mapping.HeartZoneCatogories;
+        }
+
+        internal static List<StEquipment> UpdateStEquipmentItems() {
             var equipment = _application.Logbook.Equipment;
 
             List<StEquipment> stEquipment = null;
@@ -181,7 +216,7 @@ namespace GK.SportTracks.AttackPoint
                     e = new StEquipment(item);
                 }
                 else {
-                    ((StEquipment)e).Instance = item;
+                    e.Instance = item;
                 }
 
                 ApConfig.Mapping.Shoes.Add(e);
@@ -189,7 +224,7 @@ namespace GK.SportTracks.AttackPoint
             return ApConfig.Mapping.Shoes;
         }
 
-        internal static List<StCategory> GetStCategories() {
+        internal static List<StCategory> UpdateStCategories() {
             var categories = _application.Logbook.ActivityCategories;
             var list = new List<IActivityCategory>();
             foreach (IActivityCategory cat in categories) {

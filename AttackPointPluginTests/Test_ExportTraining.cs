@@ -60,7 +60,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             AssertDate(note, date);
             AssertAthlete(note);
             Assert.Equal("This is a note", note.Description);
@@ -68,12 +68,12 @@ namespace AttackPointPluginTests
             // Assert training
             Assert.Equal("013421", note.TotalTime);
             Assert.Equal("4", note.IntensityId);
-            Assert.Equal(null, note.Intensity0);
-            Assert.Equal(null, note.Intensity1);
-            Assert.Equal(null, note.Intensity2);
-            Assert.Equal(null, note.Intensity3);
-            Assert.Equal(null, note.Intensity4);
-            Assert.Equal(null, note.Intensity5);
+            Assert.Null(note.Intensity0);
+            Assert.Null(note.Intensity1);
+            Assert.Null(note.Intensity2);
+            Assert.Null(note.Intensity3);
+            Assert.Null(note.Intensity4);
+            Assert.Null(note.Intensity5);
             Assert.Equal("5785", note.ActivityId);
             Assert.Equal("long", note.ActivitySubType);
             Assert.Equal("1", note.WorkoutId);
@@ -138,7 +138,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             AssertDate(note, date);
             AssertAthlete(note);
             Assert.Equal("This is a note", note.Description);
@@ -212,7 +212,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             AssertDate(note, date);
             AssertAthlete(note);
             Assert.Equal("This is a note", note.Description);
@@ -546,7 +546,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.NotEqual(0, (int)(edata.Warnings & ExportWarning.EquipmentNotMapped));
         }
 
@@ -589,7 +589,7 @@ namespace AttackPointPluginTests
             var error = action.Populate(note, activity.Object, edata);
 
             // Still it must be a warning even when the warning is off
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.NotEqual(0, (int)(edata.Warnings & ExportWarning.EquipmentNotMapped));
         }
 
@@ -629,10 +629,10 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             AssertDate(note, date);
             AssertAthlete(note);
-            Assert.Equal(null, note.Description);
+            Assert.Null(note.Description);
 
             // Assert training
             Assert.Equal("013421", note.TotalTime);
@@ -641,11 +641,11 @@ namespace AttackPointPluginTests
             Assert.Equal("long", note.ActivitySubType);
             Assert.Equal("1", note.WorkoutId);
             Assert.Equal("2602", note.ShoesId);
-            Assert.Equal(null, note.AverageHeartRate);
-            Assert.Equal(null, note.MaxHeartRate);
-            Assert.Equal(null, note.SpikedControls);
-            Assert.Equal(null, note.TotalControls);
-            Assert.Equal(null, note.TechnicalIntensityId);
+            Assert.Null(note.AverageHeartRate);
+            Assert.Null(note.MaxHeartRate);
+            Assert.Null(note.SpikedControls);
+            Assert.Null(note.TotalControls);
+            Assert.Null(note.TechnicalIntensityId);
         }
 
         [Fact]
@@ -687,27 +687,27 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             AssertDate(note, date);
             AssertAthlete(note);
-            Assert.Equal(null, note.Description);
+            Assert.Null(note.Description);
 
             // Assert training
             Assert.Equal("013421", note.TotalTime);
             Assert.Equal("15.21", note.Distance);
             Assert.Equal("kilometers", note.DistanceUnitId);
-            Assert.Equal(null, note.Climb);
-            Assert.Equal(null, note.ClimbUnitId);
+            Assert.Null(note.Climb);
+            Assert.Null(note.ClimbUnitId);
             Assert.Equal("4", note.IntensityId);
             Assert.Equal("5785", note.ActivityId);
             Assert.Equal("long", note.ActivitySubType);
             Assert.Equal("1", note.WorkoutId);
             Assert.Equal("2602", note.ShoesId);
-            Assert.Equal(null, note.AverageHeartRate);
-            Assert.Equal(null, note.MaxHeartRate);
-            Assert.Equal(null, note.SpikedControls);
-            Assert.Equal(null, note.TotalControls);
-            Assert.Equal(null, note.TechnicalIntensityId);
+            Assert.Null(note.AverageHeartRate);
+            Assert.Null(note.MaxHeartRate);
+            Assert.Null(note.SpikedControls);
+            Assert.Null(note.TotalControls);
+            Assert.Null(note.TechnicalIntensityId);
         }
 
         [Fact]
@@ -758,7 +758,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal("Evening run in Rancho San Antonio. Burned 350.4.\r\nCourse: Blue 10.2 km 350 m\r\nThis is a note", note.Description);
 
         }
@@ -771,13 +771,13 @@ namespace AttackPointPluginTests
         }
 
         private void AssertAthlete(ApTraining note) {
-            Assert.Equal(null, note.IsSick);
-            Assert.Equal(null, note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
-            Assert.Equal(null, note.RestingHeartRate);
-            Assert.Equal(null, note.Weight);
-            Assert.Equal(null, note.WeightUnitId);
-            Assert.Equal(null, note.SleepHours);
+            Assert.Null(note.IsSick);
+            Assert.Null(note.IsInjured);
+            Assert.Null(note.IsRestDay);
+            Assert.Null(note.RestingHeartRate);
+            Assert.Null(note.Weight);
+            Assert.Null(note.WeightUnitId);
+            Assert.Null(note.SleepHours);
         }
 
     }

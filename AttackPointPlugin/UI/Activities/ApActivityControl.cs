@@ -14,7 +14,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
     public partial class ApActivityControl : UserControl
     {
         private ApActivityData _data;
-        private Units _defaultUnits;
+        private ITheme _theme;
         private ZoneFiveSoftware.Common.Visuals.TextBox[] _iTextBoxes = new ZoneFiveSoftware.Common.Visuals.TextBox[6];
 
         public ApActivityControl() {
@@ -25,42 +25,137 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             _iTextBoxes[3] = tbI3;
             _iTextBoxes[4] = tbI4;
             _iTextBoxes[5] = tbI5;
+
+            comboWorkout.DisplayMember = "Title";
+            comboWorkout.ValueMember = "Id";
+
+            comboTechnicalIntensity.DisplayMember = "Title";
+            comboTechnicalIntensity.ValueMember = "Id";
         }
 
         public ApActivityData Data { set { _data = value; } }
         public IActivity Activity { get; set; }
         public ActivityInfo ActivityInfo { get { return Activity != null ? ActivityInfoCache.Instance.GetInfo(Activity) : null; } }
 
+        public void RefreshPage() {
+            try {
+                var profile = ApPlugin.ApConfig.Profile;
+
+                // Display total time and intensities' time
+                if (ActivityInfo != null && !ApPlugin.ApConfig.IsMappingEmpty) {
+                    comboWorkout.DataSource = profile.Workouts;
+                    comboTechnicalIntensity.DataSource = profile.TechnicalIntensities;
+
+                    // Intensities
+                    if (!_data.IsMixedIntensitySpecified() && !_data.IntensitiesCleared) {
+                        if (ApPlugin.ApConfig.AutoCalculateMixedIntensity) {
+                            CalculateMixedIntensity(false);
+                        }
+                    }
+
+                    RefreshIntensities();
+
+                    // Workout
+                    var workoutId = _data.WorkoutId;
+                    if (workoutId == null) {
+                        var stCategory = ApPlugin.ApConfig.Mapping.Activities.Find(a => a.StId == Activity.Category.ReferenceId);
+                        if (stCategory != null) {
+                            workoutId = stCategory.WorkoutId;
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(workoutId)) {
+                        comboWorkout.SelectedValue = workoutId;
+                    }
+                    else {
+                        comboWorkout.SelectedIndex = -1;
+                    }
+
+                    // Technical intensity
+                    if (profile.ContainsTechnicalIntensityId(_data.TechnicalIntensityId)) {
+                        comboTechnicalIntensity.SelectedValue = _data.TechnicalIntensityId;
+                    }
+                    else {
+                        comboTechnicalIntensity.SelectedIndex = 0;
+                    }
+
+                    tbSpiked.Text = _data.SpikedControls;
+                    tbTotal.Text = _data.TotalControls;
+                    comboBoxCourseName.Text = _data.CourseName;
+                    tbDistance.Text = _data.CourseLength;
+                    tbClimb.Text = _data.CourseClimb;
+
+                    tbPrivateNote.Text = _data.PrivateNote;
+
+                    panel1.Enabled = true;
+                    pIntensity.Enabled =
+                    tbPrivateNote.Enabled =
+                    bClear.Enabled =
+                    bCalculateIntensity.Enabled = profile.AdvancedFeaturesEnabled;
+                }
+                else {
+                    lblTotalTime.Text = "N/A";
+                    comboWorkout.SelectedIndex = -1;
+                    comboTechnicalIntensity.SelectedIndex = -1;
+                    tbI0.Text = null;
+                    tbI1.Text = null;
+                    tbI2.Text = null;
+                    tbI3.Text = null;
+                    tbI4.Text = null;
+                    tbI5.Text = null;
+                    tbSpiked.Text = null;
+                    tbTotal.Text = null;
+                    tbDistance.Text = null;
+                    tbClimb.Text = null;
+                    tbPrivateNote.Text = null;
+                    panel1.Enabled = false;
+                }
+            }
+            catch (Exception ex) {
+                ApPlugin.HandleUnhandledException(ex);
+            }
+        }
+
+        private void RefreshIntensities() {
+            for (int i = 0; i <= 5; ++i) {
+                _iTextBoxes[i].Text = _data.Intensities[i];
+            }
+            lblTotalTime.Text = FormatTime(_data.GetMixedIntensityTime());
+        }
+
         public void UpdateData() {
             if (_data == null) return;
 
-            _data.WorkoutId = GetValue(comboWorkout.SelectedValue);
+            try {
+                _data.WorkoutId = GetValue(comboWorkout.SelectedValue);
 
-            var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
-            var intensity = stIntensity != null ? int.Parse(stIntensity.ApId) : -1;
+                var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
+                var intensity = stIntensity != null ? int.Parse(stIntensity.ApId) : -1;
 
-            // Check if only one intensity time is specified
-            // If it corresponds with Activity Time and Intensity then, clear IntensityX property
-            if (ActivityInfo != null &&
-                _data.IsMixedIntensitySpecified() &&
-                _data.IsSingleIntensitySpecified(ActivityInfo.Time, intensity)) {
-                for (int i = 0; i <= 5; ++i) {
-                    _data.Intensities[i] = null;
+                // Check if only one intensity time is specified
+                // If it corresponds with Activity Time and Intensity then, clear IntensityX property
+                if (ActivityInfo != null &&
+                    _data.IsMixedIntensitySpecified() &&
+                    _data.IsSingleIntensitySpecified(ActivityInfo.Time, intensity)) {
+                    _data.ResetIntensity();
                 }
-            }
-            else {
-                for (int i = 0; i <= 5; ++i) {
-                    _data.Intensities[i] = GetValue(_iTextBoxes[i].Text);
+                else {
+                    for (int i = 0; i <= 5; ++i) {
+                        _data.Intensities[i] = GetValue(_iTextBoxes[i].Text);
+                    }
                 }
-            }
 
-            _data.SpikedControls = GetValue(tbSpiked.Text);
-            _data.TotalControls = GetValue(tbTotal.Text);
-            _data.TechnicalIntensityId = GetValue(comboTechnicalIntensity.SelectedValue);
-            _data.CourseName = GetValue(comboBoxCourseName.Text);
-            _data.CourseLength = GetValue(tbDistance.Text);
-            _data.CourseClimb = GetValue(tbClimb.Text);
-            _data.PrivateNote = GetValue(tbPrivateNote.Text);
+                _data.SpikedControls = GetValue(tbSpiked.Text);
+                _data.TotalControls = GetValue(tbTotal.Text);
+                _data.TechnicalIntensityId = GetValue(comboTechnicalIntensity.SelectedValue);
+                _data.CourseName = GetValue(comboBoxCourseName.Text);
+                _data.CourseLength = GetValue(tbDistance.Text);
+                _data.CourseClimb = GetValue(tbClimb.Text);
+                _data.PrivateNote = GetValue(tbPrivateNote.Text);
+            }
+            catch (Exception ex) {
+                ApPlugin.HandleUnhandledException(ex);
+            }
         }
 
         private string GetValue(object o) {
@@ -69,113 +164,8 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             return string.IsNullOrEmpty(s) ? null : s;
         }
 
-        public void RefreshPage() {
-            var profile = ApPlugin.ApConfig.Profile;
-
-            // Display total time and intensities' time
-            if (ActivityInfo != null && !ApPlugin.ApConfig.IsMappingEmpty) {
-                if (_data.IsMixedIntensitySpecified()) {
-                    lblTotalTime.Text = FormatTime(_data.GetMixedIntensityTime());                        
-                }
-                else {
-                    Array.ForEach(_iTextBoxes, t => t.Text = null);
-
-                    bool calculated = ApPlugin.ApConfig.AutoCalculateMixedIntensity &&
-                        CalculateMixedIntensity(false);
-
-                    //if (!calculated) {
-                    //    var defaultTextBox = tbI3; // the default intensity is 3
-
-                    //    // If intensities's times are not specified,
-                    //    // choose a default intensity and set its time to be activity time
-                    //    var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
-                    //    if (stIntensity != null && stIntensity.ApId != "-1") {
-                    //        var index = int.Parse(stIntensity.ApId);
-                    //        _data.Intensities[index] = FormatTime(ActivityInfo.Time);
-                    //        defaultTextBox = _iTextBoxes[index];
-                    //    }
-
-                    //    defaultTextBox.Text = lblTotalTime.Text =
-                    //        FormatTime(ActivityInfo.Time);
-                    //}
-                }
-            }
-            else {
-                lblTotalTime.Text = "N/A";
-            }
-
-            comboWorkout.DisplayMember = "Title";
-            comboWorkout.ValueMember = "Id";
-            comboWorkout.DataSource = profile.Workouts;
-
-            comboTechnicalIntensity.DisplayMember = "Title";
-            comboTechnicalIntensity.ValueMember = "Id";
-            comboTechnicalIntensity.DataSource = profile.TechnicalIntensities;
-
-            var workoutId = _data != null ? _data.WorkoutId : null;
-            if (workoutId == null && Activity != null && !ApPlugin.ApConfig.IsMappingEmpty) {
-                var stCategory = ApPlugin.ApConfig.Mapping.Activities.Find(a => a.StId == Activity.Category.ReferenceId);
-                if (stCategory != null) {
-                    workoutId = stCategory.WorkoutId;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(workoutId)) {
-                comboWorkout.SelectedValue = workoutId;
-            }
-            else {
-                comboWorkout.SelectedIndex = -1;
-            }
-
-            if (Activity != null && !ApPlugin.ApConfig.IsMappingEmpty) {
-                if (profile.ContainsTechnicalIntensityId(_data.TechnicalIntensityId)) {
-                    comboTechnicalIntensity.SelectedValue = _data.TechnicalIntensityId;
-                }
-                else {
-                    comboTechnicalIntensity.SelectedIndex = 0;
-                }
-
-                
-                _defaultUnits = ApPlugin.GetDistanceUnits();
-
-                if (_data.IsMixedIntensitySpecified()) {
-                    for (int i = 0; i <= 5; ++i) {
-                        _iTextBoxes[i].Text = _data.Intensities[i];
-                    }
-                }
-
-                tbSpiked.Text = _data.SpikedControls;
-                tbTotal.Text = _data.TotalControls;
-                comboBoxCourseName.Text = _data.CourseName;
-                tbDistance.Text = _data.CourseLength;
-                tbClimb.Text = _data.CourseClimb;
-
-                tbPrivateNote.Text = _data.PrivateNote;
-
-                panel1.Enabled = true;
-                pIntensity.Enabled = profile.AdvancedFeaturesEnabled;
-                tbPrivateNote.Enabled = profile.AdvancedFeaturesEnabled;
-            }
-            else {
-                comboWorkout.SelectedIndex = -1;
-                comboTechnicalIntensity.SelectedIndex = -1;
-                tbI0.Text = null;
-                tbI1.Text = null;
-                tbI2.Text = null;
-                tbI3.Text = null;
-                tbI4.Text = null;
-                tbI5.Text = null;
-                tbSpiked.Text = null;
-                tbTotal.Text = null;
-                tbDistance.Text = null;
-                tbClimb.Text = null;
-                tbPrivateNote.Text = null;
-                panel1.Enabled = false;
-            }
-
-        }
-
         public void ThemeChanged(ITheme visualTheme) {
+            _theme = visualTheme;
             lblClimb.ForeColor =
                 lblWorkout.ForeColor =
                 lblWorkoutType.ForeColor =
@@ -216,6 +206,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
             ChangeTheme(comboWorkout, visualTheme);
             ChangeTheme(comboTechnicalIntensity, visualTheme);
+            ChangeTheme(comboBoxCourseName, visualTheme);
         }
 
         private void ChangeTheme(ComboBox combo, ITheme visualTheme) {
@@ -243,10 +234,13 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
             int time;
             if (!string.IsNullOrEmpty(text) && (!int.TryParse(text, out time) || (time != 0 && ts == TimeSpan.Zero))) {
-                MessageBox.Show("Invalid time per intensity specified.\nUse 'hhmmss' format. The time must be less than 24 hours.");
+                textBox.BackColor = Color.Pink;
+                textBox.ForeColor = Color.Black;
+                MessageBox.Show("Invalid intensity time specified.\nUse 'hhmmss' format. The time must be less than 24 hours.");
                 textBox.Focus();
             }
             else {
+                textBox.ThemeChanged(_theme);
                 textBox.Text = FormatTime(ts);
                 var index = int.Parse(textBox.Name[textBox.Name.Length - 1].ToString());
                 _data.Intensities[index] = textBox.Text;
@@ -255,12 +249,16 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         }
 
         private void bCalculateIntensity_Click(object sender, EventArgs e) {
-            CalculateMixedIntensity(true);
+            try {
+                CalculateMixedIntensity(true);
+                RefreshIntensities();
+            }
+            catch (Exception ex) {
+                ApPlugin.HandleUnhandledException(ex);
+            }
         }
 
         private bool CalculateMixedIntensity(bool recalculate) {
-            if (_data == null) return false;
-
             if (ApPlugin.ApConfig.Mapping.HeartZoneCatogories == null ||
                 ApPlugin.ApConfig.Mapping.HeartZoneCatogories.Count == 0) {
                 DisplayHeartZoneMappingError(recalculate);
@@ -293,9 +291,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             }
 
             _data.Intensities = intensities;
-            for (int i = 0; i < intensities.Length; ++i)
-                _iTextBoxes[i].Text = intensities[i];
-
+            _data.IntensitiesCleared = false;
             return true;
         }
 
@@ -305,12 +301,9 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         }
 
         private void bClear_Click(object sender, EventArgs e) {
-            for (int i = 0; i < _iTextBoxes.Length; ++i) {
-                _iTextBoxes[i].Text = null;
-                if (_data != null) {
-                    _data.Intensities[i] = null;
-                }
-            }
+            Array.ForEach(_iTextBoxes, t => t.Text = null);
+            _data.ResetIntensity();
+            _data.IntensitiesCleared = true;
         }
 
     }

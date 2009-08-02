@@ -8,9 +8,9 @@ using System.Diagnostics;
 namespace GK.SportTracks.AttackPoint
 {
     /*****************************************************************/
-    // AP support input of either distance or pace
-    // Commented out Pace property. Only distance will be supported
-    // It is unlikely anybody will need this functionality
+    // AP support input of either distance or pace.
+    // There is no Pace property. Only distance is be supported.
+    // It is unlikely anybody will need this functionality.
     /*****************************************************************/
 
     [XmlRoot("a")]
@@ -36,7 +36,8 @@ namespace GK.SportTracks.AttackPoint
         public string ActivitySubtype { get; set; }
         [XmlAttribute("n")]
         public string PrivateNote { get; set; }
-
+        [XmlAttribute("ic")]
+        public bool IntensitiesCleared { get; set; }
         [XmlArray("ii")]
         [XmlArrayItem("i")]
         public string[] Intensities {
@@ -49,6 +50,7 @@ namespace GK.SportTracks.AttackPoint
                 (string.IsNullOrEmpty(WorkoutId) || (WorkoutId == "1")) &&
                 string.IsNullOrEmpty(ActivitySubtype) &&
                 !IsMixedIntensitySpecified() &&
+                !IntensitiesCleared &&
                 string.IsNullOrEmpty(SpikedControls) &&
                 string.IsNullOrEmpty(TotalControls) &&
                 (string.IsNullOrEmpty(TechnicalIntensityId) || (TechnicalIntensityId == "0")) &&

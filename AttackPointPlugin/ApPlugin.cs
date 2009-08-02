@@ -344,8 +344,14 @@ namespace GK.SportTracks.AttackPoint
                 process.Start();
             }
             catch (Exception ex) {
+                Logger.LogMessage("Failed to open a browser.", ex);
                 MessageBox.Show("Unable to open your browser:\n" + ex.Message);
             }
+        }
+
+        internal static void HandleUnhandledException(Exception ex) {
+            Logger.LogMessage("Unable to refresh ActivityControl.", ex);
+            MessageBox.Show("Oops. It looks like there is a bug in AttackPoint plugin.\nPlease contact the developer.\n" + ex);
         }
     }
 }

@@ -45,6 +45,8 @@
             this.tbPrivateNote = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.lblPrivateNote = new System.Windows.Forms.Label();
             this.pIntensity = new System.Windows.Forms.Panel();
+            this.bClear = new ZoneFiveSoftware.Common.Visuals.Button();
+            this.bCalculateIntensity = new ZoneFiveSoftware.Common.Visuals.Button();
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.lblTotalCaption = new System.Windows.Forms.Label();
             this.lTimePerIntensity = new System.Windows.Forms.Label();
@@ -65,8 +67,6 @@
             this.lblTipSubtype = new System.Windows.Forms.Label();
             this.tbSubtype = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.lblActivitySubtype = new System.Windows.Forms.Label();
-            this.bCalculateIntensity = new ZoneFiveSoftware.Common.Visuals.Button();
-            this.bClear = new ZoneFiveSoftware.Common.Visuals.Button();
             this.panel1.SuspendLayout();
             this.pIntensity.SuspendLayout();
             this.pOrienteering.SuspendLayout();
@@ -227,7 +227,7 @@
             // 
             this.lblMeters.AutoSize = true;
             this.lblMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblMeters.Location = new System.Drawing.Point(240, 132);
+            this.lblMeters.Location = new System.Drawing.Point(236, 132);
             this.lblMeters.Name = "lblMeters";
             this.lblMeters.Size = new System.Drawing.Size(19, 17);
             this.lblMeters.TabIndex = 15;
@@ -344,6 +344,50 @@
             this.pIntensity.Name = "pIntensity";
             this.pIntensity.Size = new System.Drawing.Size(355, 80);
             this.pIntensity.TabIndex = 2;
+            // 
+            // bClear
+            // 
+            this.bClear.BackColor = System.Drawing.Color.Transparent;
+            this.bClear.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(120)))));
+            this.bClear.CenterImage = null;
+            this.bClear.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bClear.HyperlinkStyle = false;
+            this.bClear.ImageMargin = 2;
+            this.bClear.LeftImage = null;
+            this.bClear.Location = new System.Drawing.Point(204, 4);
+            this.bClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bClear.Name = "bClear";
+            this.bClear.PushStyle = true;
+            this.bClear.RightImage = null;
+            this.bClear.Size = new System.Drawing.Size(53, 24);
+            this.bClear.TabIndex = 2;
+            this.bClear.Text = "Clear";
+            this.bClear.TextAlign = System.Drawing.StringAlignment.Center;
+            this.bClear.TextLeftMargin = 2;
+            this.bClear.TextRightMargin = 2;
+            this.bClear.Click += new System.EventHandler(this.bClear_Click);
+            // 
+            // bCalculateIntensity
+            // 
+            this.bCalculateIntensity.BackColor = System.Drawing.Color.Transparent;
+            this.bCalculateIntensity.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(120)))));
+            this.bCalculateIntensity.CenterImage = null;
+            this.bCalculateIntensity.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bCalculateIntensity.HyperlinkStyle = false;
+            this.bCalculateIntensity.ImageMargin = 2;
+            this.bCalculateIntensity.LeftImage = null;
+            this.bCalculateIntensity.Location = new System.Drawing.Point(259, 4);
+            this.bCalculateIntensity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bCalculateIntensity.Name = "bCalculateIntensity";
+            this.bCalculateIntensity.PushStyle = true;
+            this.bCalculateIntensity.RightImage = null;
+            this.bCalculateIntensity.Size = new System.Drawing.Size(84, 24);
+            this.bCalculateIntensity.TabIndex = 3;
+            this.bCalculateIntensity.Text = "Recalculate";
+            this.bCalculateIntensity.TextAlign = System.Drawing.StringAlignment.Center;
+            this.bCalculateIntensity.TextLeftMargin = 2;
+            this.bCalculateIntensity.TextRightMargin = 2;
+            this.bCalculateIntensity.Click += new System.EventHandler(this.bCalculateIntensity_Click);
             // 
             // lblTotalTime
             // 
@@ -637,50 +681,6 @@
             this.lblActivitySubtype.Size = new System.Drawing.Size(117, 17);
             this.lblActivitySubtype.TabIndex = 17;
             this.lblActivitySubtype.Text = "Activity Sub-type:";
-            // 
-            // bCalculateIntensity
-            // 
-            this.bCalculateIntensity.BackColor = System.Drawing.Color.Transparent;
-            this.bCalculateIntensity.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(120)))));
-            this.bCalculateIntensity.CenterImage = null;
-            this.bCalculateIntensity.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.bCalculateIntensity.HyperlinkStyle = false;
-            this.bCalculateIntensity.ImageMargin = 2;
-            this.bCalculateIntensity.LeftImage = null;
-            this.bCalculateIntensity.Location = new System.Drawing.Point(254, 4);
-            this.bCalculateIntensity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bCalculateIntensity.Name = "bCalculateIntensity";
-            this.bCalculateIntensity.PushStyle = true;
-            this.bCalculateIntensity.RightImage = null;
-            this.bCalculateIntensity.Size = new System.Drawing.Size(89, 24);
-            this.bCalculateIntensity.TabIndex = 3;
-            this.bCalculateIntensity.Text = "Recalculate";
-            this.bCalculateIntensity.TextAlign = System.Drawing.StringAlignment.Center;
-            this.bCalculateIntensity.TextLeftMargin = 2;
-            this.bCalculateIntensity.TextRightMargin = 2;
-            this.bCalculateIntensity.Click += new System.EventHandler(this.bCalculateIntensity_Click);
-            // 
-            // bClear
-            // 
-            this.bClear.BackColor = System.Drawing.Color.Transparent;
-            this.bClear.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(120)))));
-            this.bClear.CenterImage = null;
-            this.bClear.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.bClear.HyperlinkStyle = false;
-            this.bClear.ImageMargin = 2;
-            this.bClear.LeftImage = null;
-            this.bClear.Location = new System.Drawing.Point(171, 4);
-            this.bClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bClear.Name = "bClear";
-            this.bClear.PushStyle = true;
-            this.bClear.RightImage = null;
-            this.bClear.Size = new System.Drawing.Size(73, 24);
-            this.bClear.TabIndex = 2;
-            this.bClear.Text = "Clear";
-            this.bClear.TextAlign = System.Drawing.StringAlignment.Center;
-            this.bClear.TextLeftMargin = 2;
-            this.bClear.TextRightMargin = 2;
-            this.bClear.Click += new System.EventHandler(this.bClear_Click);
             // 
             // ApActivityControl
             // 

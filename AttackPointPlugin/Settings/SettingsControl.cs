@@ -49,115 +49,121 @@ namespace GK.SportTracks.AttackPoint.Settings
 
         public void RefreshPage() {
             _refreshing = true;
-            tbUsername.Text = ApConfig.Profile.Username;
-            tbPassword.Text = ApConfig.Profile.Password;
-            UpdateRetrieveButton();
+            try {
+                tbUsername.Text = ApConfig.Profile.Username;
+                tbPassword.Text = ApConfig.Profile.Password;
+                UpdateRetrieveButton();
 
-            dgActivities.Rows.Clear();
-            dgShoes.Rows.Clear();
-            dgIntensities.Rows.Clear();
-            dgHRZones.Rows.Clear();
+                dgActivities.Rows.Clear();
+                dgShoes.Rows.Clear();
+                dgIntensities.Rows.Clear();
+                dgHRZones.Rows.Clear();
 
-            if (!IsProfileEmpty) {
-                bool guess = IsMappingEmpty;
+                if (!IsProfileEmpty) {
+                    bool guess = IsMappingEmpty;
 
-                lAdvancedFeatures.Text = AdvancedFeaturesEnabled ? Resources.AdvancedFeaturesEnabled : Resources.AdvancedFeaturesDisabled;
+                    lAdvancedFeatures.Text = AdvancedFeaturesEnabled ? Resources.AdvancedFeaturesEnabled : Resources.AdvancedFeaturesDisabled;
 
-                comboNotes.Enabled = true;
-                tbInclusionFormat.Enabled = true;
-                tabControlMapping.Enabled = true;
+                    comboNotes.Enabled = true;
+                    tbInclusionFormat.Enabled = true;
+                    tabControlMapping.Enabled = true;
 
-                cbWarnAboutShoes.Checked = ApConfig.WarnOnNotMappedEquipment;
-                cbWarnAboutIntensity.Checked = ApConfig.WarnOnUnspecifiedIntensity;
-                cbAutoIntensity.Checked = ApConfig.AutoCalculateMixedIntensity;
+                    cbWarnAboutShoes.Checked = ApConfig.WarnOnNotMappedEquipment;
+                    cbWarnAboutIntensity.Checked = ApConfig.WarnOnUnspecifiedIntensity;
+                    cbAutoIntensity.Checked = ApConfig.AutoCalculateMixedIntensity;
 
-                var oldSelectedIndex = comboNotes.SelectedIndex;
-                comboNotes.Items.Clear();
-                comboNotes.Items.Add("Notes");
-                if (ApConfig.Profile.AdvancedFeaturesEnabled) {
-                    comboNotes.Items.Add("Private Notes");
-                }
-                comboNotes.SelectedIndex = oldSelectedIndex == -1 || comboNotes.Items.Count == 1 ? 0 : oldSelectedIndex;
-
-                PopulateInclusionFormatTextBox();
-
-                // Populate activities grid
-                var activities = new List<ApActivity>(ApConfig.Profile.Activities);
-                activities.Insert(0, _noneActivity);
-                SetComboColumn(dgActivities, activities, "ApActivity");
-                SetComboColumn(dgActivities, ApConfig.Profile.ConstantData.Workouts, "Workout");
-                _stCategories = ApPlugin.UpdateStCategories();
-                foreach (var category in _stCategories) {
-                    var activity = Mapper.MapCategory(ApConfig.Profile, category, guess);
-                    var subActivity = activity == null ? string.Empty : category.SubType;
-                    dgActivities.Rows.Add(category, (activity ?? _noneActivity).Id, subActivity, category.WorkoutId ?? "1");
-                }
-
-                // Populate intensities grid
-                _intensities = new List<ApEntity>(ApConfig.Profile.Intensities);
-                _intensities.Insert(0, _noneIntensity);
-
-                SetComboColumn(dgIntensities, _intensities, "ApIntensity");
-                _stIntensities = ApPlugin.UpdateStIntensities();
-                foreach (var intensity in _stIntensities) {
-                    var apIntensity = Mapper.MapIntensity(ApConfig.Profile, intensity, guess);
-                    dgIntensities.Rows.Add(intensity, (apIntensity ?? _noneIntensity).Id);
-                }
-
-                // Populate shoes grid
-                var shoes = new List<ApShoes>(ApConfig.Profile.Shoes);
-                shoes.Insert(0, _noneShoes);
-
-                var comboColumn = SetComboColumn(dgShoes, shoes, "ApShoes");
-                comboColumn.DisplayMember = "FullTitle";
-                _stEquipment = ApPlugin.UpdateStEquipmentItems();
-                foreach (var item in _stEquipment) {
-                    var apShoes = Mapper.MapEquipment(ApConfig.Profile, item, guess);
-                    dgShoes.Rows.Add(item, (apShoes ?? _noneShoes).Id);
-                }
-
-                // Populate HR zones grid
-                if (AdvancedFeaturesEnabled) {
-                    if (tabControlMapping.TabPages.Count < 4) {
-                        tabControlMapping.TabPages.Add(_heartZonesTab);
+                    var oldSelectedIndex = comboNotes.SelectedIndex;
+                    comboNotes.Items.Clear();
+                    comboNotes.Items.Add("Notes");
+                    if (ApConfig.Profile.AdvancedFeaturesEnabled) {
+                        comboNotes.Items.Add("Private Notes");
                     }
-                    cbAutoIntensity.Visible = true;
+                    comboNotes.SelectedIndex = oldSelectedIndex == -1 || comboNotes.Items.Count == 1 ? 0 : oldSelectedIndex;
 
-                    _stHRCategories = ApPlugin.UpdateStHeartRateZones();
-                    
-                    oldSelectedIndex = comboHRCategory.SelectedIndex;
-                    comboHRCategory.Items.Clear();
-                    foreach (var c in _stHRCategories) {
-                        comboHRCategory.Items.Add(c);
+                    PopulateInclusionFormatTextBox();
+
+                    // Populate activities grid
+                    var activities = new List<ApActivity>(ApConfig.Profile.Activities);
+                    activities.Insert(0, _noneActivity);
+                    SetComboColumn(dgActivities, activities, "ApActivity");
+                    SetComboColumn(dgActivities, ApConfig.Profile.ConstantData.Workouts, "Workout");
+                    _stCategories = ApPlugin.UpdateStCategories();
+                    foreach (var category in _stCategories) {
+                        var activity = Mapper.MapCategory(ApConfig.Profile, category, guess);
+                        var subActivity = activity == null ? string.Empty : category.SubType;
+                        dgActivities.Rows.Add(category, (activity ?? _noneActivity).Id, subActivity, category.WorkoutId ?? "1");
                     }
-                    comboHRCategory.SelectedIndex =
-                        oldSelectedIndex > -1 && oldSelectedIndex < _stHRCategories.Count ? oldSelectedIndex : 0;
-                    _currentHRCategory = _stHRCategories[comboHRCategory.SelectedIndex];
+
+                    // Populate intensities grid
+                    _intensities = new List<ApEntity>(ApConfig.Profile.Intensities);
+                    _intensities.Insert(0, _noneIntensity);
+
+                    SetComboColumn(dgIntensities, _intensities, "ApIntensity");
+                    _stIntensities = ApPlugin.UpdateStIntensities();
+                    foreach (var intensity in _stIntensities) {
+                        var apIntensity = Mapper.MapIntensity(ApConfig.Profile, intensity, guess);
+                        dgIntensities.Rows.Add(intensity, (apIntensity ?? _noneIntensity).Id);
+                    }
+
+                    // Populate shoes grid
+                    var shoes = new List<ApShoes>(ApConfig.Profile.Shoes);
+                    shoes.Insert(0, _noneShoes);
+
+                    var comboColumn = SetComboColumn(dgShoes, shoes, "ApShoes");
+                    comboColumn.DisplayMember = "FullTitle";
+                    _stEquipment = ApPlugin.UpdateStEquipmentItems();
+                    foreach (var item in _stEquipment) {
+                        var apShoes = Mapper.MapEquipment(ApConfig.Profile, item, guess);
+                        dgShoes.Rows.Add(item, (apShoes ?? _noneShoes).Id);
+                    }
 
                     // Populate HR zones grid
-                    PopuluteHRZoneGrid(guess);
+                    if (AdvancedFeaturesEnabled) {
+                        if (tabControlMapping.TabPages.Count < 4) {
+                            tabControlMapping.TabPages.Add(_heartZonesTab);
+                        }
+                        cbAutoIntensity.Visible = true;
+
+                        _stHRCategories = ApPlugin.UpdateStHeartRateZones();
+
+                        oldSelectedIndex = comboHRCategory.SelectedIndex;
+                        comboHRCategory.Items.Clear();
+                        foreach (var c in _stHRCategories) {
+                            comboHRCategory.Items.Add(c);
+                        }
+                        comboHRCategory.SelectedIndex =
+                            oldSelectedIndex > -1 && oldSelectedIndex < _stHRCategories.Count ? oldSelectedIndex : 0;
+                        _currentHRCategory = _stHRCategories[comboHRCategory.SelectedIndex];
+
+                        // Populate HR zones grid
+                        PopuluteHRZoneGrid(guess);
+                    }
+                    else {
+                        if (tabControlMapping.TabPages.Count == 4) {
+                            tabControlMapping.TabPages.RemoveAt(3);
+                        }
+                        cbAutoIntensity.Visible = false;
+                    }
+
                 }
                 else {
-                    if (tabControlMapping.TabPages.Count == 4) {
-                        tabControlMapping.TabPages.RemoveAt(3);
-                    }
-                    cbAutoIntensity.Visible = false;
+                    lAdvancedFeatures.Text = Resources.AdvancedFeaturesUnknown;
+                    comboNotes.Enabled = false;
+                    tbInclusionFormat.Text = null;
+                    tbInclusionFormat.Enabled = false;
+                    tabControlMapping.Enabled = false;
                 }
 
+                lblFetch.Text = IsProfileEmpty ?
+                    "Click 'Retrieve' button to download your AttackPoint profile." :
+                    "Tip: Click 'Retrieve' button to download your latest AP profile settings.";
             }
-            else {
-                lAdvancedFeatures.Text = Resources.AdvancedFeaturesUnknown;
-                comboNotes.Enabled = false;
-                tbInclusionFormat.Text = null;
-                tbInclusionFormat.Enabled = false;
-                tabControlMapping.Enabled = false;
+            catch (Exception ex) {
+                ApPlugin.HandleUnhandledException(ex);
             }
-
-            lblFetch.Text = IsProfileEmpty ?
-                "Click 'Retrieve' button to download your AttackPoint profile." :
-                "Tip: Click 'Retrieve' button to download your latest AP profile settings.";
-
-            _refreshing = false;
+            finally {
+                _refreshing = false;
+            }
         }
 
         private void PopuluteHRZoneGrid(bool guess) {
@@ -179,45 +185,47 @@ namespace GK.SportTracks.AttackPoint.Settings
         }
 
         public void UpdateConfiguration(ApConfig config) {
-            config.Profile.Username = tbUsername.Text.Trim();
-            config.Profile.Password = tbPassword.Text.Trim();
+            try {
+                config.Profile.Username = tbUsername.Text.Trim();
+                config.Profile.Password = tbPassword.Text.Trim();
 
-            if (comboNotes.SelectedIndex == 0) {
-                ApConfig.NotesFormat = tbInclusionFormat.Text.Trim();
+                if (comboNotes.SelectedIndex == 0) {
+                    ApConfig.NotesFormat = tbInclusionFormat.Text.Trim();
+                }
+                else {
+                    ApConfig.PrivateNotesFormat = tbInclusionFormat.Text.Trim();
+                }
+
+                //config.NotesFormat = tbInclusionFormat.Text;
+                config.WarnOnNotMappedEquipment = cbWarnAboutShoes.Checked;
+                config.WarnOnUnspecifiedIntensity = cbWarnAboutIntensity.Checked;
+                config.AutoCalculateMixedIntensity = cbAutoIntensity.Checked;
+
+                dgActivities.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                for (int i = 0; i < dgActivities.Rows.Count; ++i) {
+                    var row = dgActivities.Rows[i];
+                    _stCategories[i].ApId = (string)row.Cells[1].Value;
+                    _stCategories[i].SubType = (string)row.Cells[2].Value;
+                    _stCategories[i].WorkoutId = (string)row.Cells[3].Value;
+                }
+
+                dgIntensities.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                for (int i = 0; i < dgIntensities.Rows.Count; ++i) {
+                    var row = dgIntensities.Rows[i];
+                    _stIntensities[i].ApId = (string)row.Cells[1].Value;
+                }
+
+                dgShoes.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                for (int i = 0; i < dgShoes.Rows.Count; ++i) {
+                    var row = dgShoes.Rows[i];
+                    _stEquipment[i].ApId = (string)row.Cells[1].Value;
+                }
+
+                UpdateHRZones();
             }
-            else {
-                ApConfig.PrivateNotesFormat = tbInclusionFormat.Text.Trim();
+            catch (Exception ex) {
+                ApPlugin.HandleUnhandledException(ex);
             }
-
-            //config.NotesFormat = tbInclusionFormat.Text;
-            config.WarnOnNotMappedEquipment = cbWarnAboutShoes.Checked;
-            config.WarnOnUnspecifiedIntensity = cbWarnAboutIntensity.Checked;
-            config.AutoCalculateMixedIntensity = cbAutoIntensity.Checked;
-
-            dgActivities.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            for (int i = 0; i < dgActivities.Rows.Count; ++i) {
-                var row = dgActivities.Rows[i];
-                _stCategories[i].ApId = (string)row.Cells[1].Value;
-                _stCategories[i].SubType = (string)row.Cells[2].Value;
-                _stCategories[i].WorkoutId = (string)row.Cells[3].Value;
-            }
-            //config.Mapping.Activities = _stCategories;
-
-            dgIntensities.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            for (int i = 0; i < dgIntensities.Rows.Count; ++i) {
-                var row = dgIntensities.Rows[i];
-                _stIntensities[i].ApId = (string)row.Cells[1].Value;
-            }
-            //config.Mapping.Intensities = _stIntensities;
-
-            dgShoes.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            for (int i = 0; i < dgShoes.Rows.Count; ++i) {
-                var row = dgShoes.Rows[i];
-                _stEquipment[i].ApId = (string)row.Cells[1].Value;
-            }
-            //config.Mapping.Shoes = _stEquipment;
-
-            UpdateHRZones();
         }
 
         private void UpdateHRZones() {
@@ -272,9 +280,14 @@ namespace GK.SportTracks.AttackPoint.Settings
 
         private void comboHRCategory_SelectedIndexChanged(object sender, EventArgs e) {
             if (_refreshing) return;
-            UpdateHRZones();
-            _currentHRCategory = _stHRCategories[comboHRCategory.SelectedIndex];
-            PopuluteHRZoneGrid(false);
+            try {
+                UpdateHRZones();
+                _currentHRCategory = _stHRCategories[comboHRCategory.SelectedIndex];
+                PopuluteHRZoneGrid(false);
+            }
+            catch (Exception ex) {
+                ApPlugin.HandleUnhandledException(ex);
+            }
         }
 
         private void comboNotes_SelectedIndexChanged(object sender, EventArgs e) {
@@ -375,7 +388,7 @@ namespace GK.SportTracks.AttackPoint.Settings
         }
 
         private void dg_DataError(object sender, DataGridViewDataErrorEventArgs e) {
-
+            // This method is required in order to use DataGridView.Commit method
         }
 
     }

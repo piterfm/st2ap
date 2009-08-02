@@ -59,7 +59,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
             Assert.Equal("2009", note.Year);
             Assert.Equal("07", note.MonthId);
@@ -67,12 +67,12 @@ namespace AttackPointPluginTests
             Assert.Equal("This is a note", note.Description);
             Assert.Equal("on", note.IsSick);
             Assert.Equal("on", note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
+            Assert.Null(note.IsRestDay);
             Assert.Equal("55", note.RestingHeartRate);
             Assert.Equal("64", note.Weight);
             Assert.Equal("kg", note.WeightUnitId);
             Assert.Equal("8", note.SleepHours);
-            Assert.Equal(null, note.PrivateDescription);
+            Assert.Null(note.PrivateDescription);
         }
 
         [Fact]
@@ -97,20 +97,20 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
             Assert.Equal("2009", note.Year);
             Assert.Equal("07", note.MonthId);
             Assert.Equal("11", note.DayId);
-            Assert.Equal(null, note.Description);
-            Assert.Equal(null, note.IsSick);
-            Assert.Equal(null, note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
-            Assert.Equal(null, note.RestingHeartRate);
-            Assert.Equal(null, note.Weight);
-            Assert.Equal(null, note.WeightUnitId);
-            Assert.Equal(null, note.SleepHours);
-            Assert.Equal(null, note.PrivateDescription);
+            Assert.Null(note.Description);
+            Assert.Null(note.IsSick);
+            Assert.Null(note.IsInjured);
+            Assert.Null(note.IsRestDay);
+            Assert.Null(note.RestingHeartRate);
+            Assert.Null(note.Weight);
+            Assert.Null(note.WeightUnitId);
+            Assert.Null(note.SleepHours);
+            Assert.Null(note.PrivateDescription);
         }
 
         [Fact]
@@ -135,14 +135,14 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
 
             // Check conversion from UTC to local time zone
             DateTime utcDate = date.ToUniversalTime();
             activity.SetupGet(a => a.StartTime).Returns(utcDate);
             error = action.Populate(note, activity.Object, edata);
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
         }
 
@@ -169,19 +169,19 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
             Assert.Equal("2009", note.Year);
             Assert.Equal("07", note.MonthId);
             Assert.Equal("11", note.DayId);
             Assert.Equal("This is a note", note.Description);
-            Assert.Equal(null, note.IsSick);
-            Assert.Equal(null, note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
-            Assert.Equal(null, note.RestingHeartRate);
-            Assert.Equal(null, note.Weight);
-            Assert.Equal(null, note.WeightUnitId);
-            Assert.Equal(null, note.SleepHours);
+            Assert.Null(note.IsSick);
+            Assert.Null(note.IsInjured);
+            Assert.Null(note.IsRestDay);
+            Assert.Null(note.RestingHeartRate);
+            Assert.Null(note.Weight);
+            Assert.Null(note.WeightUnitId);
+            Assert.Null(note.SleepHours);
         }
 
         [Fact]
@@ -207,7 +207,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
             Assert.Equal("2009", note.Year);
             Assert.Equal("07", note.MonthId);
@@ -215,11 +215,11 @@ namespace AttackPointPluginTests
             Assert.Equal("This is a note", note.Description);
             Assert.Equal("on", note.IsSick);
             Assert.Equal("on", note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
-            Assert.Equal(null, note.RestingHeartRate);
-            Assert.Equal(null, note.Weight);
+            Assert.Null(note.IsRestDay);
+            Assert.Null(note.RestingHeartRate);
+            Assert.Null(note.Weight);
             Assert.Equal("kg", note.WeightUnitId);
-            Assert.Equal(null, note.SleepHours);
+            Assert.Null(note.SleepHours);
         }
 
         [Fact]
@@ -248,19 +248,19 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
             Assert.Equal("2009", note.Year);
             Assert.Equal("07", note.MonthId);
             Assert.Equal("11", note.DayId);
-            Assert.Equal(null, note.Description);
-            Assert.Equal(null, note.IsSick);
-            Assert.Equal(null, note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
-            Assert.Equal(null, note.RestingHeartRate);
-            Assert.Equal(null, note.Weight);
-            Assert.Equal(null, note.WeightUnitId);
-            Assert.Equal(null, note.SleepHours);
+            Assert.Null(note.Description);
+            Assert.Null(note.IsSick);
+            Assert.Null(note.IsInjured);
+            Assert.Null(note.IsRestDay);
+            Assert.Null(note.RestingHeartRate);
+            Assert.Null(note.Weight);
+            Assert.Null(note.WeightUnitId);
+            Assert.Null(note.SleepHours);
             Assert.Equal("private note", note.PrivateDescription);
         }
 
@@ -290,20 +290,20 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(null, error);
+            Assert.Null(error);
             Assert.Equal(date, note.Date);
             Assert.Equal("2009", note.Year);
             Assert.Equal("07", note.MonthId);
             Assert.Equal("11", note.DayId);
-            Assert.Equal(null, note.Description);
-            Assert.Equal(null, note.IsSick);
-            Assert.Equal(null, note.IsInjured);
-            Assert.Equal(null, note.IsRestDay);
-            Assert.Equal(null, note.RestingHeartRate);
-            Assert.Equal(null, note.Weight);
-            Assert.Equal(null, note.WeightUnitId);
-            Assert.Equal(null, note.SleepHours);
-            Assert.Equal(null, note.PrivateDescription);
+            Assert.Null(note.Description);
+            Assert.Null(note.IsSick);
+            Assert.Null(note.IsInjured);
+            Assert.Null(note.IsRestDay);
+            Assert.Null(note.RestingHeartRate);
+            Assert.Null(note.Weight);
+            Assert.Null(note.WeightUnitId);
+            Assert.Null(note.SleepHours);
+            Assert.Null(note.PrivateDescription);
         }
 
 

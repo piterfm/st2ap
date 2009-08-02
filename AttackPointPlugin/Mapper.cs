@@ -101,9 +101,6 @@ namespace GK.SportTracks.AttackPoint
             var apIntensity = data.Intensities.Find(i => i.Id == zone.ApId);
 
             // TODO: Implement guess
-            //if (apIntensity == null && guess) {
-            //    apIntensity = data.Intensities.Find(i => i.Id == IntensityMap[intensity.StId]);
-            //}
 
             return apIntensity;
         }

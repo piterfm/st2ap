@@ -25,11 +25,13 @@ namespace GK.AttackPoint
 
         public class DefaultLogger : ILogger
         {
+            public const long DefaultMaxFileSize = 1024 * 512; // 0.5 MB
             protected const string LogFileName = "attackpoint-plugin.log";
             private const string EventLogSource = "AttackPoint Plugin";
             protected string _logFile;
             protected bool _isDebug;
             protected bool _writeToWindowsEventLog;
+            protected long _maxFileSize = DefaultMaxFileSize;
 
             public DefaultLogger() {
                 _logFile = LogFileName;
@@ -57,11 +59,12 @@ namespace GK.AttackPoint
 
             public void LogMessage(string message, Exception ex) {
                 try {
-                    using (StreamWriter writer = new StreamWriter(_logFile, false)) {
-                        message = string.Format("{0}: {1}", DateTime.Now, message);
-                        if (ex != null) {
-                            message += Environment.NewLine + ex;
-                        }
+                    message = string.Format("{0}: {1}", DateTime.Now, message);
+                    if (ex != null) {
+                        message += Environment.NewLine + ex;
+                    }
+
+                    using (StreamWriter writer = new StreamWriter(_logFile, IsAppend())) {
                         PrintMessage(message);
                         writer.WriteLine(message);
                         WriteMessageToEventLog(message, EventLogEntryType.Error);
@@ -83,7 +86,7 @@ namespace GK.AttackPoint
                     WriteMessageToEventLog(string.Format("Response stream received. Status: {0} - {1}. See log files for details.",
                         response.StatusCode, response.StatusDescription), EventLogEntryType.Error);
 
-                    using (StreamWriter writer = new StreamWriter(_logFile, false)) {
+                    using (StreamWriter writer = new StreamWriter(_logFile, IsAppend())) {
                         OutputResponseStream(response, writer);
                     }
                 }
@@ -155,6 +158,16 @@ namespace GK.AttackPoint
                     Debug.WriteLine("Failed to write to Windows Event Log: " + ex);
                 }
             }
+
+            private bool IsAppend() {
+                bool append = true;
+                if (File.Exists(_logFile)) {
+                    var file = new FileInfo(_logFile);
+                    append = file.Length < _maxFileSize;
+                }
+                return append;
+            }
+
         }
     }
 }

@@ -72,18 +72,18 @@ namespace GK.AttackPoint
 
         public void ScrapeApData(ApProfile data) {
             var ser = new JsonSerializer();
-            var json = RetrievePage(Metadata.ScrapeActivitiesUrl);
+            var json = FormatJson(RetrievePage(Metadata.ScrapeActivitiesUrl));
             using (var reader = new JsonReader(new StringReader(json))) {
                 data.Activities = (List<ApActivity>)ser.Deserialize(reader, typeof(List<ApActivity>));
             }
 
-            json = RetrievePage(Metadata.ScrapeShoesUrl);
+            json = FormatJson(RetrievePage(Metadata.ScrapeShoesUrl));
             using (var reader = new JsonReader(new StringReader(json))) {
                 data.Shoes = (List<ApShoes>)ser.Deserialize(reader, typeof(List<ApShoes>));
             }
 
             var html = RetrievePage(Metadata.ScrapeUserSettingsUrl);
-            // I don't like this approach. I'd go with a JSON call
+            // I'd go with a JSON call. But there is no JSON call
             data.AdvancedFeaturesEnabled = html.Contains("paymenthistory");
 
             /* Alternative code that scrapes data from HTML using regular expressions */
@@ -123,6 +123,11 @@ namespace GK.AttackPoint
             //var html = RetrievePage(Metadata.ScrapeUnitsUrl);
             //data.WeightDistanceUnits = ScrapeUnits(html, "units") == "m" ? Units.Metric : Units.English;
             //data.ClimbUnits = ScrapeUnits(html, "cunits") == "0" ? Units.Metric : Units.English;
+        }
+
+        private string FormatJson(string json) {
+            // Return empty array if nothing came back from the server
+            return string.IsNullOrEmpty(json) ? "[]" : json;
         }
 
         //private static string DropDownPatternt = "<select[^>]*name\\s*\\=\\s*['\"]?{0}['\"]?[^>]*>(.*?)</select>";
@@ -249,7 +254,7 @@ namespace GK.AttackPoint
                         if (stream != null) stream.Close();
                     }
 
-                    return sb.ToString();
+                    return sb.ToString().Trim();
                 }
             }
             catch (WebException ex) {

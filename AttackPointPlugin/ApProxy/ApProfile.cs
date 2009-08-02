@@ -4,16 +4,31 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.IO;
 
 namespace GK.AttackPoint
 {
     public class ApProfile
     {
+        private const string ApConstantDataFileName = "ap-constant-data.xml";
+
         private string _username;
         private string _password;
         private string _oldUsername;
         private string _oldPassword;
         private bool _advancedFeaturesEnabled;
+
+        public ApProfile() { }
+        public ApProfile(string basePath) {
+            ReloadConstantData(basePath);
+        }
+
+        internal void ReloadConstantData(string basePath) {
+            var ser = new XmlSerializer(typeof(ApConstantData));
+            using (var reader = new StreamReader(Path.Combine(basePath, ApConstantDataFileName))) {
+                ConstantData = (ApConstantData)ser.Deserialize(reader);
+            }
+        }
 
         [XmlAttribute("username")]
         public string Username {

@@ -22,7 +22,6 @@ namespace GK.SportTracks.AttackPoint
     {
         public const string FeedbackEmail = "gregory.kh+st2ap@gmail.com";
         public const string WebPage = "http://st2ap.codeplex.com/";
-        private const string ApConstantDataFileName = "ap-constant-data.xml";
 
         private static IApplication _application;
         private static bool _initialized;
@@ -38,6 +37,7 @@ namespace GK.SportTracks.AttackPoint
                 DataSerSettings.OmitXmlDeclaration = true;
                 DataSerSettings.Indent = false;
                 BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                ApConfig = new ApConfig(BasePath);
                 _initialized = true;
             }
             catch (Exception ex) {
@@ -89,20 +89,19 @@ namespace GK.SportTracks.AttackPoint
                 }
 
                 if (ApConfig == null) {
-                    ApConfig = new ApConfig();
+                    ApConfig = new ApConfig(BasePath);
                 }
+                else {
+                    if (ApConfig.Profile == null) {
+                        ApConfig.Profile = new ApProfile(BasePath);
+                    }
+                    else {
+                        ApConfig.Profile.ReloadConstantData(BasePath);
+                    }
 
-                if (ApConfig.Profile == null) {
-                    ApConfig.Profile = new ApProfile();
-                }
-
-                var ser2 = new XmlSerializer(typeof(ApConstantData));
-                using (var reader = new StreamReader(Path.Combine(BasePath, ApConstantDataFileName))) {
-                    ApConfig.Profile.ConstantData = (ApConstantData)ser2.Deserialize(reader);
-                }
-
-                if (ApConfig.Mapping == null) {
-                    ApConfig.Mapping = new ApMapping();
+                    if (ApConfig.Mapping == null) {
+                        ApConfig.Mapping = new ApMapping();
+                    }
                 }
             }
             catch (Exception ex) {

@@ -9,6 +9,12 @@ namespace GK.SportTracks.AttackPoint
     [XmlRoot(ElementName = "AttackPointConfiguration", Namespace = ApConstantData.Namespace)] 
     public class ApConfig
     {
+        public ApConfig() { }
+        public ApConfig(string basePath) {
+            Profile = new ApProfile(basePath);
+            Mapping = new ApMapping();
+        }
+
         [XmlAttribute]
         public string NotesFormat { get; set; }
         [XmlAttribute]

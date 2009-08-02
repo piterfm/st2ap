@@ -265,6 +265,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.lblWorkout);
             this.panel1.Controls.Add(this.tbPrivateNote);
             this.panel1.Controls.Add(this.lblPrivateNote);

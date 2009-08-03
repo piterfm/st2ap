@@ -7,6 +7,8 @@ namespace GK.AttackPoint
 {
     public interface ILogger
     {
+        bool IsDebug { get; }
+
         void PrintMessage(string message);
         void PrintMessage(string message, Exception ex);
 

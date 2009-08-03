@@ -39,6 +39,8 @@ namespace GK.AttackPoint
                 _writeToWindowsEventLog = false;
             }
 
+            public bool IsDebug { get { return _isDebug; } }
+
             public void PrintMessage(string message) {
                 PrintMessage(message, null);
             }

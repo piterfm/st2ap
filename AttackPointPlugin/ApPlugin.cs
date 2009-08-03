@@ -314,6 +314,7 @@ namespace GK.SportTracks.AttackPoint
         }
 
         private static void SerializeApActivityData(ApActivityData data) {
+            if (!Logger.IsDebug) return;
             if (data == null) return;
             if (data.IsEmpty()) {
                 Logger.PrintMessage("ApActivity data is empty.");

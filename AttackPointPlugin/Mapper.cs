@@ -27,41 +27,41 @@ namespace GK.SportTracks.AttackPoint
             IntensityMap.Add("10", "5");
         }
 
-        public static ApEntity MapCategory(ApProfile data, StCategory category, bool guess) {
-            if (data.Activities == null || data.Activities.Count == 0)
+        public static ApEntity MapCategory(ApProfile profile, StCategory category, bool guess) {
+            if (profile.Activities == null || profile.Activities.Count == 0)
                 return null;
 
-            var activity = data.Activities.Find(a => a.Id == category.ApId);
+            var activity = profile.Activities.Find(a => a.Id == category.ApId);
 
             if (activity == null && guess) {
-                var temp = data.Activities.ConvertAll(a => (ApEntity)a);
+                var temp = profile.Activities.ConvertAll(a => (ApEntity)a);
                 activity = (ApActivity)FindClosest(temp, category.ToString().Replace(">", " "));
             }
 
             return activity;
         }
 
-        public static ApEntity MapIntensity(ApProfile data, StIntensity intensity, bool guess) {
-            if (data.Intensities == null || data.Intensities.Count == 0)
+        public static ApEntity MapIntensity(ApProfile profile, StIntensity intensity, bool guess) {
+            if (profile.Intensities == null || profile.Intensities.Count == 0)
                 return null;
 
-            var apIntensity = data.Intensities.Find(i => i.Id == intensity.ApId);
+            var apIntensity = profile.Intensities.Find(i => i.Id == intensity.ApId);
 
             if (apIntensity == null && guess) {
-                apIntensity = data.Intensities.Find(i => i.Id == IntensityMap[intensity.StId]);
+                apIntensity = profile.Intensities.Find(i => i.Id == IntensityMap[intensity.StId]);
             }
 
             return apIntensity;
         }
 
-        public static ApEntity MapEquipment(ApProfile data, StEquipment item, bool guess) {
-            if (data.Shoes == null || data.Shoes.Count == 0)
+        public static ApEntity MapEquipment(ApProfile profile, StEquipment item, bool guess) {
+            if (profile.Shoes == null || profile.Shoes.Count == 0)
                 return null;
 
-            var apShoes = data.Shoes.Find(s => s.Id == item.ApId);
+            var apShoes = profile.Shoes.Find(s => s.Id == item.ApId);
 
             if (apShoes == null && guess) {
-                var temp = data.Shoes.ConvertAll(shoes => (ApEntity)shoes);
+                var temp = profile.Shoes.ConvertAll(shoes => (ApEntity)shoes);
                 apShoes = (ApShoes)FindClosest(temp, item.ToString().Replace("-", " "));
             }
 
@@ -94,11 +94,11 @@ namespace GK.SportTracks.AttackPoint
         }
 
 
-        internal static ApEntity MapHeartRateZone(ApProfile data, StHeartZone zone, bool guess) {
-            if (data.Intensities == null || data.Intensities.Count == 0)
+        internal static ApEntity MapHeartRateZone(ApProfile profile, StHeartZone zone, bool guess) {
+            if (profile.Intensities == null || profile.Intensities.Count == 0)
                 return null;
 
-            var apIntensity = data.Intensities.Find(i => i.Id == zone.ApId);
+            var apIntensity = profile.Intensities.Find(i => i.Id == zone.ApId);
 
             // TODO: Implement guess
 

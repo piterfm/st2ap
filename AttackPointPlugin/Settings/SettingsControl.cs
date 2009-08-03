@@ -339,21 +339,21 @@ namespace GK.SportTracks.AttackPoint.Settings
             }
             // If we have no image, use the background color.
             else {
-                using (Brush backBrush = new SolidBrush(tabControl.Parent.BackColor)) {
-                    e.Graphics.FillRectangle(backBrush, tabstripEndRectF);
+                using (Brush brush = new SolidBrush(tabControl.Parent.BackColor)) {
+                    e.Graphics.FillRectangle(brush, tabstripEndRectF);
                 }
             }
 
             // Set up the page and the various pieces.
             TabPage page = tabControl.TabPages[e.Index];
-            Brush BackBrush = new SolidBrush(Color.FromArgb(255, 167, 68)); //new SolidBrush(page.BackColor);
-            Brush ForeBrush = new SolidBrush(Color.Black); //new SolidBrush(page.ForeColor);
-            string TabName = page.Text;
+            Brush backBrush = new SolidBrush(Color.FromArgb(255, 167, 68)); //new SolidBrush(page.BackColor);
+            Brush foreBrush = new SolidBrush(Color.Black); //new SolidBrush(page.ForeColor);
+            string tabName = page.Text;
 
             // Set up the offset for an icon, the bounding rectangle and image size and then fill the background.
             int iconOffset = 0;
             Rectangle tabBackgroundRect = e.Bounds;
-            e.Graphics.FillRectangle(BackBrush, tabBackgroundRect);
+            e.Graphics.FillRectangle(backBrush, tabBackgroundRect);
 
             // If we have images, process them.
             if (images != null) {
@@ -379,12 +379,12 @@ namespace GK.SportTracks.AttackPoint.Settings
                 tabBackgroundRect.Width - iconOffset, tabBackgroundRect.Height/* - 3*/);
             StringFormat sf = new StringFormat();
             sf.Alignment = StringAlignment.Center;
-            e.Graphics.DrawString(TabName, e.Font, ForeBrush, labelRect, sf);
+            e.Graphics.DrawString(tabName, e.Font, foreBrush, labelRect, sf);
 
             //Dispose objects
             sf.Dispose();
-            BackBrush.Dispose();
-            ForeBrush.Dispose();
+            backBrush.Dispose();
+            foreBrush.Dispose();
         }
 
         private void dg_DataError(object sender, DataGridViewDataErrorEventArgs e) {

@@ -70,103 +70,27 @@ namespace GK.AttackPoint
             return id;
         }
 
-        public void ScrapeApData(ApProfile data) {
+        public void ScrapeApData(ApProfile profile) {
             var ser = new JsonSerializer();
             var json = FormatJson(RetrievePage(Metadata.ScrapeActivitiesUrl));
             using (var reader = new JsonReader(new StringReader(json))) {
-                data.Activities = (List<ApActivity>)ser.Deserialize(reader, typeof(List<ApActivity>));
+                profile.Activities = (List<ApActivity>)ser.Deserialize(reader, typeof(List<ApActivity>));
             }
 
             json = FormatJson(RetrievePage(Metadata.ScrapeShoesUrl));
             using (var reader = new JsonReader(new StringReader(json))) {
-                data.Shoes = (List<ApShoes>)ser.Deserialize(reader, typeof(List<ApShoes>));
+                profile.Shoes = (List<ApShoes>)ser.Deserialize(reader, typeof(List<ApShoes>));
             }
 
             var html = RetrievePage(Metadata.ScrapeUserSettingsUrl);
             // I'd go with a JSON call. But there is no JSON call
-            data.AdvancedFeaturesEnabled = html.Contains("paymenthistory");
-
-            /* Alternative code that scrapes data from HTML using regular expressions */
-
-            /*
-            var html = RetrievePage(_apMetadata.ScrapeEntitiesUrl);
-
-            data.Activities = PopulateEntities(GetDropDownList(html, "activitytypeid"), "-1");
-
-            // The scraping works fine for the workouts and technical intensities
-            // However, I decided to hard-code them to avoid potential problems
-            //var cd = new ApConstantData();
-            //cd.Workouts = PopulateEntities(GetDropDownList(html, "workouttypeid"), null);
-            //cd.TechnicalIntensities = PopulateEntities(GetDropDownList(html, "map"), null);
-            //data.Intensities = PopulateEntities(GetDropDownList(html, "intensity"), null); 
-            
-            html = RetrievePage(string.Format(_apMetadata.ScrapeShoesUrl, UserId));
-
-            data.Shoes = new List<ApShoes>();
-
-            for (var match = ShoesRegex.Match(html); match.Success; match = ShoesRegex.Match(html, match.Index + 1)) {
-                var shoeId = match.Groups[1].Value;
-                var cutoffIndex = html.IndexOf("</tr>", match.Index);
-                var shoes = html.Substring(match.Index, cutoffIndex - match.Index);
-
-                var name = Regex.Match(shoes, "<td[^>]*>(.*?)</td>");
-                bool retired = shoes.Contains("shoes_row_retired");
-
-                var title = Normalize(name.Groups[1].Value);
-                Debug.WriteLine(string.Format("{0} - {1} {2}", shoeId, title, retired));
-
-                data.Shoes.Add(new ApShoes() { Id = shoeId, Title = title, Retired = retired });
-            }
-            */
-
-            // Scrape units
-            //var html = RetrievePage(Metadata.ScrapeUnitsUrl);
-            //data.WeightDistanceUnits = ScrapeUnits(html, "units") == "m" ? Units.Metric : Units.English;
-            //data.ClimbUnits = ScrapeUnits(html, "cunits") == "0" ? Units.Metric : Units.English;
+            profile.AdvancedFeaturesEnabled = html.Contains("paymenthistory");
         }
 
         private string FormatJson(string json) {
             // Return empty array if nothing came back from the server
             return string.IsNullOrEmpty(json) ? "[]" : json;
         }
-
-        //private static string DropDownPatternt = "<select[^>]*name\\s*\\=\\s*['\"]?{0}['\"]?[^>]*>(.*?)</select>";
-        //private static Regex OptionsRegex = new Regex("<option[^>]*value\\s*=\\s*['\"]?([^'\">]*)['\"]?[^>]*>(.*?)<", RegexOptions.Singleline);
-        //private static Regex NormalizationRegex = new Regex("\\s{2,}");
-        //private static Regex ShoesRegex = new Regex("<a[^>]*href\\s*=\\s*['\"]/editshoes.jsp\\?shoesid=(\\d+?)['\"]\\s*>", RegexOptions.Singleline);
-        //private static Regex UnitsRegex = new Regex("<option[^>]*value\\s*=\\s*['\"]?([^'\">\\s]*)['\"]?\\s*selected\\s*>", RegexOptions.Singleline);
-
-        //private string GetDropDownList(string html, string id) {
-        //    return Regex.Match(html, string.Format(DropDownPatternt, id), RegexOptions.Singleline).Value;
-        //}
-
-        //private List<ApEntity> PopulateEntities(string options, string ignoreId) {
-        //    var entities = new List<ApEntity>();
-        //    var match = OptionsRegex.Match(options);
-        //    while (match.Success) {
-        //        var id = match.Groups[1].Value.Trim();
-        //        if (id != ignoreId) {
-        //            var title = Normalize(match.Groups[2].Value);
-        //            Debug.WriteLine(string.Format("{0} = {1} - '{2}'", id, title, match.Groups[2].Value));
-        //            entities.Add(new ApEntity()
-        //            {
-        //                Id = id,
-        //                Title = title
-        //            });
-        //        }
-        //        match = OptionsRegex.Match(options, match.Index + 1);
-        //    }
-        //    return entities;
-        //}
-
-        //private string ScrapeUnits(string html, string id) {
-        //    var dropDown = GetDropDownList(html, id);
-        //    return UnitsRegex.Match(dropDown).Groups[1].Value;
-        //}
-
-        //private static string Normalize(string s) {
-        //    return NormalizationRegex.Replace(s.Trim(), " ");
-        //}
 
         private HttpWebResponse PostRequest(string url, Dictionary<string, string> parameters) {
             return PostRequest(url, parameters, false);

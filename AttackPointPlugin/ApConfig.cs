@@ -38,8 +38,8 @@ namespace GK.SportTracks.AttackPoint
                     Mapping.Activities.Count == 0 ||
                     Mapping.Intensities == null ||
                     Mapping.Intensities.Count == 0 ||
-                    Mapping.Shoes == null ||
-                    Mapping.Shoes.Count == 0;
+                    Mapping.Shoes == null;/* ||
+                    Mapping.Shoes.Count == 0;*/ // ST user may not have equipment at all
             }
         }
 

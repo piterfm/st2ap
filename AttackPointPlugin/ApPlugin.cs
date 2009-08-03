@@ -21,7 +21,8 @@ namespace GK.SportTracks.AttackPoint
     class ApPlugin : IPlugin
     {
         public const string FeedbackEmail = "gregory.kh+st2ap@gmail.com";
-        public const string WebPage = "http://st2ap.codeplex.com/";
+        public const string WebPage = "http://st2ap.codeplex.com";
+        public const string ErrorEmailSubject = "AttackPoint Plugin Error";
 
         private static IApplication _application;
         private static bool _initialized;

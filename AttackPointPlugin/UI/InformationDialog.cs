@@ -16,9 +16,13 @@ namespace GK.SportTracks.AttackPoint.UI
     public partial class InformationDialog : Form
     {
         private bool _closeAfterComplete;
+        private int _smallSize;
+        private int _bigSize;
 
         public InformationDialog() {
             InitializeComponent();
+            _bigSize = Height;
+            _smallSize = _bigSize - (tbError.Height - progressBar1.Height);
         }
 
         public InformationDialog(ITheme theme) : this() {
@@ -48,7 +52,7 @@ namespace GK.SportTracks.AttackPoint.UI
             bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
             _closeAfterComplete = closeAfterComplete;
 
-            Height = 142;
+            Height = _smallSize;
             actionBanner1.Text = waitMessage;
             Text = caption;
             bClose.Enabled = false;
@@ -84,7 +88,7 @@ namespace GK.SportTracks.AttackPoint.UI
                 }
 
                 tbError.Text = string.Format("{0}", ex.Message);
-                Height = 170;
+                Height = _bigSize;
             }
             else if (_closeAfterComplete) {
                 Close();
@@ -101,7 +105,7 @@ namespace GK.SportTracks.AttackPoint.UI
         private void llFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             try {
                 var process = new Process();
-                process.StartInfo.FileName = string.Format("mailto:{0}?subject=AttackPoint Plugin Error", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail));
+                process.StartInfo.FileName = string.Format("mailto:{0}?subject={1}", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail), HttpUtility.UrlEncode(ApPlugin.ErrorEmailSubject));
                 process.Start();
             }
             catch (Exception ex) {

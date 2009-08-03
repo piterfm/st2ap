@@ -37,9 +37,11 @@
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Image = global::GK.SportTracks.AttackPoint.Properties.Resources.OLogo;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(-1, 3);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(-1, 2);
+            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(70, 67);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(52, 54);
+            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLogo.TabIndex = 0;
             this.pictureBoxLogo.TabStop = false;
             // 
@@ -47,19 +49,21 @@
             // 
             this.labelCaption.AutoSize = true;
             this.labelCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.labelCaption.Location = new System.Drawing.Point(88, 11);
+            this.labelCaption.Location = new System.Drawing.Point(64, 9);
+            this.labelCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCaption.Name = "labelCaption";
-            this.labelCaption.Size = new System.Drawing.Size(161, 17);
+            this.labelCaption.Size = new System.Drawing.Size(133, 13);
             this.labelCaption.TabIndex = 1;
-            this.labelCaption.Text = "AttackPoint Plugin v. 1.0";
+            this.labelCaption.Text = "AttackPoint Plugin v. 1.0.0";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.label2.Location = new System.Drawing.Point(75, 29);
+            this.label2.Location = new System.Drawing.Point(61, 24);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(184, 17);
+            this.label2.Size = new System.Drawing.Size(137, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "(c) 2009 by Greg Khanlarov";
             // 
@@ -69,9 +73,10 @@
             this.linkWebPage.AutoSize = true;
             this.linkWebPage.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
             this.linkWebPage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.linkWebPage.Location = new System.Drawing.Point(85, 49);
+            this.linkWebPage.Location = new System.Drawing.Point(64, 40);
+            this.linkWebPage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkWebPage.Name = "linkWebPage";
-            this.linkWebPage.Size = new System.Drawing.Size(169, 17);
+            this.linkWebPage.Size = new System.Drawing.Size(133, 13);
             this.linkWebPage.TabIndex = 3;
             this.linkWebPage.TabStop = true;
             this.linkWebPage.Text = "http://st2ap.codeplex.com";
@@ -82,9 +87,10 @@
             // 
             this.buttonOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOk.Location = new System.Drawing.Point(100, 80);
+            this.buttonOk.Location = new System.Drawing.Point(75, 65);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.Size = new System.Drawing.Size(56, 19);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = false;
@@ -92,11 +98,11 @@
             // AboutBoxForm
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.buttonOk;
-            this.ClientSize = new System.Drawing.Size(271, 115);
+            this.ClientSize = new System.Drawing.Size(203, 93);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.linkWebPage);
             this.Controls.Add(this.label2);
@@ -104,6 +110,7 @@
             this.Controls.Add(this.pictureBoxLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBoxForm";

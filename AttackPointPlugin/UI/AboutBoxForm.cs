@@ -22,5 +22,6 @@ namespace GK.SportTracks.AttackPoint.UI
             ApPlugin.ShowWebPage();
             Close();
         }
+
     }
 }

@@ -70,6 +70,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                     else {
                         comboWorkout.SelectedIndex = -1;
                     }
+                    tbSubtype.Text = _data.ActivitySubtype;
 
                     // Technical intensity
                     if (profile.ContainsTechnicalIntensityId(_data.TechnicalIntensityId)) {
@@ -79,6 +80,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                         comboTechnicalIntensity.SelectedIndex = 0;
                     }
 
+                    // Orienteering stuff
                     tbSpiked.Text = _data.SpikedControls;
                     tbTotal.Text = _data.TotalControls;
                     comboBoxCourseName.Text = _data.CourseName;
@@ -87,7 +89,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
                     tbPrivateNote.Text = _data.PrivateNote;
 
-                    panel1.Enabled = true;
+                    Enabled = true;
                     pIntensity.Enabled =
                     tbPrivateNote.Enabled =
                     bClear.Enabled =
@@ -97,6 +99,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                     lblTotalTime.Text = "N/A";
                     comboWorkout.SelectedIndex = -1;
                     comboTechnicalIntensity.SelectedIndex = -1;
+                    tbSubtype.Text = null;
                     tbI0.Text = null;
                     tbI1.Text = null;
                     tbI2.Text = null;
@@ -108,7 +111,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                     tbDistance.Text = null;
                     tbClimb.Text = null;
                     tbPrivateNote.Text = null;
-                    panel1.Enabled = false;
+                    Enabled = false;
                 }
             }
             catch (Exception ex) {
@@ -127,34 +130,41 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             if (_data == null) return;
 
             try {
-                _data.WorkoutId = GetValue(comboWorkout.SelectedValue);
-
-                var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
-                var intensity = stIntensity != null ? int.Parse(stIntensity.ApId) : -1;
-
-                // Check if only one intensity time is specified
-                // If it corresponds with Activity Time and Intensity then, clear IntensityX property
-                if (ActivityInfo != null &&
-                    _data.IsMixedIntensitySpecified() &&
-                    _data.IsSingleIntensitySpecified(ActivityInfo.Time, intensity)) {
-                    _data.ResetIntensity();
-                }
-                else {
-                    for (int i = 0; i <= 5; ++i) {
-                        _data.Intensities[i] = GetValue(_iTextBoxes[i].Text);
-                    }
-                }
-
-                _data.SpikedControls = GetValue(tbSpiked.Text);
-                _data.TotalControls = GetValue(tbTotal.Text);
-                _data.TechnicalIntensityId = GetValue(comboTechnicalIntensity.SelectedValue);
-                _data.CourseName = GetValue(comboBoxCourseName.Text);
-                _data.CourseLength = GetValue(tbDistance.Text);
-                _data.CourseClimb = GetValue(tbClimb.Text);
-                _data.PrivateNote = GetValue(tbPrivateNote.Text);
+                UpdateIntensity();
+                UpdateAllExceptIntensity();
             }
             catch (Exception ex) {
                 ApPlugin.HandleUnhandledException(ex);
+            }
+        }
+
+        private void UpdateAllExceptIntensity() {
+            _data.WorkoutId = GetValue(comboWorkout.SelectedValue);
+            _data.ActivitySubtype = GetValue(tbSubtype.Text);
+            _data.SpikedControls = GetValue(tbSpiked.Text);
+            _data.TotalControls = GetValue(tbTotal.Text);
+            _data.TechnicalIntensityId = GetValue(comboTechnicalIntensity.SelectedValue);
+            _data.CourseName = GetValue(comboBoxCourseName.Text);
+            _data.CourseLength = GetValue(tbDistance.Text);
+            _data.CourseClimb = GetValue(tbClimb.Text);
+            _data.PrivateNote = GetValue(tbPrivateNote.Text);
+        }
+
+        private void UpdateIntensity() {
+            var stIntensity = ApPlugin.ApConfig.Mapping.Intensities.Find(i => i.StId == Activity.Intensity.ToString());
+            var intensity = stIntensity != null ? int.Parse(stIntensity.ApId) : -1;
+
+            // Check if only one intensity time is specified
+            // If it corresponds with Activity Time and Intensity then, clear IntensityX property
+            if (ActivityInfo != null &&
+                _data.IsMixedIntensitySpecified() &&
+                _data.IsSingleIntensitySpecified(ActivityInfo.Time, intensity)) {
+                _data.ResetIntensity();
+            }
+            else {
+                for (int i = 0; i <= 5; ++i) {
+                    _data.Intensities[i] = GetValue(_iTextBoxes[i].Text);
+                }
             }
         }
 
@@ -224,7 +234,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         }
 
         private void ControlEdited(object sender, EventArgs e) {
-            //UpdateData();
+            UpdateAllExceptIntensity();
         }
 
         private void ValidateTimePerIntensity(object sender, EventArgs e) {

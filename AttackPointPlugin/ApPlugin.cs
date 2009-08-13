@@ -54,8 +54,9 @@ namespace GK.SportTracks.AttackPoint
         public static ApConfig ApConfig { get; set; }
         public Guid Id { get { return PluginId; } }
         public string Name { get { return Resources.Plugin_Name; } }
-        public string Version { get { return GetType().Assembly.GetName().Version.ToString(3); } }
+        public string Version { get { return GetVersion(); } }
         public static IApplication GetApplication() { return _application; }
+        public static string GetVersion() { return Assembly.GetExecutingAssembly().GetName().Version.ToString(3); }
 
         public static ApProxy GetProxy() {
             if (!_initialized)

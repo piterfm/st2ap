@@ -13,7 +13,7 @@ namespace GK.SportTracks.AttackPoint.UI
     {
         public AboutBoxForm() {
             InitializeComponent();
-            labelCaption.Text = string.Format("AttackPoint Plugin v. {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
+            labelCaption.Text = string.Format("AttackPoint Plugin v. {0}", ApPlugin.GetVersion());
             linkWebPage.Text = ApPlugin.WebPage;
             buttonOk.Focus();
         }

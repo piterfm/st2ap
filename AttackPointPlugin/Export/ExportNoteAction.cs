@@ -38,6 +38,9 @@ namespace GK.SportTracks.AttackPoint.Export
             //var ainfo = ActivityInfoCache.Instance.GetInfo(activity);
 
             var fields = new Dictionary<string, string>();
+            if (note.Date.TimeOfDay != TimeSpan.Zero) {
+                AddField(fields, "TimeOfDay", note.Date.ToShortTimeString());
+            }
             AddField(fields, "Name", activity.Name);
             AddField(fields, "Location", activity.Location);
             AddField(fields, "Calories", activity.TotalCalories);

@@ -14,12 +14,12 @@ namespace GK.SportTracks.AttackPoint.UI
         public AboutBoxForm() {
             InitializeComponent();
             labelCaption.Text = string.Format("AttackPoint Plugin v. {0}", ApPlugin.GetVersion());
-            linkWebPage.Text = ApPlugin.WebPage;
+            linkWebPage.Text = ApPlugin.HomePage;
             buttonOk.Focus();
         }
 
         private void linkWebPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            ApPlugin.ShowWebPage();
+            ApPlugin.ShowWebPage(ApPlugin.HomePage);
             Close();
         }
 

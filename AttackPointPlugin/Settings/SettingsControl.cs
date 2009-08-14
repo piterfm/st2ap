@@ -38,7 +38,6 @@ namespace GK.SportTracks.AttackPoint.Settings
 
         public SettingsControl() {
             InitializeComponent();
-            linkWebPage.Text = ApPlugin.WebPage;
             _heartZonesTab = tabControlMapping.TabPages[3];
 
             comboHRCategory.DisplayMember = "Title";
@@ -308,7 +307,7 @@ namespace GK.SportTracks.AttackPoint.Settings
         }
 
         private void linkWebPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            ApPlugin.ShowWebPage();
+            ApPlugin.ShowWebPage(ApPlugin.DocPage);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e) {
@@ -389,6 +388,10 @@ namespace GK.SportTracks.AttackPoint.Settings
 
         private void dg_DataError(object sender, DataGridViewDataErrorEventArgs e) {
             // This method is required in order to use DataGridView.Commit method
+        }
+
+        private void linkFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            ApPlugin.OpenEmailClient("AttackPoint Plugin Feedback");
         }
 
     }

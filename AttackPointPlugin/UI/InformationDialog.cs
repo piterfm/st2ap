@@ -103,14 +103,7 @@ namespace GK.SportTracks.AttackPoint.UI
         }
 
         private void llFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            try {
-                var process = new Process();
-                process.StartInfo.FileName = string.Format("mailto:{0}?subject={1}", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail), HttpUtility.UrlEncode(ApPlugin.ErrorEmailSubject));
-                process.Start();
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Unable to open your email client:\n" + ex.Message);
-            }
+            ApPlugin.OpenEmailClient("AttackPoint Plugin Error");
         }
 
         public class IgnoreException : Exception { }

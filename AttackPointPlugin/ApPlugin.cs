@@ -15,14 +15,15 @@ using ZoneFiveSoftware.Common.Data.Measurement;
 using System.Windows.Forms;
 using System.Reflection;
 using GK.SportTracks.AttackPoint.Properties;
+using System.Web;
 
 namespace GK.SportTracks.AttackPoint
 {
     class ApPlugin : IPlugin
     {
         public const string FeedbackEmail = "gregory.kh+st2ap@gmail.com";
-        public const string WebPage = "http://st2ap.codeplex.com";
-        public const string ErrorEmailSubject = "AttackPoint Plugin Error";
+        public const string HomePage = "http://st2ap.codeplex.com";
+        public const string DocPage = "http://st2ap.codeplex.com/Wiki/View.aspx?title=Getting%20Started";
 
         private static IApplication _application;
         private static bool _initialized;
@@ -339,15 +340,26 @@ namespace GK.SportTracks.AttackPoint
             return true;
         }
 
-        internal static void ShowWebPage() {
+        internal static void ShowWebPage(string page) {
             try {
                 var process = new Process();
-                process.StartInfo.FileName = ApPlugin.WebPage;
+                process.StartInfo.FileName = page;
                 process.Start();
             }
             catch (Exception ex) {
                 Logger.LogMessage("Failed to open a browser.", ex);
                 MessageBox.Show("Unable to open your browser:\n" + ex.Message);
+            }
+        }
+
+        internal static void OpenEmailClient(string subject) {
+            try {
+                var process = new Process();
+                process.StartInfo.FileName = string.Format("mailto:{0}?subject={1}", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail), HttpUtility.UrlEncode(subject));
+                process.Start();
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Unable to open your email client:\n" + ex.Message);
             }
         }
 

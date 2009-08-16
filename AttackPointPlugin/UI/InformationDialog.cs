@@ -83,8 +83,10 @@ namespace GK.SportTracks.AttackPoint.UI
                 actionBanner1.Text = "Operation failed.";
                 tbError.Visible = llFeedback.Visible = true;
 
-                if (!(ex is ApplicationException)) {
-                    ApPlugin.Logger.LogMessage("Operation failed.", ex);
+                var aex = ex as ApplicationException;
+                var exceptionToLog = aex == null ? ex : aex.InnerException;
+                if (exceptionToLog != null) {
+                    ApPlugin.Logger.LogMessage("Operation failed.", exceptionToLog);
                 }
 
                 tbError.Text = string.Format("{0}", ex.Message);

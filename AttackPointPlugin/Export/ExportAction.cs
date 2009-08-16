@@ -76,8 +76,11 @@ namespace GK.SportTracks.AttackPoint.Export
                                         sb.AppendLine(GetMessage(warning));
                                     }
                                 }
-                                sb.AppendLine("Do you want to proceed with export?");
-                                upload = ShowWarning(dialog, sb.ToString());
+
+                                if (sb.Length > 0) {
+                                    sb.AppendLine("Do you want to proceed with export?");
+                                    upload = ShowWarning(dialog, sb.ToString());
+                                }
                             }
 
                             if (upload) {

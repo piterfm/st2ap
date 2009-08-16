@@ -110,6 +110,7 @@ namespace GK.AttackPoint
             request.ContentType = "application/x-www-form-urlencoded";
             request.Method = "POST";
             request.ContentLength = bytes.Length;
+            request.Timeout = 60000; // 1 minute
 
             if (_cookieContainer == null) {
                 _cookieContainer = new CookieContainer();
@@ -126,12 +127,15 @@ namespace GK.AttackPoint
                 response = (HttpWebResponse)request.GetResponse();
             }
             catch (WebException ex) {
-                if (ex.Status == WebExceptionStatus.ProtocolError) {
+                string message;
+                if (ex.Response != null) {
                     LogManager.Logger.LogWebResponse((HttpWebResponse)ex.Response);
-                    throw new ApplicationException(string.Format("Request failed with status {0}: {1}. See log file for the full response.", ex.Status, ex));
+                    message = string.Format("Request failed with status {0}: {1}. See log file for the full response.", ex.Status, ex.Message);
                 }
-
-                throw new ApplicationException(string.Format("Request failed with status {0}: {1}", ex.Status, ex));
+                else {
+                    message = string.Format("Request failed with status {0}: {1}", ex.Status, ex.Message);
+                }
+                throw new ApplicationException(message, ex);
             }
 
             // Check cookie container for authentication cookie

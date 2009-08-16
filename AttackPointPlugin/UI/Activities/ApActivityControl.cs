@@ -41,7 +41,6 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             try {
                 var profile = ApPlugin.ApConfig.Profile;
 
-                // Display total time and intensities' time
                 if (ActivityInfo != null && !ApPlugin.ApConfig.IsMappingEmpty) {
                     comboWorkout.DataSource = profile.Workouts;
                     comboTechnicalIntensity.DataSource = profile.TechnicalIntensities;
@@ -127,7 +126,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         }
 
         public void UpdateData() {
-            if (_data == null) return;
+            if (_data == null || ApPlugin.ApConfig.IsMappingEmpty) return;
 
             try {
                 UpdateIntensity();

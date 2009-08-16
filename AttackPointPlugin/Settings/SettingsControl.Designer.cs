@@ -70,6 +70,7 @@
             this.lHR = new System.Windows.Forms.Label();
             this.comboHRCategory = new System.Windows.Forms.ComboBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.linkFeedback = new System.Windows.Forms.LinkLabel();
             this.cbAutoIntensity = new System.Windows.Forms.CheckBox();
             this.cbWarnAboutIntensity = new System.Windows.Forms.CheckBox();
             this.linkWebPage = new System.Windows.Forms.LinkLabel();
@@ -80,7 +81,6 @@
             this.tbInclusionFormat = new System.Windows.Forms.TextBox();
             this.lblFetch = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.linkFeedback = new System.Windows.Forms.LinkLabel();
             this.gbAccountInfo.SuspendLayout();
             this.gbMappings.SuspendLayout();
             this.tabControlMapping.SuspendLayout();
@@ -106,11 +106,11 @@
             this.gbAccountInfo.Controls.Add(this.label2);
             this.gbAccountInfo.Controls.Add(this.label1);
             this.gbAccountInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.gbAccountInfo.Location = new System.Drawing.Point(13, 78);
-            this.gbAccountInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbAccountInfo.Location = new System.Drawing.Point(10, 63);
+            this.gbAccountInfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gbAccountInfo.Name = "gbAccountInfo";
-            this.gbAccountInfo.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbAccountInfo.Size = new System.Drawing.Size(283, 103);
+            this.gbAccountInfo.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbAccountInfo.Size = new System.Drawing.Size(212, 84);
             this.gbAccountInfo.TabIndex = 1;
             this.gbAccountInfo.TabStop = false;
             this.gbAccountInfo.Text = "Account";
@@ -119,18 +119,20 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(11, 78);
+            this.label4.Location = new System.Drawing.Point(8, 63);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 17);
+            this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Bonus features:";
             // 
             // lAdvancedFeatures
             // 
             this.lAdvancedFeatures.AutoSize = true;
-            this.lAdvancedFeatures.Location = new System.Drawing.Point(116, 79);
+            this.lAdvancedFeatures.Location = new System.Drawing.Point(87, 64);
+            this.lAdvancedFeatures.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lAdvancedFeatures.Name = "lAdvancedFeatures";
-            this.lAdvancedFeatures.Size = new System.Drawing.Size(16, 17);
+            this.lAdvancedFeatures.Size = new System.Drawing.Size(13, 13);
             this.lAdvancedFeatures.TabIndex = 4;
             this.lAdvancedFeatures.Text = "?";
             // 
@@ -138,11 +140,11 @@
             // 
             this.tbPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.tbPassword.ForeColor = System.Drawing.Color.White;
-            this.tbPassword.Location = new System.Drawing.Point(93, 49);
-            this.tbPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbPassword.Location = new System.Drawing.Point(70, 40);
+            this.tbPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(179, 22);
+            this.tbPassword.Size = new System.Drawing.Size(135, 20);
             this.tbPassword.TabIndex = 2;
             this.tbPassword.TextChanged += new System.EventHandler(this.Credentials_TextChanged);
             // 
@@ -150,19 +152,20 @@
             // 
             this.tbUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.tbUsername.ForeColor = System.Drawing.Color.White;
-            this.tbUsername.Location = new System.Drawing.Point(93, 23);
-            this.tbUsername.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbUsername.Location = new System.Drawing.Point(70, 19);
+            this.tbUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(179, 22);
+            this.tbUsername.Size = new System.Drawing.Size(135, 20);
             this.tbUsername.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(11, 50);
+            this.label2.Location = new System.Drawing.Point(8, 41);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 17);
+            this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password:";
             // 
@@ -170,19 +173,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(11, 25);
+            this.label1.Location = new System.Drawing.Point(8, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 17);
+            this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username:";
             // 
             // bFetch
             // 
             this.bFetch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.bFetch.Location = new System.Drawing.Point(13, 185);
-            this.bFetch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.bFetch.Location = new System.Drawing.Point(10, 150);
+            this.bFetch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bFetch.Name = "bFetch";
-            this.bFetch.Size = new System.Drawing.Size(283, 34);
+            this.bFetch.Size = new System.Drawing.Size(212, 28);
             this.bFetch.TabIndex = 3;
             this.bFetch.Text = "Retrieve AttackPoint Profile";
             this.bFetch.UseVisualStyleBackColor = false;
@@ -195,11 +199,11 @@
             this.gbMappings.Controls.Add(this.lOverrideTip);
             this.gbMappings.Controls.Add(this.tabControlMapping);
             this.gbMappings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.gbMappings.Location = new System.Drawing.Point(13, 263);
-            this.gbMappings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbMappings.Location = new System.Drawing.Point(10, 214);
+            this.gbMappings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gbMappings.Name = "gbMappings";
-            this.gbMappings.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbMappings.Size = new System.Drawing.Size(1048, 544);
+            this.gbMappings.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbMappings.Size = new System.Drawing.Size(786, 442);
             this.gbMappings.TabIndex = 9;
             this.gbMappings.TabStop = false;
             this.gbMappings.Text = "Mappings";
@@ -208,9 +212,10 @@
             // 
             this.lOverrideTip.AutoSize = true;
             this.lOverrideTip.ForeColor = System.Drawing.Color.White;
-            this.lOverrideTip.Location = new System.Drawing.Point(361, 14);
+            this.lOverrideTip.Location = new System.Drawing.Point(271, 11);
+            this.lOverrideTip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lOverrideTip.Name = "lOverrideTip";
-            this.lOverrideTip.Size = new System.Drawing.Size(498, 17);
+            this.lOverrideTip.Size = new System.Drawing.Size(378, 13);
             this.lOverrideTip.TabIndex = 11;
             this.lOverrideTip.Text = "Tip: You can override AP sub-activity and workout type in Activity Details view.";
             // 
@@ -226,11 +231,11 @@
             this.tabControlMapping.Controls.Add(this.tabHRZones);
             this.tabControlMapping.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControlMapping.HotTrack = true;
-            this.tabControlMapping.Location = new System.Drawing.Point(3, 32);
-            this.tabControlMapping.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabControlMapping.Location = new System.Drawing.Point(2, 26);
+            this.tabControlMapping.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControlMapping.Name = "tabControlMapping";
             this.tabControlMapping.SelectedIndex = 0;
-            this.tabControlMapping.Size = new System.Drawing.Size(1043, 510);
+            this.tabControlMapping.Size = new System.Drawing.Size(782, 414);
             this.tabControlMapping.TabIndex = 10;
             this.tabControlMapping.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlMapping_DrawItem);
             this.tabControlMapping.SelectedIndexChanged += new System.EventHandler(this.tabControlMapping_SelectedIndexChanged);
@@ -240,10 +245,10 @@
             this.tabActivities.BackColor = System.Drawing.Color.Transparent;
             this.tabActivities.Controls.Add(this.dgActivities);
             this.tabActivities.ForeColor = System.Drawing.Color.White;
-            this.tabActivities.Location = new System.Drawing.Point(4, 28);
-            this.tabActivities.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabActivities.Location = new System.Drawing.Point(4, 25);
+            this.tabActivities.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabActivities.Name = "tabActivities";
-            this.tabActivities.Size = new System.Drawing.Size(1035, 478);
+            this.tabActivities.Size = new System.Drawing.Size(774, 385);
             this.tabActivities.TabIndex = 0;
             this.tabActivities.Text = "Activities";
             this.tabActivities.UseVisualStyleBackColor = true;
@@ -281,7 +286,7 @@
             this.dgActivities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgActivities.EnableHeadersVisualStyles = false;
             this.dgActivities.Location = new System.Drawing.Point(0, 0);
-            this.dgActivities.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgActivities.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgActivities.MultiSelect = false;
             this.dgActivities.Name = "dgActivities";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -295,7 +300,7 @@
             this.dgActivities.RowHeadersVisible = false;
             this.dgActivities.RowTemplate.Height = 24;
             this.dgActivities.ShowCellToolTips = false;
-            this.dgActivities.Size = new System.Drawing.Size(1035, 478);
+            this.dgActivities.Size = new System.Drawing.Size(774, 385);
             this.dgActivities.TabIndex = 12;
             this.dgActivities.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dg_DataError);
             // 
@@ -334,10 +339,10 @@
             this.tabIntensities.BackColor = System.Drawing.Color.Transparent;
             this.tabIntensities.Controls.Add(this.dgIntensities);
             this.tabIntensities.ForeColor = System.Drawing.Color.White;
-            this.tabIntensities.Location = new System.Drawing.Point(4, 28);
-            this.tabIntensities.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabIntensities.Location = new System.Drawing.Point(4, 25);
+            this.tabIntensities.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabIntensities.Name = "tabIntensities";
-            this.tabIntensities.Size = new System.Drawing.Size(1035, 478);
+            this.tabIntensities.Size = new System.Drawing.Size(774, 385);
             this.tabIntensities.TabIndex = 1;
             this.tabIntensities.Text = "Intensities";
             this.tabIntensities.UseVisualStyleBackColor = true;
@@ -372,7 +377,7 @@
             this.dgIntensities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgIntensities.EnableHeadersVisualStyles = false;
             this.dgIntensities.Location = new System.Drawing.Point(0, 0);
-            this.dgIntensities.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgIntensities.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgIntensities.Name = "dgIntensities";
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
@@ -385,7 +390,7 @@
             this.dgIntensities.RowHeadersVisible = false;
             this.dgIntensities.RowTemplate.Height = 24;
             this.dgIntensities.ShowCellToolTips = false;
-            this.dgIntensities.Size = new System.Drawing.Size(1035, 478);
+            this.dgIntensities.Size = new System.Drawing.Size(774, 385);
             this.dgIntensities.TabIndex = 14;
             this.dgIntensities.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dg_DataError);
             // 
@@ -410,10 +415,10 @@
             this.tabShoes.BackColor = System.Drawing.Color.Transparent;
             this.tabShoes.Controls.Add(this.dgShoes);
             this.tabShoes.ForeColor = System.Drawing.Color.White;
-            this.tabShoes.Location = new System.Drawing.Point(4, 28);
-            this.tabShoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabShoes.Location = new System.Drawing.Point(4, 25);
+            this.tabShoes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabShoes.Name = "tabShoes";
-            this.tabShoes.Size = new System.Drawing.Size(1035, 478);
+            this.tabShoes.Size = new System.Drawing.Size(774, 385);
             this.tabShoes.TabIndex = 2;
             this.tabShoes.Text = "Shoes";
             this.tabShoes.UseVisualStyleBackColor = true;
@@ -448,7 +453,7 @@
             this.dgShoes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgShoes.EnableHeadersVisualStyles = false;
             this.dgShoes.Location = new System.Drawing.Point(0, 0);
-            this.dgShoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgShoes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgShoes.Name = "dgShoes";
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
@@ -461,7 +466,7 @@
             this.dgShoes.RowHeadersVisible = false;
             this.dgShoes.RowTemplate.Height = 24;
             this.dgShoes.ShowCellToolTips = false;
-            this.dgShoes.Size = new System.Drawing.Size(1035, 478);
+            this.dgShoes.Size = new System.Drawing.Size(774, 385);
             this.dgShoes.TabIndex = 16;
             this.dgShoes.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dg_DataError);
             // 
@@ -485,10 +490,10 @@
             this.tabHRZones.BackColor = System.Drawing.Color.Transparent;
             this.tabHRZones.Controls.Add(this.flowLayoutPanel1);
             this.tabHRZones.ForeColor = System.Drawing.Color.White;
-            this.tabHRZones.Location = new System.Drawing.Point(4, 28);
-            this.tabHRZones.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabHRZones.Location = new System.Drawing.Point(4, 25);
+            this.tabHRZones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabHRZones.Name = "tabHRZones";
-            this.tabHRZones.Size = new System.Drawing.Size(1035, 478);
+            this.tabHRZones.Size = new System.Drawing.Size(774, 385);
             this.tabHRZones.TabIndex = 3;
             this.tabHRZones.Text = "HR Zones";
             this.tabHRZones.UseVisualStyleBackColor = true;
@@ -501,9 +506,9 @@
             this.flowLayoutPanel1.Controls.Add(this.comboHRCategory);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1035, 478);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(774, 385);
             this.flowLayoutPanel1.TabIndex = 18;
             // 
             // dgHRZones
@@ -534,8 +539,8 @@
             this.dgHRZones.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgHRZones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgHRZones.EnableHeadersVisualStyles = false;
-            this.dgHRZones.Location = new System.Drawing.Point(3, 2);
-            this.dgHRZones.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgHRZones.Location = new System.Drawing.Point(2, 2);
+            this.dgHRZones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgHRZones.Name = "dgHRZones";
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
@@ -548,7 +553,7 @@
             this.dgHRZones.RowHeadersVisible = false;
             this.dgHRZones.RowTemplate.Height = 24;
             this.dgHRZones.ShowCellToolTips = false;
-            this.dgHRZones.Size = new System.Drawing.Size(540, 369);
+            this.dgHRZones.Size = new System.Drawing.Size(405, 300);
             this.dgHRZones.TabIndex = 15;
             this.dgHRZones.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dg_DataError);
             // 
@@ -573,10 +578,10 @@
             this.lHR.AutoSize = true;
             this.lHR.BackColor = System.Drawing.Color.Black;
             this.lHR.ForeColor = System.Drawing.Color.White;
-            this.lHR.Location = new System.Drawing.Point(549, 10);
-            this.lHR.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.lHR.Location = new System.Drawing.Point(411, 8);
+            this.lHR.Margin = new System.Windows.Forms.Padding(2, 8, 2, 0);
             this.lHR.Name = "lHR";
-            this.lHR.Size = new System.Drawing.Size(93, 17);
+            this.lHR.Size = new System.Drawing.Size(71, 13);
             this.lHR.TabIndex = 17;
             this.lHR.Text = "HR Category:";
             // 
@@ -588,10 +593,10 @@
             this.comboHRCategory.ForeColor = System.Drawing.Color.White;
             this.comboHRCategory.FormattingEnabled = true;
             this.comboHRCategory.IntegralHeight = false;
-            this.comboHRCategory.Location = new System.Drawing.Point(648, 5);
-            this.comboHRCategory.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
+            this.comboHRCategory.Location = new System.Drawing.Point(486, 4);
+            this.comboHRCategory.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.comboHRCategory.Name = "comboHRCategory";
-            this.comboHRCategory.Size = new System.Drawing.Size(163, 24);
+            this.comboHRCategory.Size = new System.Drawing.Size(123, 21);
             this.comboHRCategory.TabIndex = 16;
             this.comboHRCategory.SelectedIndexChanged += new System.EventHandler(this.comboHRCategory_SelectedIndexChanged);
             // 
@@ -607,23 +612,37 @@
             this.gbOptions.Controls.Add(this.label6);
             this.gbOptions.Controls.Add(this.tbInclusionFormat);
             this.gbOptions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.gbOptions.Location = new System.Drawing.Point(307, 12);
-            this.gbOptions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbOptions.Location = new System.Drawing.Point(230, 10);
+            this.gbOptions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gbOptions.Name = "gbOptions";
-            this.gbOptions.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbOptions.Size = new System.Drawing.Size(755, 206);
+            this.gbOptions.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbOptions.Size = new System.Drawing.Size(566, 167);
             this.gbOptions.TabIndex = 3;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Export Options";
+            // 
+            // linkFeedback
+            // 
+            this.linkFeedback.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            this.linkFeedback.AutoSize = true;
+            this.linkFeedback.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
+            this.linkFeedback.Location = new System.Drawing.Point(480, 129);
+            this.linkFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.linkFeedback.Name = "linkFeedback";
+            this.linkFeedback.Size = new System.Drawing.Size(80, 13);
+            this.linkFeedback.TabIndex = 10;
+            this.linkFeedback.TabStop = true;
+            this.linkFeedback.Text = "Send feedback";
+            this.linkFeedback.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFeedback_LinkClicked);
             // 
             // cbAutoIntensity
             // 
             this.cbAutoIntensity.AutoSize = true;
             this.cbAutoIntensity.ForeColor = System.Drawing.Color.White;
-            this.cbAutoIntensity.Location = new System.Drawing.Point(17, 178);
-            this.cbAutoIntensity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbAutoIntensity.Location = new System.Drawing.Point(13, 145);
+            this.cbAutoIntensity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbAutoIntensity.Name = "cbAutoIntensity";
-            this.cbAutoIntensity.Size = new System.Drawing.Size(216, 21);
+            this.cbAutoIntensity.Size = new System.Drawing.Size(165, 17);
             this.cbAutoIntensity.TabIndex = 9;
             this.cbAutoIntensity.Text = "Auto-calculate mixed intensity";
             this.cbAutoIntensity.UseVisualStyleBackColor = true;
@@ -634,10 +653,10 @@
             this.cbWarnAboutIntensity.Checked = true;
             this.cbWarnAboutIntensity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbWarnAboutIntensity.ForeColor = System.Drawing.Color.White;
-            this.cbWarnAboutIntensity.Location = new System.Drawing.Point(17, 135);
-            this.cbWarnAboutIntensity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbWarnAboutIntensity.Location = new System.Drawing.Point(13, 110);
+            this.cbWarnAboutIntensity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbWarnAboutIntensity.Name = "cbWarnAboutIntensity";
-            this.cbWarnAboutIntensity.Size = new System.Drawing.Size(236, 21);
+            this.cbWarnAboutIntensity.Size = new System.Drawing.Size(180, 17);
             this.cbWarnAboutIntensity.TabIndex = 7;
             this.cbWarnAboutIntensity.Text = "Warn about unspecified intensity";
             this.cbWarnAboutIntensity.UseVisualStyleBackColor = true;
@@ -647,9 +666,10 @@
             this.linkWebPage.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
             this.linkWebPage.AutoSize = true;
             this.linkWebPage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.linkWebPage.Location = new System.Drawing.Point(602, 179);
+            this.linkWebPage.Location = new System.Drawing.Point(455, 145);
+            this.linkWebPage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkWebPage.Name = "linkWebPage";
-            this.linkWebPage.Size = new System.Drawing.Size(141, 17);
+            this.linkWebPage.Size = new System.Drawing.Size(105, 13);
             this.linkWebPage.TabIndex = 6;
             this.linkWebPage.TabStop = true;
             this.linkWebPage.Text = "Getting started guide";
@@ -662,10 +682,10 @@
             this.comboNotes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboNotes.ForeColor = System.Drawing.Color.White;
             this.comboNotes.FormattingEnabled = true;
-            this.comboNotes.Location = new System.Drawing.Point(17, 59);
-            this.comboNotes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboNotes.Location = new System.Drawing.Point(13, 48);
+            this.comboNotes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboNotes.Name = "comboNotes";
-            this.comboNotes.Size = new System.Drawing.Size(145, 24);
+            this.comboNotes.Size = new System.Drawing.Size(110, 21);
             this.comboNotes.TabIndex = 4;
             this.comboNotes.SelectedIndexChanged += new System.EventHandler(this.comboNotes_SelectedIndexChanged);
             // 
@@ -675,10 +695,10 @@
             this.cbWarnAboutShoes.Checked = true;
             this.cbWarnAboutShoes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbWarnAboutShoes.ForeColor = System.Drawing.Color.White;
-            this.cbWarnAboutShoes.Location = new System.Drawing.Point(17, 158);
-            this.cbWarnAboutShoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbWarnAboutShoes.Location = new System.Drawing.Point(13, 128);
+            this.cbWarnAboutShoes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbWarnAboutShoes.Name = "cbWarnAboutShoes";
-            this.cbWarnAboutShoes.Size = new System.Drawing.Size(245, 21);
+            this.cbWarnAboutShoes.Size = new System.Drawing.Size(187, 17);
             this.cbWarnAboutShoes.TabIndex = 8;
             this.cbWarnAboutShoes.Text = "Warn about unmapped equipment";
             this.cbWarnAboutShoes.UseVisualStyleBackColor = true;
@@ -688,26 +708,24 @@
             this.tbHelp.BackColor = System.Drawing.Color.Black;
             this.tbHelp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbHelp.ForeColor = System.Drawing.Color.White;
-            this.tbHelp.Location = new System.Drawing.Point(17, 94);
-            this.tbHelp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbHelp.Location = new System.Drawing.Point(13, 76);
             this.tbHelp.Multiline = true;
             this.tbHelp.Name = "tbHelp";
             this.tbHelp.ReadOnly = true;
-            this.tbHelp.Size = new System.Drawing.Size(727, 36);
+            this.tbHelp.Size = new System.Drawing.Size(545, 29);
             this.tbHelp.TabIndex = 4;
             this.tbHelp.TabStop = false;
-            this.tbHelp.Text = "Specify format of the Notes field. Check AttackPoint plugin\'s home page for docum" +
-                "entation. Leave the field blank to export activity notes exactly as they are ent" +
-                "ered in the Notes field.";
+            this.tbHelp.Text = "Specify format of the Notes field. Check Getting Started guide for documentation." +
+                " Leave the field blank to export activity notes exactly as they are entered in t" +
+                "he Notes field.";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(13, 41);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(10, 33);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(93, 17);
+            this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 3;
             this.label6.Text = "Notes format:";
             // 
@@ -716,21 +734,20 @@
             this.tbInclusionFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.tbInclusionFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbInclusionFormat.ForeColor = System.Drawing.Color.White;
-            this.tbInclusionFormat.Location = new System.Drawing.Point(171, 21);
-            this.tbInclusionFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbInclusionFormat.Location = new System.Drawing.Point(128, 17);
+            this.tbInclusionFormat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbInclusionFormat.Multiline = true;
             this.tbInclusionFormat.Name = "tbInclusionFormat";
-            this.tbInclusionFormat.Size = new System.Drawing.Size(572, 66);
+            this.tbInclusionFormat.Size = new System.Drawing.Size(430, 54);
             this.tbInclusionFormat.TabIndex = 5;
             // 
             // lblFetch
             // 
             this.lblFetch.AutoSize = true;
             this.lblFetch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.lblFetch.Location = new System.Drawing.Point(19, 235);
-            this.lblFetch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFetch.Location = new System.Drawing.Point(14, 191);
             this.lblFetch.Name = "lblFetch";
-            this.lblFetch.Size = new System.Drawing.Size(104, 17);
+            this.lblFetch.Size = new System.Drawing.Size(79, 13);
             this.lblFetch.TabIndex = 11;
             this.lblFetch.Text = "Fetch message";
             // 
@@ -738,31 +755,18 @@
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::GK.SportTracks.AttackPoint.Properties.Resources.Logo;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 15);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(10, 12);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(283, 66);
+            this.pictureBox1.Size = new System.Drawing.Size(212, 54);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // linkFeedback
-            // 
-            this.linkFeedback.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.linkFeedback.AutoSize = true;
-            this.linkFeedback.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
-            this.linkFeedback.Location = new System.Drawing.Point(640, 159);
-            this.linkFeedback.Name = "linkFeedback";
-            this.linkFeedback.Size = new System.Drawing.Size(103, 17);
-            this.linkFeedback.TabIndex = 10;
-            this.linkFeedback.TabStop = true;
-            this.linkFeedback.Text = "Send feedback";
-            this.linkFeedback.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFeedback_LinkClicked);
-            // 
             // SettingsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.pictureBox1);
@@ -771,10 +775,10 @@
             this.Controls.Add(this.gbMappings);
             this.Controls.Add(this.bFetch);
             this.Controls.Add(this.gbAccountInfo);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(1069, 812);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimumSize = new System.Drawing.Size(802, 660);
             this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(1069, 812);
+            this.Size = new System.Drawing.Size(802, 660);
             this.gbAccountInfo.ResumeLayout(false);
             this.gbAccountInfo.PerformLayout();
             this.gbMappings.ResumeLayout(false);

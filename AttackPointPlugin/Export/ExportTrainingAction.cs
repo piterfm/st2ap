@@ -77,9 +77,12 @@ namespace GK.SportTracks.AttackPoint.Export
                 return ExportError.IntensityNotMapped;
             }
             else {
-                training.IntensityId = stIntensity.ApId;
                 if (activity.Intensity == 0) {
                     edata.Warnings |= ExportWarning.IntensityNotSpecified;
+                    training.IntensityId = "3"; // default value
+                }
+                else {
+                    training.IntensityId = stIntensity.ApId;
                 }
             }
 

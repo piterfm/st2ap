@@ -35,8 +35,6 @@ namespace GK.SportTracks.AttackPoint.Export
                 note.WeightUnitId = edata.Metadata.GetUnitsValue(Quantity.Weight.ToString(), Units.Metric.ToString());
             }
 
-            //var ainfo = ActivityInfoCache.Instance.GetInfo(activity);
-
             var fields = new Dictionary<string, string>();
             if (note.Date.TimeOfDay != TimeSpan.Zero) {
                 AddField(fields, "TimeOfDay", note.Date.ToShortTimeString());

@@ -66,10 +66,11 @@ namespace GK.AttackPoint
                         message += Environment.NewLine + ex;
                     }
 
+                    PrintMessage(message);
+                    WriteMessageToEventLog(message, EventLogEntryType.Error);
+
                     using (StreamWriter writer = new StreamWriter(_logFile, IsAppend())) {
-                        PrintMessage(message);
                         writer.WriteLine(message);
-                        WriteMessageToEventLog(message, EventLogEntryType.Error);
                     }
                 }
                 catch (Exception e) {
@@ -78,18 +79,15 @@ namespace GK.AttackPoint
 
             }
 
-            public void PrintWebResponse(HttpWebResponse response) {
+            public void PrintWebResponse(string url, HttpWebResponse response) {
                 if (!_isDebug) return;
-                OutputResponseStream(response, null);
+                OutputResponseStream(url, response, null);
             }
 
-            public void LogWebResponse(HttpWebResponse response) {
+            public void LogWebResponse(string url, HttpWebResponse response) {
                 try {
-                    WriteMessageToEventLog(string.Format("Response stream received. Status: {0} - {1}. See log files for details.",
-                        response.StatusCode, response.StatusDescription), EventLogEntryType.Error);
-
                     using (StreamWriter writer = new StreamWriter(_logFile, IsAppend())) {
-                        OutputResponseStream(response, writer);
+                        OutputResponseStream(url, response, writer);
                     }
                 }
                 catch (Exception ex) {
@@ -97,36 +95,45 @@ namespace GK.AttackPoint
                 }
             }
 
-            private void OutputResponseStream(HttpWebResponse response, TextWriter writer) {
+            private void OutputResponseStream(string url, HttpWebResponse response, TextWriter writer) {
                 StreamReader readStream = null;
                 try {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendFormat("{1}*********************{1}{0}: Response received{1}", DateTime.Now, Environment.NewLine);
+                    sb.AppendFormat("URL: {0}", url).AppendLine();
+                    sb.AppendFormat("Status: {0} - {1}", response.StatusCode, response.StatusDescription).AppendLine();
+                    sb.AppendFormat("Protocol/Method: {0} - {1}", response.ProtocolVersion, response.Method).AppendLine();
+                    sb.AppendFormat("Response URI: {0}", response.ResponseUri).AppendLine();
+                    sb.AppendFormat("Character set: {0}", response.CharacterSet).AppendLine();
+                    sb.AppendFormat("Character encoding: {0}", response.ContentEncoding).AppendLine();
+                    sb.AppendFormat("Is from cache: {0}", response.IsFromCache).AppendLine();
+                    if (response.Headers != null) {
+                        foreach (var header in response.Headers.AllKeys) {
+                            sb.AppendFormat("{0}={1}", header, response.Headers[header]).AppendLine();
+                        }
+                    }
+                    if (response.Cookies != null) {
+                        for (int i = 0; i < response.Cookies.Count; ++i) {
+                            sb.AppendFormat("{0}={1}", response.Cookies[i].Name, response.Cookies[i].Value).AppendLine();
+                        }
+                    }
+                    WriteMessage(writer, sb.ToString());
+
                     var stream = response.GetResponseStream();
                     var encoding = Encoding.GetEncoding("utf-8");
                     // Pipes the stream to a higher level stream reader with the required encoding format. 
                     readStream = new StreamReader(stream, encoding);
-                    var str = string.Format("{3}{0}: Response stream received. Status: {1} - {2} ****************",
-                            DateTime.Now, response.StatusCode, response.StatusDescription, Environment.NewLine);
-                    PrintMessage(str);
-                    if (writer != null)
-                        writer.WriteLine(str);
+                    
                     var read = new char[256];
                     // Reads 256 characters at a time.    
                     var count = readStream.Read(read, 0, 256);
-                    str = "HTML..." + Environment.NewLine;
-                    PrintMessage(str);
-                    if (writer != null)
-                        writer.WriteLine(str);
+                    WriteMessage(writer, "--- START HTML ---" + Environment.NewLine);
                     while (count > 0) {
-                        str = new string(read, 0, count);
-                        PrintMessage(str);
-                        if (writer != null)
-                            writer.Write(str);
+                        var str = new string(read, 0, count);
+                        WriteMessage(writer, str);
                         count = readStream.Read(read, 0, 256);
                     }
-                    PrintMessage(string.Empty);
-                    if (writer != null)
-                        writer.WriteLine(string.Empty);
-
+                    WriteMessage(writer, "--- END HTML ---" + Environment.NewLine);
                 }
                 catch (Exception ex) {
                     LogFatal("Unable to print response.", ex, null);
@@ -136,14 +143,25 @@ namespace GK.AttackPoint
                 }
             }
 
+            private void WriteMessage(TextWriter writer, string str) {
+                PrintMessage(str);
+                if (writer != null)
+                    writer.WriteLine(str);
+            }
+
             protected void LogFatal(string message, Exception ex, Exception oex) {
-                message = string.Format("Unable to log message.{0}----- ORIGINAL MESSAGE/EXCEPTION ----{0}{1}{0}{2}{0}--------- END -------{0}{3}",
-                        Environment.NewLine,
-                        message,
-                        (oex == null ? "<No orignal exception>" : oex.ToString()),
-                        ex);
-                Debug.WriteLine(message);
-                WriteMessageToEventLog(message, EventLogEntryType.Error);
+                try {
+                    message = string.Format("Unable to log message.{0}----- ORIGINAL MESSAGE/EXCEPTION ----{0}{1}{0}{2}{0}--------- END -------{0}{3}",
+                            Environment.NewLine,
+                            message,
+                            (oex == null ? "<No orignal exception>" : oex.ToString()),
+                            ex);
+                    Debug.WriteLine(message);
+                    WriteMessageToEventLog(message, EventLogEntryType.Error);
+                }
+                catch (Exception shouldNeverHappenEx) {
+                    Debug.WriteLine("Totally screwed up while logging: " + shouldNeverHappenEx);
+                }
             }
 
             private void WriteMessageToEventLog(string message, EventLogEntryType type) {

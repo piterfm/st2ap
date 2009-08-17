@@ -15,7 +15,7 @@ namespace GK.AttackPoint
         void LogMessage(string message);
         void LogMessage(string message, Exception ex);
 
-        void PrintWebResponse(HttpWebResponse response);
-        void LogWebResponse(HttpWebResponse response);
+        void PrintWebResponse(string url, HttpWebResponse response);
+        void LogWebResponse(string url, HttpWebResponse response);
     }
 }

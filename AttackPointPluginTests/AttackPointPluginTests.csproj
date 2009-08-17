@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Test_ApProxy.cs" />
     <Compile Include="Test_FormatNote.cs" />
     <Compile Include="Test_MapperCategory.cs" />
     <Compile Include="Test_ApActivityData.cs" />

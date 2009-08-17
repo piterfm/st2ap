@@ -48,8 +48,9 @@ namespace GK.AttackPoint
             parameters.Add(m.PasswordPropertyName, password);
 
             using (var response = proxy.PostRequest(m.LogingUrl, parameters, true)) {
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new WebException(string.Format("Unable to authenticate on AttackPoint. HTTP status code: {0} - {1}", response.StatusCode, response.StatusDescription));
+                if (LogManager.Logger.IsDebug) {
+                    LogManager.Logger.LogWebResponse(m.LogingUrl, response);
+                }
             }
 
             proxy.Username = username;
@@ -64,7 +65,9 @@ namespace GK.AttackPoint
             var parameters = note.Pack(operation);
 
             using (var response = PostRequest(operation.PageUrl, parameters)) {
-                LogManager.Logger.LogWebResponse(response);
+                if (LogManager.Logger.IsDebug) {
+                    LogManager.Logger.LogWebResponse(operation.PageUrl, response);
+                }
             }
 
             return id;
@@ -127,23 +130,18 @@ namespace GK.AttackPoint
                 response = (HttpWebResponse)request.GetResponse();
             }
             catch (WebException ex) {
-                string message;
-                if (ex.Response != null) {
-                    LogManager.Logger.LogWebResponse((HttpWebResponse)ex.Response);
-                    message = string.Format("Request failed with status {0}: {1}. See log file for the full response.", ex.Status, ex.Message);
-                }
-                else {
-                    message = string.Format("Request failed with status {0}: {1}", ex.Status, ex.Message);
-                }
-                throw new ApplicationException(message, ex);
+                ProcessWebException(url, ex);
             }
+
+            EnsureResponseIsOk(url, response);
 
             // Check cookie container for authentication cookie
             if (authenticate) {
                 var cookies = _cookieContainer.GetCookies(request.RequestUri);
                 _loginCookie = cookies[Metadata.LoginCookieName];
                 if (_loginCookie == null) {
-                    LogManager.Logger.LogWebResponse(response);
+                    LogManager.Logger.LogMessage("Unable to authenticate on AttackPoint. Login cookie not found.");
+                    LogManager.Logger.LogWebResponse(url, response);
                     throw new ApplicationException("Unable to authenticate on AttackPoint. See log file for the response.");
                 }
                 
@@ -186,16 +184,27 @@ namespace GK.AttackPoint
                 }
             }
             catch (WebException ex) {
-                if (ex.Status == WebExceptionStatus.ProtocolError) {
-                    LogManager.Logger.LogWebResponse((HttpWebResponse)ex.Response);
-                    throw new ApplicationException(string.Format("Request failed with status {0}: {1}. See log file for the response.", ex.Status, ex));
-                }
-
-                throw new ApplicationException(string.Format("Request failed with status {0}: {1}", ex.Status, ex));
+                ProcessWebException(url, ex);
+                return null;
             }
         }
 
+        private void EnsureResponseIsOk(string url, HttpWebResponse response) {
+            if (response == null || response.StatusCode == HttpStatusCode.OK) return;
 
+            LogManager.Logger.LogMessage(string.Format("Request to URL '{2}' failed with status {0} ({1}).", response.StatusCode, response.StatusDescription, url));
+            LogManager.Logger.LogWebResponse(url, response);
+            throw new ApplicationException(string.Format("Request failed with status {0} ({1}). See log file for the full response.", response.StatusCode, response.StatusDescription));
+        }
+
+        private void ProcessWebException(string url, WebException ex) {
+            LogManager.Logger.LogMessage(string.Format("Request to URL '{2}' failed with status {0}: {1}", ex.Status, ex.Message, url));
+            if (ex.Response != null) {
+                LogManager.Logger.LogWebResponse(url, (HttpWebResponse)ex.Response);
+            }
+
+            throw new ApplicationException(string.Format("Request failed with status {0}: {1} See log file for details.", ex.Status, ex.Message), ex);
+        }
 
     }
 

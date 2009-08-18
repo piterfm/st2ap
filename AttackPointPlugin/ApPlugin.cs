@@ -14,13 +14,18 @@ using GK.SportTracks.AttackPoint.UI.Activities;
 using ZoneFiveSoftware.Common.Data.Measurement;
 using System.Windows.Forms;
 using System.Reflection;
-using GK.SportTracks.AttackPoint.Properties;
 using System.Web;
+using System.Net;
+using GK.Utils;
+using GK.SportTracks.AttackPoint.Properties;
 
 namespace GK.SportTracks.AttackPoint
 {
     class ApPlugin : IPlugin
     {
+        private const string UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322) ";
+        private const int HttpTimeout = 60000; // 1 minute
+
         public const string FeedbackEmail = "gregory.kh+st2ap@gmail.com";
         public const string HomePage = "http://st2ap.codeplex.com";
         public const string DocPage = "http://st2ap.codeplex.com/Wiki/View.aspx?title=Getting%20Started";
@@ -31,6 +36,7 @@ namespace GK.SportTracks.AttackPoint
         private static ApProxy Proxy;
         private static XmlWriterSettings DataSerSettings;
         private static string BasePath;
+        private static IConnectionProvider ConnectionProvider;
 
         static ApPlugin() {
             try {
@@ -71,10 +77,37 @@ namespace GK.SportTracks.AttackPoint
                 Proxy.Username != ApConfig.Profile.Username ||
                 Proxy.Password != ApConfig.Profile.Password)) {
 
-                Proxy = ApProxy.Connect(BasePath, ApConfig.Profile.Username, ApConfig.Profile.Password);
+                if (ConnectionProvider == null) {
+                    ConnectionProvider = new HttpConnectionProvider(HttpTimeout, GetWebProxy(), UserAgent);
+                }
+
+                Proxy = ApProxy.Connect(ConnectionProvider, BasePath, ApConfig.Profile.Username, ApConfig.Profile.Password);
             }
 
             return Proxy;
+        }
+
+        private static IWebProxy GetWebProxy() {
+            try {
+                var app = GetApplication();
+                if (app == null ||
+                    app.SystemPreferences == null ||
+                    app.SystemPreferences.InternetSettings == null ||
+                    !app.SystemPreferences.InternetSettings.UseProxy)
+                    return null;
+
+                var internetSettings = app.SystemPreferences.InternetSettings;
+                var proxy = new WebProxy(internetSettings.ProxyHost, internetSettings.ProxyPort);
+                if ((internetSettings.ProxyUsername.Length > 0) && (internetSettings.ProxyPassword.Length > 0)) {
+                    proxy.Credentials = new NetworkCredential(internetSettings.ProxyUsername, internetSettings.ProxyPassword);
+                }
+
+                return proxy;
+            }
+            catch (Exception ex) {
+                LogManager.Logger.LogMessage("Unable to initialize web proxy." + Environment.NewLine + ex);
+                throw new ApplicationException("Unable to initialize web proxy: " + ex.Message);
+            }
         }
 
         public void ReadOptions(XmlDocument xmlDoc, XmlNamespaceManager nsmgr, XmlElement pluginNode)
@@ -364,7 +397,7 @@ namespace GK.SportTracks.AttackPoint
         }
 
         internal static void HandleUnhandledException(Exception ex) {
-            Logger.LogMessage("Unable to refresh ActivityControl.", ex);
+            Logger.LogMessage("Unhandled  exception happened.", ex);
             MessageBox.Show("Oops. It looks like there is a bug in AttackPoint plugin.\nPlease contact the developer.\n" + ex);
         }
     }

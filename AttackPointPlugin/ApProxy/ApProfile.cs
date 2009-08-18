@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using System.IO;
+using GK.Utils;
 
 namespace GK.AttackPoint
 {

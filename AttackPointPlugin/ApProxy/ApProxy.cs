@@ -9,6 +9,7 @@ using System.Web;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using GK.Utils;
 
 namespace GK.AttackPoint
 {
@@ -18,6 +19,7 @@ namespace GK.AttackPoint
         private Dictionary<string, ApOperation> _apOperations = new Dictionary<string, ApOperation>();
         private CookieContainer _cookieContainer;
         private Cookie _loginCookie;
+        private IConnectionProvider _connectionProvider;
 
         public ApMetadata Metadata { get; private set; }
         public string UserId { get; private set; }
@@ -28,8 +30,9 @@ namespace GK.AttackPoint
             get { return _loginCookie == null || _loginCookie.Expired; }
         }
 
-        public static ApProxy Connect(string path, string username, string password) {
+        public static ApProxy Connect(IConnectionProvider connectionProvider, string path, string username, string password) {
             var proxy = new ApProxy();
+            proxy._connectionProvider = connectionProvider;
 
             // Read metadata
             var ser = new XmlSerializer(typeof(ApMetadata));
@@ -95,11 +98,12 @@ namespace GK.AttackPoint
             return string.IsNullOrEmpty(json) ? "[]" : json;
         }
 
-        private HttpWebResponse PostRequest(string url, Dictionary<string, string> parameters) {
+        private IHttpResponseWrapper PostRequest(string url, Dictionary<string, string> parameters) {
             return PostRequest(url, parameters, false);
         }
 
-        private HttpWebResponse PostRequest(string url, Dictionary<string, string> parameters, bool authenticate) {
+        private IHttpResponseWrapper PostRequest(string url, Dictionary<string, string> parameters, bool authenticate)
+        {
             var payload = new StringBuilder();
             foreach (var p in parameters) {
                 payload.AppendFormat("{0}={1}&", HttpUtility.UrlEncode(p.Key), EncodingUtils.UrlEncodeForLatin1(p.Value));
@@ -109,11 +113,10 @@ namespace GK.AttackPoint
             payload.Length = payload.Length - 1;
             byte[] bytes = new ASCIIEncoding().GetBytes(payload.ToString());
 
-            var request = (HttpWebRequest)WebRequest.Create(Metadata.BaseUrl + url);
+            var request = _connectionProvider.GetRequest(Metadata.BaseUrl + url);
             request.ContentType = "application/x-www-form-urlencoded";
             request.Method = "POST";
             request.ContentLength = bytes.Length;
-            request.Timeout = 60000; // 1 minute
 
             if (_cookieContainer == null) {
                 _cookieContainer = new CookieContainer();
@@ -121,13 +124,22 @@ namespace GK.AttackPoint
 
             request.CookieContainer = _cookieContainer;
 
-            using (var stream = request.GetRequestStream()) {
+            Stream stream = null;
+            try {
+                stream = request.GetRequestStream();
                 stream.Write(bytes, 0, bytes.Length);
             }
+            catch (WebException ex) {
+                ProcessWebException(url, ex);
+            }
+            finally {
+                if (stream != null)
+                    stream.Close();
+            }
 
-            HttpWebResponse response = null;
+            IHttpResponseWrapper response = null;
             try {
-                response = (HttpWebResponse)request.GetResponse();
+                response = request.GetResponse();
             }
             catch (WebException ex) {
                 ProcessWebException(url, ex);
@@ -189,7 +201,7 @@ namespace GK.AttackPoint
             }
         }
 
-        private void EnsureResponseIsOk(string url, HttpWebResponse response) {
+        private void EnsureResponseIsOk(string url, IHttpResponseWrapper response) {
             if (response == null || response.StatusCode == HttpStatusCode.OK) return;
 
             LogManager.Logger.LogMessage(string.Format("Request to URL '{2}' failed with status {0} ({1}).", response.StatusCode, response.StatusDescription, url));
@@ -199,8 +211,10 @@ namespace GK.AttackPoint
 
         private void ProcessWebException(string url, WebException ex) {
             LogManager.Logger.LogMessage(string.Format("Request to URL '{2}' failed with status {0}: {1}", ex.Status, ex.Message, url));
-            if (ex.Response != null) {
-                LogManager.Logger.LogWebResponse(url, (HttpWebResponse)ex.Response);
+            
+            var response = _connectionProvider.GetResponse(ex);
+            if (response != null) {
+                LogManager.Logger.LogWebResponse(url, response);
             }
 
             throw new ApplicationException(string.Format("Request failed with status {0}: {1} See log file for details.", ex.Status, ex.Message), ex);

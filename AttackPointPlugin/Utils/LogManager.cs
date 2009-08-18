@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 
-namespace GK.AttackPoint
+namespace GK.Utils
 {
     public class LogManager
     {
@@ -79,12 +79,14 @@ namespace GK.AttackPoint
 
             }
 
-            public void PrintWebResponse(string url, HttpWebResponse response) {
+            public void PrintWebResponse(string url, IHttpResponseWrapper response)
+            {
                 if (!_isDebug) return;
                 OutputResponseStream(url, response, null);
             }
 
-            public void LogWebResponse(string url, HttpWebResponse response) {
+            public void LogWebResponse(string url, IHttpResponseWrapper response)
+            {
                 try {
                     using (StreamWriter writer = new StreamWriter(_logFile, IsAppend())) {
                         OutputResponseStream(url, response, writer);
@@ -95,7 +97,8 @@ namespace GK.AttackPoint
                 }
             }
 
-            private void OutputResponseStream(string url, HttpWebResponse response, TextWriter writer) {
+            private void OutputResponseStream(string url, IHttpResponseWrapper response, TextWriter writer)
+            {
                 StreamReader readStream = null;
                 try {
                     StringBuilder sb = new StringBuilder();
@@ -106,15 +109,9 @@ namespace GK.AttackPoint
                     sb.AppendFormat("Response URI: {0}", response.ResponseUri).AppendLine();
                     sb.AppendFormat("Character set: {0}", response.CharacterSet).AppendLine();
                     sb.AppendFormat("Character encoding: {0}", response.ContentEncoding).AppendLine();
-                    sb.AppendFormat("Is from cache: {0}", response.IsFromCache).AppendLine();
                     if (response.Headers != null) {
                         foreach (var header in response.Headers.AllKeys) {
                             sb.AppendFormat("{0}={1}", header, response.Headers[header]).AppendLine();
-                        }
-                    }
-                    if (response.Cookies != null) {
-                        for (int i = 0; i < response.Cookies.Count; ++i) {
-                            sb.AppendFormat("{0}={1}", response.Cookies[i].Name, response.Cookies[i].Value).AppendLine();
                         }
                     }
                     WriteMessage(writer, sb.ToString());

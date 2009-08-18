@@ -94,9 +94,11 @@
     <Compile Include="ApProxy\ApMetadata.cs" />
     <Compile Include="ApProxy\ApShoes.cs" />
     <Compile Include="ApProxy\ApProxy.cs" />
-    <Compile Include="ApProxy\EncodingUtils.cs" />
-    <Compile Include="ApProxy\ILogger.cs" />
-    <Compile Include="ApProxy\LogManager.cs" />
+    <Compile Include="Utils\HttpConnectionWrapperInterfaces.cs" />
+    <Compile Include="Utils\EncodingUtils.cs" />
+    <Compile Include="Utils\HttpConnectionWrappers.cs" />
+    <Compile Include="Utils\ILogger.cs" />
+    <Compile Include="Utils\LogManager.cs" />
     <Compile Include="StHeartZone.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="StEntity.cs" />

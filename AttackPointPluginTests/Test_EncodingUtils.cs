@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 using GK.AttackPoint;
+using GK.Utils;
 
 namespace AttackPointPluginTests
 {

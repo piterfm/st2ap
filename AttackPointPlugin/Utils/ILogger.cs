@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 
-namespace GK.AttackPoint
+namespace GK.Utils
 {
     public interface ILogger
     {
@@ -15,7 +15,7 @@ namespace GK.AttackPoint
         void LogMessage(string message);
         void LogMessage(string message, Exception ex);
 
-        void PrintWebResponse(string url, HttpWebResponse response);
-        void LogWebResponse(string url, HttpWebResponse response);
+        void PrintWebResponse(string url, IHttpResponseWrapper response);
+        void LogWebResponse(string url, IHttpResponseWrapper response);
     }
 }

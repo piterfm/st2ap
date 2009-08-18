@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace GK.AttackPoint
+namespace GK.Utils
 {
     public static class EncodingUtils
     {

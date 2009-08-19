@@ -8,7 +8,7 @@ using Moq;
 
 namespace AttackPointPluginTests
 {
-    public class Test_MapperShoes : BaseTest
+    public class Test_MapperShoes : TestBase_Config
     {
 
         [Fact]

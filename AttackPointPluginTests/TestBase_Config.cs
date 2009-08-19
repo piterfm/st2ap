@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Xml.Serialization;
-using GK.AttackPoint;
-using GK.SportTracks.AttackPoint;
 using System.Reflection;
+using GK.AttackPoint;
+using System.Xml.Serialization;
+using GK.SportTracks.AttackPoint;
 
 namespace AttackPointPluginTests
 {
-    public class BaseTest
+    /// <summary>
+    /// Base class for test suites that use configuration and metadata.
+    /// </summary>
+    public class TestBase_Config : TestBase
     {
         protected ApMetadata _metadata;
         protected ApConfig _config;
         protected ApProfile _profile;
 
-        protected BaseTest() {
+        protected TestBase_Config() {
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             using (var reader = new StreamReader(Path.Combine(path, "ap-metadata.xml"))) {
                 _metadata = (ApMetadata)new XmlSerializer(typeof(ApMetadata)).Deserialize(reader);
@@ -33,7 +36,6 @@ namespace AttackPointPluginTests
 
             _profile = _config.Profile;
         }
-
 
     }
 }

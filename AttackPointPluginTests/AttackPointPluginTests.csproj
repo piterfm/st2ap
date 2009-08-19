@@ -55,7 +55,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseTest.cs" />
+    <Compile Include="TestBase_Config.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="Test_ApProxy.cs" />
     <Compile Include="Test_FormatNote.cs" />
     <Compile Include="Test_MapperCategory.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="Test_EncodingUtils.cs" />
     <Compile Include="Test_ExportTraining.cs" />
     <Compile Include="Test_ExportNote.cs" />
-    <Compile Include="BaseTest_ExportAction.cs" />
+    <Compile Include="TestBase_ExportAction.cs" />
     <Compile Include="Test_MapperIntensities.cs" />
     <Compile Include="Test_MapperShoes.cs" />
     <Compile Include="Test_PackApNote.cs" />

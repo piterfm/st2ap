@@ -7,7 +7,7 @@ using GK.SportTracks.AttackPoint.Export;
 
 namespace AttackPointPluginTests
 {
-    public class Test_FormatNote
+    public class Test_FormatNote : TestBase
     {
         [Fact]
         public void FormatNote1() {

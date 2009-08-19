@@ -13,7 +13,7 @@ using GK.SportTracks.AttackPoint;
 
 namespace AttackPointPluginTests
 {
-    public abstract class BaseTest_ExportAction : BaseTest
+    public abstract class TestBase_ExportAction : TestBase_Config
     {
         protected Mock<ILogbook> SetUpLogbook(DateTime date, out Mock<IAthlete> athlete) {
             athlete = SetUpAthlete(date);

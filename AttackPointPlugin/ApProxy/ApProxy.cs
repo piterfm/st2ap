@@ -73,7 +73,7 @@ namespace GK.AttackPoint
                 }
             }
 
-            return id;
+            return id; // not used.
         }
 
         public void ScrapeApData(ApProfile profile) {
@@ -170,35 +170,39 @@ namespace GK.AttackPoint
         }
 
         private string RetrievePage(string url) {
-            var request = (HttpWebRequest)WebRequest.Create(Metadata.BaseUrl + url);
+            string page = null;
+            var request = _connectionProvider.GetRequest(Metadata.BaseUrl + url);
             request.Method = "GET";
             request.CookieContainer = _cookieContainer;
 
+            IHttpResponseWrapper response = null;
             try {
-                using (var stream = new StreamReader(request.GetResponse().GetResponseStream(), Encoding.GetEncoding("utf-8"))) {
+                response = request.GetResponse();
+                EnsureResponseIsOk(url, response);
+                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8"))) {
                     var sb = new StringBuilder();
                     var writer = new StringWriter(sb);
-                    try {
-                        var read = new char[256];
-                        // Reads 256 characters at a time.    
-                        var count = stream.Read(read, 0, 256);
-                        while (count > 0) {
-                            var str = new string(read, 0, count);
-                            writer.Write(str);
-                            count = stream.Read(read, 0, 256);
-                        }
-                    }
-                    finally {
-                        if (stream != null) stream.Close();
+                    var read = new char[256];
+                    // Reads 256 characters at a time.    
+                    var count = stream.Read(read, 0, 256);
+                    while (count > 0) {
+                        var str = new string(read, 0, count);
+                        writer.Write(str);
+                        count = stream.Read(read, 0, 256);
                     }
 
-                    return sb.ToString().Trim();
+                    page = sb.ToString().Trim();
                 }
             }
             catch (WebException ex) {
                 ProcessWebException(url, ex);
-                return null;
             }
+            finally {
+                if (response != null)
+                    response.Dispose();
+            }
+
+            return page;
         }
 
         private void EnsureResponseIsOk(string url, IHttpResponseWrapper response) {
@@ -210,7 +214,7 @@ namespace GK.AttackPoint
         }
 
         private void ProcessWebException(string url, WebException ex) {
-            LogManager.Logger.LogMessage(string.Format("Request to URL '{2}' failed with status {0}: {1}", ex.Status, ex.Message, url));
+            LogManager.Logger.LogMessage(string.Format("Request to URL '{1}' failed with status {0}.", ex.Status, url), ex);
             
             var response = _connectionProvider.GetResponse(ex);
             if (response != null) {

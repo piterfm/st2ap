@@ -49,9 +49,9 @@ namespace GK.Utils
         public string ContentType { set { _request.ContentType = value; } }
         public string Method { set { _request.Method = value; } }
         public long ContentLength { set { _request.ContentLength = value; } }
-        public CookieContainer CookieContainer { set { _request.CookieContainer = value; } }
         public Uri RequestUri { get { return _request.RequestUri; } }
         public Stream GetRequestStream() { return _request.GetRequestStream(); }
+        public CookieContainer CookieContainer { set { _request.CookieContainer = value; } }
 
         public IHttpResponseWrapper GetResponse() {
             return new HttpResponseWrapper((HttpWebResponse)_request.GetResponse());

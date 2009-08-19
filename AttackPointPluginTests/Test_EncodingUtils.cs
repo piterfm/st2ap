@@ -9,7 +9,7 @@ using GK.Utils;
 namespace AttackPointPluginTests
 {
     // The test is very inconclusive
-    public class Test_EncodingUtils
+    public class Test_EncodingUtils : TestBase
     {
         [Fact]
         public void PlainLatin() {

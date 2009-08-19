@@ -8,7 +8,7 @@ using Moq;
 
 namespace AttackPointPluginTests
 {
-    public class Test_MapperCategory : BaseTest
+    public class Test_MapperCategory : TestBase_Config
     {
 
         [Fact]

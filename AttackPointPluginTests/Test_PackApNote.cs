@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace AttackPointPluginTests
 {
-    public class Test_PackApNote// : IUseFixture<object>
+    public class Test_PackApNote : TestBase
     {
         private ApMetadata _metadata;
 

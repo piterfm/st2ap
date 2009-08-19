@@ -11,7 +11,7 @@ using GK.SportTracks.AttackPoint;
 
 namespace AttackPointPluginTests
 {
-    public class Test_ExportTraining : BaseTest_ExportAction
+    public class Test_ExportTraining : TestBase_ExportAction
     {
         [Fact]
         public void ExportTraining() {

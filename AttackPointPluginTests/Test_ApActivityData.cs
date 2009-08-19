@@ -7,7 +7,7 @@ using Xunit;
 
 namespace AttackPointPluginTests
 {
-    public class Test_ApActivityData
+    public class Test_ApActivityData : TestBase
     {
         [Fact]
         public void TestEmptiness1() {

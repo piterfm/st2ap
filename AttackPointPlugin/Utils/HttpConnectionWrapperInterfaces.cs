@@ -17,8 +17,8 @@ namespace GK.Utils
         string ContentType { set; }
         string Method { set; }
         long ContentLength { set; }
-        CookieContainer CookieContainer { set; }
         Uri RequestUri { get; }
+        CookieCollection Cookies { get; }
 
         Stream GetRequestStream();
         IHttpResponseWrapper GetResponse();

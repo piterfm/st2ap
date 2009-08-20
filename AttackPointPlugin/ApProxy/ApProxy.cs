@@ -15,11 +15,14 @@ namespace GK.AttackPoint
 {
     public class ApProxy
     {
-        private const string ApMetadataFileName = "ap-metadata.xml";
         private Dictionary<string, ApOperation> _apOperations = new Dictionary<string, ApOperation>();
-        private CookieContainer _cookieContainer;
         private Cookie _loginCookie;
         private IConnectionProvider _connectionProvider;
+
+        private ApProxy(IConnectionProvider connectionProvider, ApMetadata metadata) {
+            _connectionProvider = connectionProvider;
+            Metadata = metadata;
+        }
 
         public ApMetadata Metadata { get; private set; }
         public string UserId { get; private set; }
@@ -30,29 +33,17 @@ namespace GK.AttackPoint
             get { return _loginCookie == null || _loginCookie.Expired; }
         }
 
-        public static ApProxy Connect(IConnectionProvider connectionProvider, string path, string username, string password) {
-            var proxy = new ApProxy();
-            proxy._connectionProvider = connectionProvider;
-
-            // Read metadata
-            var ser = new XmlSerializer(typeof(ApMetadata));
-            ApMetadata m;
-            using (var reader = new StreamReader(Path.Combine(path, ApMetadataFileName))) {
-                proxy.Metadata = m = (ApMetadata)ser.Deserialize(reader);
-                foreach (var op in m.Operations) {
-                    var page = new Dictionary<string, string>();
-                    proxy._apOperations.Add(op.ClassName, op);
-                }
-            }
+        public static ApProxy Connect(IConnectionProvider connectionProvider, ApMetadata metadata, string username, string password) {
+            var proxy = new ApProxy(connectionProvider, metadata);
 
             // Authenticate on attackpoint website
             var parameters = new Dictionary<string, string>();
-            parameters.Add(m.UsernameProperyName, username);
-            parameters.Add(m.PasswordPropertyName, password);
+            parameters.Add(metadata.UsernameProperyName, username);
+            parameters.Add(metadata.PasswordPropertyName, password);
 
-            using (var response = proxy.PostRequest(m.LogingUrl, parameters, true)) {
+            using (var response = proxy.PostRequest(metadata.LogingUrl, parameters, true)) {
                 if (LogManager.Logger.IsDebug) {
-                    LogManager.Logger.LogWebResponse(m.LogingUrl, response);
+                    LogManager.Logger.LogWebResponse(metadata.LogingUrl, response);
                 }
             }
 
@@ -64,9 +55,19 @@ namespace GK.AttackPoint
         public string Upload(ApNote note) {
             string id = null;
 
-            var operation = _apOperations[note.GetType().Name];
-            var parameters = note.Pack(operation);
+            ApOperation operation = null;
+            foreach (var op in Metadata.Operations) {
+                if (note.GetType().Name == op.ClassName) {
+                    operation = op;
+                }
+            }
 
+            if (operation == null) {
+                LogManager.Logger.LogMessage("Invalid metadata. Operation not found for class type: " + note.GetType().FullName);
+                throw new ApplicationException("AttackPoint plugin setup is corrupted. Unable to export.");
+            }
+
+            var parameters = note.Pack(operation);
             using (var response = PostRequest(operation.PageUrl, parameters)) {
                 if (LogManager.Logger.IsDebug) {
                     LogManager.Logger.LogWebResponse(operation.PageUrl, response);
@@ -109,20 +110,14 @@ namespace GK.AttackPoint
                 payload.AppendFormat("{0}={1}&", HttpUtility.UrlEncode(p.Key), EncodingUtils.UrlEncodeForLatin1(p.Value));
             }
 
-            LogManager.Logger.PrintMessage(payload.ToString());
             payload.Length = payload.Length - 1;
             byte[] bytes = new ASCIIEncoding().GetBytes(payload.ToString());
+            LogManager.Logger.PrintMessage(payload.ToString());
 
             var request = _connectionProvider.GetRequest(Metadata.BaseUrl + url);
             request.ContentType = "application/x-www-form-urlencoded";
             request.Method = "POST";
             request.ContentLength = bytes.Length;
-
-            if (_cookieContainer == null) {
-                _cookieContainer = new CookieContainer();
-            }
-
-            request.CookieContainer = _cookieContainer;
 
             Stream stream = null;
             try {
@@ -149,8 +144,7 @@ namespace GK.AttackPoint
 
             // Check cookie container for authentication cookie
             if (authenticate) {
-                var cookies = _cookieContainer.GetCookies(request.RequestUri);
-                _loginCookie = cookies[Metadata.LoginCookieName];
+                _loginCookie = request.Cookies[Metadata.LoginCookieName];
                 if (_loginCookie == null) {
                     LogManager.Logger.LogMessage("Unable to authenticate on AttackPoint. Login cookie not found.");
                     LogManager.Logger.LogWebResponse(url, response);
@@ -173,7 +167,6 @@ namespace GK.AttackPoint
             string page = null;
             var request = _connectionProvider.GetRequest(Metadata.BaseUrl + url);
             request.Method = "GET";
-            request.CookieContainer = _cookieContainer;
 
             IHttpResponseWrapper response = null;
             try {

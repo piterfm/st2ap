@@ -37,6 +37,7 @@ namespace GK.SportTracks.AttackPoint
         private static XmlWriterSettings DataSerSettings;
         private static string BasePath;
         private static IConnectionProvider ConnectionProvider;
+        private static ApMetadata Metadata;
 
         static ApPlugin() {
             try {
@@ -72,16 +73,20 @@ namespace GK.SportTracks.AttackPoint
             if (string.IsNullOrEmpty(ApConfig.Profile.Username) || string.IsNullOrEmpty(ApConfig.Profile.Password))
                 throw new ApplicationException(Resources.Error_ApCredentialsNotSpecified);
 
+            if (Metadata == null) {
+                Metadata = ApMetadata.LoadMetadata(BasePath);
+            }
+
+            if (ConnectionProvider == null) {
+                ConnectionProvider = new HttpConnectionProvider(HttpTimeout, GetWebProxy(), UserAgent);
+            }
+
             if (ApConfig.Profile.CredentialsChanged ||
                 (Proxy == null || Proxy.Expired ||
                 Proxy.Username != ApConfig.Profile.Username ||
                 Proxy.Password != ApConfig.Profile.Password)) {
 
-                if (ConnectionProvider == null) {
-                    ConnectionProvider = new HttpConnectionProvider(HttpTimeout, GetWebProxy(), UserAgent);
-                }
-
-                Proxy = ApProxy.Connect(ConnectionProvider, BasePath, ApConfig.Profile.Username, ApConfig.Profile.Password);
+                Proxy = ApProxy.Connect(ConnectionProvider, Metadata, ApConfig.Profile.Username, ApConfig.Profile.Password);
             }
 
             return Proxy;
@@ -141,8 +146,8 @@ namespace GK.SportTracks.AttackPoint
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show("Unable to read AttackPoint config:" + Environment.NewLine + ex.Message);
-                Logger.LogMessage("Unable to read AttackPoint config.", ex);
+                MessageBox.Show("Unable to read AttackPoint plugin config:" + Environment.NewLine + ex.Message);
+                Logger.LogMessage("Unable to read AttackPoint plugin config.", ex);
             }
         }
 
@@ -163,8 +168,8 @@ namespace GK.SportTracks.AttackPoint
                 pluginNode.InnerXml = sb.ToString();
             }
             catch (Exception ex) {
-                MessageBox.Show("Unable to save AttackPoint config:" + Environment.NewLine + ex.Message);
-                Logger.LogMessage("Unable to save AttackPoint config.", ex);
+                MessageBox.Show("Unable to save AttackPoint plugin config:" + Environment.NewLine + ex.Message);
+                Logger.LogMessage("Unable to save AttackPoint plugin config.", ex);
             }
         }
 

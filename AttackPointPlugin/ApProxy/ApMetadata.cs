@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
+using System.IO;
+using GK.Utils;
 
 namespace GK.AttackPoint
 {
@@ -39,6 +41,19 @@ namespace GK.AttackPoint
             return Units.Find(u => u.For == quantity && u.Type == unitsType).Value;
         }
 
+        private const string ApMetadataFileName = "ap-metadata.xml";
+        public static ApMetadata LoadMetadata(string path) {
+            try {
+                var ser = new XmlSerializer(typeof(ApMetadata));
+                using (var reader = new StreamReader(Path.Combine(path, ApMetadataFileName))) {
+                    return (ApMetadata)ser.Deserialize(reader);
+                }
+            }
+            catch (Exception ex) {
+                LogManager.Logger.LogMessage("Unable to read AttackPoint metadata.", ex);
+                throw new ApplicationException("Unable to read AttackPoint metadata:" + Environment.NewLine + ex.Message);
+            }
+        }
     }
 
     public class ApOperation

@@ -12,11 +12,13 @@ namespace GK.Utils
         private int _timeout;
         private IWebProxy _webProxy;
         private string _userAgent;
+        private CookieContainer _cookieContainer;
 
         public HttpConnectionProvider(int timeout, IWebProxy webProxy, string userAgent) {
             _timeout = timeout;
             _webProxy = webProxy;
             _userAgent = userAgent;
+            _cookieContainer = new CookieContainer();
         }
 
         public IHttpRequestWrapper GetRequest(string url) {
@@ -28,6 +30,7 @@ namespace GK.Utils
             request.Proxy = _webProxy ?? WebRequest.DefaultWebProxy;
             request.UserAgent = _userAgent;
             request.Timeout = _timeout;
+            request.CookieContainer = _cookieContainer;
 
             return new HttpRequestWrapper(request);
         }
@@ -50,8 +53,8 @@ namespace GK.Utils
         public string Method { set { _request.Method = value; } }
         public long ContentLength { set { _request.ContentLength = value; } }
         public Uri RequestUri { get { return _request.RequestUri; } }
+        public CookieCollection Cookies { get { return _request.CookieContainer.GetCookies(RequestUri); } }
         public Stream GetRequestStream() { return _request.GetRequestStream(); }
-        public CookieContainer CookieContainer { set { _request.CookieContainer = value; } }
 
         public IHttpResponseWrapper GetResponse() {
             return new HttpResponseWrapper((HttpWebResponse)_request.GetResponse());

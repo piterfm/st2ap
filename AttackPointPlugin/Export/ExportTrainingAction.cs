@@ -13,12 +13,14 @@ using ZoneFiveSoftware.Common.Visuals.Fitness;
 
 using GK.AttackPoint;
 using GK.SportTracks.AttackPoint;
+using System.Collections.Generic;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
     public class ExportTrainingAction : ExportNoteAction
     {
-        public ExportTrainingAction(IActivity activity) : base(activity) {}
+        public ExportTrainingAction(IActivity activity) : base(activity) { }
+        public ExportTrainingAction(IList<IActivity> activities) : base(activities) { }
 
         protected override ApNote CreateNote() { return new ApTraining(); }
 
@@ -149,7 +151,7 @@ namespace GK.SportTracks.AttackPoint.Export
             return null;
         }
 
-        public override string Title { get { return "AttackPoint training"; } }
+        public override string Title { get { return BatchMode ? "AttackPoint trainings" : "AttackPoint training"; } }
 
     }
 }

@@ -14,7 +14,7 @@ namespace GK.SportTracks.AttackPoint.Export
     {
 
         public IList<IAction> GetActions(IList<IActivity> activities) {
-            return null;
+            return new IAction[] { new ExportTrainingAction(activities), new ExportNoteAction(activities) };
         }
 
         public IList<IAction> GetActions(IActivity activity) {

@@ -24,8 +24,8 @@ namespace GK.SportTracks.AttackPoint.Export
 {
     public abstract class ExportAction : IAction
     {
-        private IActivity activity;
-        private bool _batchMode = false;
+        private IActivity _activity;
+        private IList<IActivity> _activities;
         private static List<ExportWarning> Warnings = new List<ExportWarning>();
 
         static ExportAction() {
@@ -36,13 +36,33 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         public ExportAction(IActivity activity) {
-            this.activity = activity;
+            _activity = activity;
         }
 
-        public void Refresh() {
+        public ExportAction(IList<IActivity> activities) {
+            _activities = activities;
         }
+
+        protected bool BatchMode { get { return _activities != null; } }
+
+        public void Refresh() { }
 
         public void Run(Rectangle rectButton) {
+
+            if (BatchMode) {
+                ExportMany();
+            }
+            else {
+                ExportSingle();
+            }
+
+        }
+
+        private void ExportMany() {
+            MessageBox.Show("Not implemented :(");
+        }
+
+        private void ExportSingle() {
             var dialog = new InformationDialog(ApPlugin.GetApplication().VisualTheme);
 
             dialog.Execute(Form.ActiveForm, "AttackPoint Plugin", "Exporting to AttackPoint...",
@@ -51,14 +71,15 @@ namespace GK.SportTracks.AttackPoint.Export
                     try {
                         var proxy = ApPlugin.GetProxy();
                         var note = CreateNote();
-                        var edata = new ExportConfig() {
-                            ActivityData = ApPlugin.GetApData(activity),
+                        var edata = new ExportConfig()
+                        {
+                            ActivityData = ApPlugin.GetApData(_activity),
                             Logbook = ApPlugin.GetApplication().Logbook,
                             Metadata = proxy.Metadata,
                             Config = ApPlugin.ApConfig
                         };
 
-                        var error = Populate(note, activity, edata);
+                        var error = Populate(note, _activity, edata);
 
                         if (error == null) {
                             bool upload = true;
@@ -84,13 +105,6 @@ namespace GK.SportTracks.AttackPoint.Export
                             }
 
                             if (upload) {
-                                var sb = new StringBuilder();
-                                using (var w = new StringWriter(sb)) {
-                                    var ser = new XmlSerializer(typeof(ApNote));
-                                    ser.Serialize(w, note);
-                                }
-
-                                ApPlugin.Logger.PrintMessage(sb.ToString());
                                 proxy.Upload(note);
                                 ee.Result = "Export completed.";
                             }
@@ -158,7 +172,7 @@ namespace GK.SportTracks.AttackPoint.Export
         delegate bool ShowWarningHandler(Form form, string message, string caption);
 
         protected void ShowError(Form parent, string message) {
-            if (_batchMode)
+            if (BatchMode)
                 throw new ApplicationException(message);
 
             parent.Invoke(new ShowErrorHandler(ShowError), parent, message, "Export error");

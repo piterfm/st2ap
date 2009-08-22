@@ -14,6 +14,7 @@ namespace GK.SportTracks.AttackPoint.Export
         private static Regex FormatRegex = new Regex("\\[(.*?){(?<f>.*?)}(.*?)\\]", RegexOptions.Singleline);
 
         public ExportNoteAction(IActivity activity) : base(activity) { }
+        public ExportNoteAction(IList<IActivity> activities) : base(activities) { }
 
         protected override ApNote CreateNote() { return new ApNote(); }
 
@@ -114,6 +115,6 @@ namespace GK.SportTracks.AttackPoint.Export
             }
         }
 
-        public override string Title { get { return "AttackPoint note"; } }
+        public override string Title { get { return BatchMode ? "AttackPoint notes" : "AttackPoint note"; } }
     }
 }

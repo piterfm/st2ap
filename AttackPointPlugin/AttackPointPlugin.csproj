@@ -94,6 +94,15 @@
     <Compile Include="ApProxy\ApMetadata.cs" />
     <Compile Include="ApProxy\ApShoes.cs" />
     <Compile Include="ApProxy\ApProxy.cs" />
+    <Compile Include="UI\BaseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExportDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExportDialog.Designer.cs">
+      <DependentUpon>ExportDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\HttpConnectionWrapperInterfaces.cs" />
     <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\HttpConnectionWrappers.cs" />
@@ -164,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Activities\ApActivityControl.resx">
       <DependentUpon>ApActivityControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BaseDialog.resx">
+      <DependentUpon>BaseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExportDialog.resx">
+      <DependentUpon>ExportDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InformationDialog.resx">
       <DependentUpon>InformationDialog.cs</DependentUpon>

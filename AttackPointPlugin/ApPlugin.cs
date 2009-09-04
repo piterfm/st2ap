@@ -37,7 +37,7 @@ namespace GK.SportTracks.AttackPoint
         private static XmlWriterSettings DataSerSettings;
         private static string BasePath;
         private static IConnectionProvider ConnectionProvider;
-        private static ApMetadata Metadata;
+        public static ApMetadata Metadata;
 
         static ApPlugin() {
             try {
@@ -47,6 +47,7 @@ namespace GK.SportTracks.AttackPoint
                 DataSerSettings.Indent = false;
                 BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 ApConfig = new ApConfig(BasePath);
+                Metadata = ApMetadata.LoadMetadata(BasePath);
                 _initialized = true;
             }
             catch (Exception ex) {
@@ -72,10 +73,6 @@ namespace GK.SportTracks.AttackPoint
 
             if (string.IsNullOrEmpty(ApConfig.Profile.Username) || string.IsNullOrEmpty(ApConfig.Profile.Password))
                 throw new ApplicationException(Resources.Error_ApCredentialsNotSpecified);
-
-            if (Metadata == null) {
-                Metadata = ApMetadata.LoadMetadata(BasePath);
-            }
 
             if (ConnectionProvider == null) {
                 ConnectionProvider = new HttpConnectionProvider(HttpTimeout, GetWebProxy(), UserAgent);
@@ -331,21 +328,16 @@ namespace GK.SportTracks.AttackPoint
 
         internal static ApActivityData GetApData(IActivity activity) {
             ApActivityData data = null;
-            try {
-                byte[] bytes = activity.GetExtensionData(ApPlugin.PluginId);
-                if (bytes != null && bytes.Length > 0) {
-                    var s = new UTF8Encoding().GetString(bytes);
-                    var ser = new XmlSerializer(typeof(ApActivityData));
-                    using (var reader = new StringReader(s)) {
-                        data = (ApActivityData)ser.Deserialize(reader);
-                    }
-                }
-                else {
-                    data = new ApActivityData();
+            byte[] bytes = activity.GetExtensionData(ApPlugin.PluginId);
+            if (bytes != null && bytes.Length > 0) {
+                var s = new UTF8Encoding().GetString(bytes);
+                var ser = new XmlSerializer(typeof(ApActivityData));
+                using (var reader = new StringReader(s)) {
+                    data = (ApActivityData)ser.Deserialize(reader);
                 }
             }
-            catch (Exception ex) {
-                throw ex;
+            else {
+                data = new ApActivityData();
             }
 
             SerializeApActivityData(data);
@@ -401,9 +393,18 @@ namespace GK.SportTracks.AttackPoint
             }
         }
 
+        internal static string GetCaption(IActivity activity) {
+            return string.Format("[{0}] on {1}", StCategory.GetFullName(activity.Category), AdjustDateTime(activity.StartTime).ToShortDateString());
+        }
+
         internal static void HandleUnhandledException(Exception ex) {
             Logger.LogMessage("Unhandled  exception happened.", ex);
             MessageBox.Show("Oops. It looks like there is a bug in AttackPoint plugin.\nPlease contact the developer.\n" + ex);
+        }
+
+        internal static DateTime AdjustDateTime(DateTime dateTime) {
+            return dateTime.Kind == DateTimeKind.Utc ?
+                TimeZone.CurrentTimeZone.ToLocalTime(dateTime) : dateTime;
         }
     }
 }

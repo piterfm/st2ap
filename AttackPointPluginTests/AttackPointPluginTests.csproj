@@ -69,6 +69,7 @@
     <Compile Include="Test_MapperShoes.cs" />
     <Compile Include="Test_PackApNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_PartOfDay.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AttackPointPlugin\AttackPointPlugin.csproj">

@@ -94,9 +94,6 @@ namespace GK.SportTracks.AttackPoint.Export
                 training.Distance = Math.Round(ai.DistanceMeters / 1000, 2).ToString();
                 training.DistanceUnitId = edata.Metadata.GetUnitsValue(Quantity.Distance.ToString(), Units.Metric.ToString());
             }
-            else {
-                return ExportError.DistanceNotSpecified;
-            }
 
             float climb = float.NaN;
             if (HasValue(activity.TotalAscendMetersEntered)) {

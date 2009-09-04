@@ -34,8 +34,12 @@ namespace GK.SportTracks.AttackPoint
         public bool IsOrienteering { get; set; }
 
         public override string ToString() {
-            var title = new StringBuilder(Instance.Name);
-            var c = Instance.Parent;
+            return GetFullName(Instance);
+        }
+
+        public static string GetFullName(IActivityCategory category) {
+            var title = new StringBuilder(category.Name);
+            var c = category.Parent;
             while (c != null && c.Parent != null) {
                 title.Insert(0, c.Name + " > ");
                 c = c.Parent;
@@ -43,6 +47,5 @@ namespace GK.SportTracks.AttackPoint
 
             return title.ToString();
         }
-
     }
 }

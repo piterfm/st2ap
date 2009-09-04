@@ -5,6 +5,7 @@ using GK.AttackPoint;
 using ZoneFiveSoftware.Common.Data.Fitness;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using GK.SportTracks.AttackPoint.Properties;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
@@ -23,8 +24,7 @@ namespace GK.SportTracks.AttackPoint.Export
                 return ExportError.DateNotSpecified;
             }
 
-            note.Date = activity.StartTime.Kind == DateTimeKind.Utc ?
-                TimeZone.CurrentTimeZone.ToLocalTime(activity.StartTime) : activity.StartTime;
+            note.Date = AdjustDateTime(activity.StartTime);
 
             var entry = edata.Logbook.Athlete.InfoEntries != null ? edata.Logbook.Athlete.InfoEntries.EntryForDate(activity.StartTime) : null;
             if (entry != null) {
@@ -39,6 +39,7 @@ namespace GK.SportTracks.AttackPoint.Export
             var fields = new Dictionary<string, string>();
             if (note.Date.TimeOfDay != TimeSpan.Zero) {
                 AddField(fields, "TimeOfDay", note.Date.ToShortTimeString());
+                AddField(fields, "PartOfDay", GetPartOfDay(note.Date));
             }
             AddField(fields, "Name", activity.Name);
             AddField(fields, "Location", activity.Location);
@@ -50,6 +51,13 @@ namespace GK.SportTracks.AttackPoint.Export
                     (string.IsNullOrEmpty(edata.ActivityData.CourseLength) ? string.Empty : edata.ActivityData.CourseLength + " km"),
                     (string.IsNullOrEmpty(edata.ActivityData.CourseClimb) ? string.Empty : edata.ActivityData.CourseClimb + " m"))
                     );
+            }
+
+            if (activity.Weather != null) {
+                AddField(fields, "WeatherTempF", ToFahrenheit(activity.Weather.TemperatureCelsius));
+                AddField(fields, "WeatherTempC", activity.Weather.TemperatureCelsius != float.NaN ? (FormatTemperature(activity.Weather.TemperatureCelsius, 'C')) : string.Empty);
+                AddField(fields, "WeatherConditions", Resources.ResourceManager.GetString("W_" + activity.Weather.Conditions));
+                AddField(fields, "WeatherDescription", activity.Weather.ConditionsText);
             }
 
             var notes = activity.Notes;
@@ -78,6 +86,28 @@ namespace GK.SportTracks.AttackPoint.Export
             }
 
             return null;
+        }
+
+        public static string GetPartOfDay(DateTime dateTime) {
+            double hours = dateTime.TimeOfDay.TotalHours;
+            if (hours >= 4 && hours < 11)
+                return "Morning";
+            else if (hours >= 11 && hours < 14)
+                return "Midday";
+            else if (hours >= 14 && hours < 17.5)
+                return "Afternoon";
+            else if (hours >= 17.5 && hours < 21)
+                return "Evening";
+
+            return "Night";
+        }
+
+        private string ToFahrenheit(float temperature) {
+            return temperature != float.NaN ? (FormatTemperature(temperature * 9 / 5 + 32, 'F')) : string.Empty;
+        }
+
+        private string FormatTemperature(float temperature, char unit) {
+            return string.Format("{0} \u00b0{1}", temperature, unit);
         }
 
         public static string FormatNotes(string format, Dictionary<string, string> fields, string fallbackValue) {

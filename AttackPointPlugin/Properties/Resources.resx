@@ -142,9 +142,6 @@
   <data name="ExportError_DateNotSpecified" xml:space="preserve">
     <value>Can't export when a date is not specified.\nPlease specify the date for this activity.</value>
   </data>
-  <data name="ExportError_DistanceNotSpecified" xml:space="preserve">
-    <value>Can't export training.\nDistance must be specified for training.</value>
-  </data>
   <data name="ExportError_EquipmentNotFound" xml:space="preserve">
     <value>Unable to find equipment in AP's mapping configuraion.\nPlease visit AP plugin's settings.</value>
   </data>
@@ -1138,5 +1135,53 @@
   </data>
   <data name="Plugin_Name" xml:space="preserve">
     <value>AttackPoint Plugin</value>
+  </data>
+  <data name="W_ChanceRain" xml:space="preserve">
+    <value>Chance of rain</value>
+  </data>
+  <data name="W_ChanceThunder" xml:space="preserve">
+    <value>Chance of thunder</value>
+  </data>
+  <data name="W_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="W_Clouds" xml:space="preserve">
+    <value>Clouds</value>
+  </data>
+  <data name="W_Fog" xml:space="preserve">
+    <value>Fog</value>
+  </data>
+  <data name="W_Haze" xml:space="preserve">
+    <value>Haze</value>
+  </data>
+  <data name="W_HeavyRain" xml:space="preserve">
+    <value>Heavy rain</value>
+  </data>
+  <data name="W_LightRain" xml:space="preserve">
+    <value>Light rain</value>
+  </data>
+  <data name="W_MostClouds" xml:space="preserve">
+    <value>Mostly clouds</value>
+  </data>
+  <data name="W_Overcast" xml:space="preserve">
+    <value>Overcast</value>
+  </data>
+  <data name="W_PartClouds" xml:space="preserve">
+    <value>Partly clouds</value>
+  </data>
+  <data name="W_Rain" xml:space="preserve">
+    <value>Rain</value>
+  </data>
+  <data name="W_ScatterClouds" xml:space="preserve">
+    <value>Scattered clouds</value>
+  </data>
+  <data name="W_Snow" xml:space="preserve">
+    <value>Snow</value>
+  </data>
+  <data name="W_Thunder" xml:space="preserve">
+    <value>Thunder</value>
+  </data>
+  <data name="W_Unspecified" xml:space="preserve">
+    <value />
   </data>
 </root>

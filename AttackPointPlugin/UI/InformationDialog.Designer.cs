@@ -28,7 +28,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InformationDialog));
             this.actionBanner1 = new ZoneFiveSoftware.Common.Visuals.ActionBanner();
             this.progressBar1 = new ZoneFiveSoftware.Common.Visuals.ProgressBar();
-            this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.tbError = new ZoneFiveSoftware.Common.Visuals.TextBox();
             this.llFeedback = new System.Windows.Forms.LinkLabel();
             this.pSeparator = new System.Windows.Forms.Panel();
@@ -43,7 +42,7 @@
             this.actionBanner1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.actionBanner1.HasMenuButton = false;
             this.actionBanner1.Location = new System.Drawing.Point(2, 1);
-            this.actionBanner1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.actionBanner1.Margin = new System.Windows.Forms.Padding(2);
             this.actionBanner1.Name = "actionBanner1";
             this.actionBanner1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.actionBanner1.Size = new System.Drawing.Size(250, 20);
@@ -95,13 +94,12 @@
             this.llFeedback.TabStop = true;
             this.llFeedback.Text = "Send feedback";
             this.llFeedback.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.llFeedback.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llFeedback_LinkClicked);
             // 
             // pSeparator
             // 
             this.pSeparator.BackColor = System.Drawing.Color.Gold;
             this.pSeparator.Location = new System.Drawing.Point(2, 1);
-            this.pSeparator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pSeparator.Margin = new System.Windows.Forms.Padding(2);
             this.pSeparator.Name = "pSeparator";
             this.pSeparator.Size = new System.Drawing.Size(250, 1);
             this.pSeparator.TabIndex = 3;
@@ -125,7 +123,6 @@
             this.bClose.TextAlign = System.Drawing.StringAlignment.Center;
             this.bClose.TextLeftMargin = 2;
             this.bClose.TextRightMargin = 2;
-            this.bClose.Click += new System.EventHandler(this.bClose_Click);
             // 
             // panel1
             // 
@@ -134,7 +131,7 @@
             this.panel1.Controls.Add(this.llFeedback);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 80);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(252, 31);
             this.panel1.TabIndex = 6;
@@ -150,7 +147,7 @@
             this.Controls.Add(this.actionBanner1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InformationDialog";
@@ -167,7 +164,6 @@
 
         private ZoneFiveSoftware.Common.Visuals.ActionBanner actionBanner1;
         private ZoneFiveSoftware.Common.Visuals.ProgressBar progressBar1;
-        private System.ComponentModel.BackgroundWorker bgWorker;
         private ZoneFiveSoftware.Common.Visuals.TextBox tbError;
         private System.Windows.Forms.LinkLabel llFeedback;
         private System.Windows.Forms.Panel pSeparator;

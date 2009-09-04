@@ -306,6 +306,43 @@ namespace AttackPointPluginTests
             Assert.Null(note.PrivateDescription);
         }
 
+        [Fact]
+        public void ExportNoteWithCustomFormat() {
+            var date = new DateTime(2009, 7, 11);
+
+            var activity = new Mock<IActivity>();
+            activity.SetupGet(a => a.StartTime).Returns(date);
+            activity.SetupGet(a => a.Notes).Returns("This is a note");
+            activity.SetupGet(a => a.Name).Returns("Evening run");
+            activity.SetupGet(a => a.Location).Returns("Rancho San Antonio");
+
+            var weather = new Mock<IWeatherInfo>();
+            weather.SetupGet(w => w.Conditions).Returns(WeatherConditions.Type.LightRain);
+            weather.SetupGet(w => w.ConditionsText).Returns("Drizzling");
+            weather.SetupGet(w => w.TemperatureCelsius).Returns(17.5f);
+            activity.SetupGet(a => a.Weather).Returns(weather.Object);
+
+            Mock<IAthlete> athlete;
+            var logbook = SetUpLogbook(date, out athlete);
+
+            // Set up note format
+            _config.NotesFormat = "[{Name}. ][In {Location}. ][Burned {Calories} calories. ]\r\n[{WeatherTempF}.] [{WeatherTempC}.] [{WeatherConditions}.] [{WeatherDescription}.]\r\n[{Notes}]";
+
+            var action = new ExportNoteAction(activity.Object);
+            var note = new ApNote();
+            var edata = new ExportConfig() {
+                ActivityData = null,
+                Logbook = logbook.Object,
+                Metadata = _metadata,
+                Config = _config
+            };
+
+            var error = action.Populate(note, activity.Object, edata);
+
+            Assert.Null(error);
+            Assert.Equal("", note.Description);
+        }
+
 
     }
 }

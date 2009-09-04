@@ -19,9 +19,13 @@ using System.Diagnostics;
 using GK.SportTracks.AttackPoint.Properties;
 using GK.SportTracks.AttackPoint.UI;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
+
+    delegate void UploadDelegate(ExportDialog dialog, DoWorkEventArgs ee, List<ApNote> notes, List<IActivity> activities);
+
     public abstract class ExportAction : IAction
     {
         private IActivity _activity;
@@ -59,7 +63,71 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         private void ExportMany() {
-            MessageBox.Show("Not implemented :(");
+            var dialog = new ExportDialog(ApPlugin.GetApplication().VisualTheme);
+
+            var results = new ExportDialog.PreExportResults();
+            dialog.Execute(Form.ActiveForm, "AttackPoint Plugin", "Processing activities...",
+                (s, ee) => {
+                    try {
+                        Thread.Sleep(500); // Delay this thread to make sure the dialog handle is created before the following code executes.
+                        ee.Result = results;
+                        results.Notes = new List<ApNote>();
+                        results.Activities = _activities;
+
+                        dialog.UpdateProgress("Analyzing activities...", null);
+                        int i = 1;
+                        foreach (var activity in _activities) {
+                            dialog.UpdateProgress(null, "Analyzing activity: " + i);
+                            var note = CreateNote();
+                            var edata = new ExportConfig() {
+                                ActivityData = ApPlugin.GetApData(activity),
+                                Logbook = ApPlugin.GetApplication().Logbook,
+                                Metadata = ApPlugin.Metadata,
+                                Config = ApPlugin.ApConfig
+                            };
+
+                            var error = Populate(note, activity, edata);
+                            if (error == null) {
+                                results.Notes.Add(note);
+
+                                StringBuilder sb;
+                                if (edata.Warnings != ExportWarning.None &&
+                                    ((sb = ProcessWarnings(edata)).Length != 0)) {
+                                    results.IsWarning = true;
+                                    dialog.UpdateProgress(string.Format("{2}Warning(s) in {0}: {1}", ApPlugin.GetCaption(activity), sb.ToString().Trim(), Environment.NewLine), null);
+                                }
+                            }
+                            else {
+                                results.IsError = true;
+                                dialog.UpdateProgress(string.Format("{2}Error in {0}: {1}", ApPlugin.GetCaption(activity), GetMessage(error.Value), Environment.NewLine), null);
+                            }
+                            ++i;
+                            Thread.Sleep(50);
+                        }
+                    }
+                    catch (Exception ex) {
+                        results.Error = ex;
+                    }
+                });
+
+            dialog.Dispose();
+        }
+
+        private StringBuilder ProcessWarnings(ExportConfig edata) {
+            var sb = new StringBuilder();
+            foreach (var warning in Warnings) {
+                if (warning == ExportWarning.EquipmentNotMapped && !ApPlugin.ApConfig.WarnOnNotMappedEquipment) {
+                    continue;
+                }
+                else if (warning == ExportWarning.IntensityNotSpecified && !ApPlugin.ApConfig.WarnOnUnspecifiedIntensity) {
+                    continue;
+                }
+
+                if ((warning & edata.Warnings) != 0) {
+                    sb.AppendLine(GetMessage(warning));
+                }
+            }
+            return sb;
         }
 
         private void ExportSingle() {
@@ -69,13 +137,13 @@ namespace GK.SportTracks.AttackPoint.Export
                 (s, ee) =>
                 {
                     try {
-                        var proxy = ApPlugin.GetProxy();
+                        Thread.Sleep(500); // Delay this thread to make sure the dialog handle is created before the following code executes.
                         var note = CreateNote();
                         var edata = new ExportConfig()
                         {
                             ActivityData = ApPlugin.GetApData(_activity),
                             Logbook = ApPlugin.GetApplication().Logbook,
-                            Metadata = proxy.Metadata,
+                            Metadata = ApPlugin.Metadata,
                             Config = ApPlugin.ApConfig
                         };
 
@@ -84,20 +152,7 @@ namespace GK.SportTracks.AttackPoint.Export
                         if (error == null) {
                             bool upload = true;
                             if (edata.Warnings != ExportWarning.None) {
-                                var sb = new StringBuilder();
-                                foreach (var warning in Warnings) {
-                                    if (warning == ExportWarning.EquipmentNotMapped && !ApPlugin.ApConfig.WarnOnNotMappedEquipment) {
-                                        continue;
-                                    }
-                                    else if (warning == ExportWarning.IntensityNotSpecified && !ApPlugin.ApConfig.WarnOnUnspecifiedIntensity) {
-                                        continue;
-                                    }
-
-                                    if ((warning & edata.Warnings) != 0) {
-                                        sb.AppendLine(GetMessage(warning));
-                                    }
-                                }
-
+                                var sb = ProcessWarnings(edata);
                                 if (sb.Length > 0) {
                                     sb.AppendLine("Do you want to proceed with export?");
                                     upload = ShowWarning(dialog, sb.ToString());
@@ -105,16 +160,17 @@ namespace GK.SportTracks.AttackPoint.Export
                             }
 
                             if (upload) {
+                                var proxy = ApPlugin.GetProxy();
                                 proxy.Upload(note);
                                 ee.Result = "Export completed.";
                             }
                             else {
-                                throw new InformationDialog.IgnoreException();
+                                throw new IgnoreException();
                             }
                         }
                         else {
                             ShowError(dialog, GetMessage(error.Value));
-                            throw new InformationDialog.IgnoreException();
+                            throw new IgnoreException();
                         }
                     }
                     catch (Exception ex) {
@@ -198,6 +254,10 @@ namespace GK.SportTracks.AttackPoint.Export
             return Resources.ResourceManager.GetString("ExportWarning_" + warning.ToString()).Replace("\\n", "\n");
         }
 
+        protected DateTime AdjustDateTime(DateTime dateTime) {
+            return ApPlugin.AdjustDateTime(dateTime);
+        }
+
     }
 
     public enum ExportError
@@ -208,7 +268,6 @@ namespace GK.SportTracks.AttackPoint.Export
         TimeNotSpecified,
         IntensityNotFound,
         IntensityNotMapped,
-        DistanceNotSpecified,
         EquipmentNotFound
     }
 

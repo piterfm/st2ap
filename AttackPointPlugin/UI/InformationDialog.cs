@@ -11,16 +11,16 @@ using System.Web;
 
 namespace GK.SportTracks.AttackPoint.UI
 {
-    public delegate void OperationCompletedHandler(RunWorkerCompletedEventArgs e);
 
-    public partial class InformationDialog : Form
+    public partial class InformationDialog : BaseDialog
     {
-        private bool _closeAfterComplete;
         private int _smallSize;
         private int _bigSize;
 
         public InformationDialog() {
             InitializeComponent();
+            bClose.Click += new EventHandler(Close_Click);
+            llFeedback.LinkClicked += new LinkLabelLinkClickedEventHandler(Feedback_LinkClicked);
             _bigSize = Height;
             _smallSize = _bigSize - (tbError.Height - progressBar1.Height);
         }
@@ -33,41 +33,16 @@ namespace GK.SportTracks.AttackPoint.UI
             pSeparator.BackColor = theme.Border;
         }
 
-        // Disable close button
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
-
-        public void Execute(Form owner, string caption, string waitMessage, DoWorkEventHandler action) {
-            Execute(owner, caption, waitMessage, action, false);
-        }
-
-        public void Execute(Form owner, string caption, string waitMessage, DoWorkEventHandler action, bool closeAfterComplete) {
-            bgWorker.DoWork += action;
-            bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
-            _closeAfterComplete = closeAfterComplete;
-
+        protected override void UpdateUI(string waitMessage)
+        {
             Height = _smallSize;
             actionBanner1.Text = waitMessage;
-            Text = caption;
             bClose.Enabled = false;
             tbError.Visible = llFeedback.Visible = false;
-
             progressBar1.StartAnimation();
-            bgWorker.RunWorkerAsync();
-            ShowDialog(owner);
         }
 
-        private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            Invoke(new OperationCompletedHandler(OperationCompleted), e);
-        }
-
-        private void OperationCompleted(RunWorkerCompletedEventArgs e) {
+        protected override void OperationCompleted(RunWorkerCompletedEventArgs e) {
             if (!Visible) return;
 
             progressBar1.StopAnimation();
@@ -98,14 +73,5 @@ namespace GK.SportTracks.AttackPoint.UI
             }
         }
 
-        private void bClose_Click(object sender, EventArgs e) {
-            Close();
-        }
-
-        private void llFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            ApPlugin.OpenEmailClient("AttackPoint Plugin Error");
-        }
-
-        public class IgnoreException : Exception { }
     }
 }

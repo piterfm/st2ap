@@ -451,6 +451,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(8);
+            var equipment = new List<IEquipmentItem>();
+            activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
@@ -464,7 +466,7 @@ namespace AttackPointPluginTests
 
             var error = action.Populate(note, activity.Object, edata);
 
-            Assert.Equal(ExportError.DistanceNotSpecified, error);
+            Assert.Equal(null, error);
         }
 
         [Fact]

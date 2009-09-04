@@ -131,15 +131,6 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t export training.\nDistance must be specified for training..
-        /// </summary>
-        internal static string ExportError_DistanceNotSpecified {
-            get {
-                return ResourceManager.GetString("ExportError_DistanceNotSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to find equipment in AP&apos;s mapping configuraion.\nPlease visit AP plugin&apos;s settings..
         /// </summary>
         internal static string ExportError_EquipmentNotFound {
@@ -245,6 +236,150 @@ namespace GK.SportTracks.AttackPoint.Properties {
         internal static string Plugin_Name {
             get {
                 return ResourceManager.GetString("Plugin_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chance of rain.
+        /// </summary>
+        internal static string W_ChanceRain {
+            get {
+                return ResourceManager.GetString("W_ChanceRain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chance of thunder.
+        /// </summary>
+        internal static string W_ChanceThunder {
+            get {
+                return ResourceManager.GetString("W_ChanceThunder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string W_Clear {
+            get {
+                return ResourceManager.GetString("W_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clouds.
+        /// </summary>
+        internal static string W_Clouds {
+            get {
+                return ResourceManager.GetString("W_Clouds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fog.
+        /// </summary>
+        internal static string W_Fog {
+            get {
+                return ResourceManager.GetString("W_Fog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Haze.
+        /// </summary>
+        internal static string W_Haze {
+            get {
+                return ResourceManager.GetString("W_Haze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heavy rain.
+        /// </summary>
+        internal static string W_HeavyRain {
+            get {
+                return ResourceManager.GetString("W_HeavyRain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light rain.
+        /// </summary>
+        internal static string W_LightRain {
+            get {
+                return ResourceManager.GetString("W_LightRain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mostly clouds.
+        /// </summary>
+        internal static string W_MostClouds {
+            get {
+                return ResourceManager.GetString("W_MostClouds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overcast.
+        /// </summary>
+        internal static string W_Overcast {
+            get {
+                return ResourceManager.GetString("W_Overcast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partly clouds.
+        /// </summary>
+        internal static string W_PartClouds {
+            get {
+                return ResourceManager.GetString("W_PartClouds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rain.
+        /// </summary>
+        internal static string W_Rain {
+            get {
+                return ResourceManager.GetString("W_Rain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scattered clouds.
+        /// </summary>
+        internal static string W_ScatterClouds {
+            get {
+                return ResourceManager.GetString("W_ScatterClouds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snow.
+        /// </summary>
+        internal static string W_Snow {
+            get {
+                return ResourceManager.GetString("W_Snow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thunder.
+        /// </summary>
+        internal static string W_Thunder {
+            get {
+                return ResourceManager.GetString("W_Thunder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string W_Unspecified {
+            get {
+                return ResourceManager.GetString("W_Unspecified", resourceCulture);
             }
         }
     }

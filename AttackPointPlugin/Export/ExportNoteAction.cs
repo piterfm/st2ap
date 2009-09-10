@@ -107,7 +107,7 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         private string FormatTemperature(float temperature, char unit) {
-            return string.Format("{0} \u00b0{1}", temperature, unit);
+            return string.Format("{0} \u00b0{1}", ConvertToString(temperature), unit);
         }
 
         public static string FormatNotes(string format, Dictionary<string, string> fields, string fallbackValue) {
@@ -135,7 +135,7 @@ namespace GK.SportTracks.AttackPoint.Export
 
         private void AddField(Dictionary<string, string> fields, string name, float value) {
             if (HasValue(value)) {
-                fields.Add(name, value.ToString());
+                fields.Add(name, ConvertToString(value));
             }
         }
 

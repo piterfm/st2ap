@@ -61,7 +61,7 @@ namespace GK.SportTracks.AttackPoint.Export
                 training.WorkoutId = stCategory.WorkoutId;
             }
 
-            var stIntensity = edata.Config.Mapping.Intensities.Find(i => i.StId == activity.Intensity.ToString());
+            var stIntensity = edata.Config.Mapping.Intensities.Find(i => string.CompareOrdinal(i.StId, ConvertToString(activity.Intensity)) == 0);
             if (stIntensity == null) {
                 return ExportError.IntensityNotFound;
             }
@@ -91,7 +91,7 @@ namespace GK.SportTracks.AttackPoint.Export
             training.Time = ai.Time;
 
             if (HasValue(ai.DistanceMeters)) {
-                training.Distance = Math.Round(ai.DistanceMeters / 1000, 2).ToString();
+                training.Distance = ConvertToString(Math.Round(ai.DistanceMeters / 1000, 2));
                 training.DistanceUnitId = edata.Metadata.GetUnitsValue(Quantity.Distance.ToString(), Units.Metric.ToString());
             }
 

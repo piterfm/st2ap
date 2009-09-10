@@ -20,6 +20,7 @@ using GK.SportTracks.AttackPoint.Properties;
 using GK.SportTracks.AttackPoint.UI;
 using System.Collections.Generic;
 using System.Threading;
+using System.Globalization;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
@@ -31,6 +32,7 @@ namespace GK.SportTracks.AttackPoint.Export
         private IActivity _activity;
         private IList<IActivity> _activities;
         private static List<ExportWarning> Warnings = new List<ExportWarning>();
+        protected static CultureInfo _formatProvider = new CultureInfo("en-US"); // Use US culture formatting numbers
 
         static ExportAction() {
             var warnings = Enum.GetNames(typeof(ExportWarning));
@@ -198,13 +200,13 @@ namespace GK.SportTracks.AttackPoint.Export
 
         protected string ConvertToString(float p, int decimals) {
             if (HasValue(p))
-                return Math.Round(p, decimals).ToString();
+                return Math.Round(p, decimals).ToString(_formatProvider);
             return null;
         }
 
         protected string ConvertToString(double p, int decimals) {
             if (HasValue(p))
-                return Math.Round(p, decimals).ToString();
+                return Math.Round(p, decimals).ToString(_formatProvider);
             return null;
         }
 
@@ -217,7 +219,15 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         protected string ConvertToString(float f) {
-            return float.IsNaN(f) ? null : f.ToString();
+            return float.IsNaN(f) ? null : f.ToString(_formatProvider);
+        }
+
+        protected string ConvertToString(double f) {
+            return double.IsNaN(f) ? null : f.ToString(_formatProvider);
+        }
+
+        protected string ConvertToString(int f) {
+            return f.ToString(_formatProvider);
         }
 
         protected string ConvertToString(bool b) {

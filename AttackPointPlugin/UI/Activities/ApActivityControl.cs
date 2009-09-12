@@ -243,9 +243,8 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
             int time;
             if (!string.IsNullOrEmpty(text) && (!int.TryParse(text, out time) || (time != 0 && ts == TimeSpan.Zero))) {
-                textBox.BackColor = Color.Pink;
-                textBox.ForeColor = Color.Black;
-                MessageBox.Show("Invalid intensity time specified.\nUse 'hhmmss' format. The time must be less than 24 hours.");
+                LightUpTextBox(textBox);
+                DisplayError("Invalid intensity time specified.\nUse 'hhmmss' format. The time must be less than 24 hours.");
                 textBox.Focus();
             }
             else {
@@ -255,6 +254,11 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                 _data.Intensities[index] = textBox.Text;
                 lblTotalTime.Text = FormatTime(_data.GetMixedIntensityTime());
             }
+        }
+
+        private static void LightUpTextBox(ZoneFiveSoftware.Common.Visuals.TextBox textBox) {
+            textBox.BackColor = Color.Pink;
+            textBox.ForeColor = Color.Black;
         }
 
         private void bCalculateIntensity_Click(object sender, EventArgs e) {
@@ -306,13 +310,52 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
         private void DisplayHeartZoneMappingError(bool recalculate) {
             if (!recalculate) return;
-            MessageBox.Show(this, "Unable to recalculate mixed intensity.\nMapping for active heart rate zone category is not specified.\nCheck plugin settings.", "Mapping error");
+            DisplayError("Unable to recalculate mixed intensity.\nMapping for active heart rate zone category is not specified.\nCheck plugin settings.", "Mapping Error");
         }
 
         private void bClear_Click(object sender, EventArgs e) {
             Array.ForEach(_iTextBoxes, t => t.Text = null);
             _data.ResetIntensity();
             _data.IntensitiesCleared = true;
+        }
+
+        private void ValidatingNumberDouble(object sender, CancelEventArgs e) {
+            ValidateNumber(sender, false, e);
+        }
+
+        private void ValidatingNumberInteger(object sender, CancelEventArgs e) {
+            ValidateNumber(sender, true, e);
+        }
+
+        private void ValidateNumber(object sender, bool interger, CancelEventArgs e) {
+            var textBox = (ZoneFiveSoftware.Common.Visuals.TextBox)sender;
+            var text = textBox.Text.Trim();
+            if (text != string.Empty) {
+                try {
+                    // With lambda expressions it would've been much more elegant
+                    if (interger)
+                        int.Parse(text);
+                    else
+                        double.Parse(text);
+                }
+                catch (FormatException) {
+                    e.Cancel = true;
+                    DisplayError("Invalid number specified.");
+                    LightUpTextBox(textBox);
+                    textBox.Focus();
+                    return;
+                }
+            }
+            // Reset texbox colors
+            textBox.ThemeChanged(_theme);
+        }
+
+        private void DisplayError(string message) {
+            DisplayError(message, "Input Error");
+        }
+
+        private void DisplayError(string message, string caption) {
+            MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

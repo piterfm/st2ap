@@ -92,8 +92,14 @@ namespace GK.SportTracks.AttackPoint.UI
                 UpdateProgress(Environment.NewLine + Environment.NewLine + "Initiating export to AttackPoint...", "Exporting to AttackPoint");
                 var proxy = ApPlugin.GetProxy();
                 int i = 1;
+                _results.Notes.Sort((n1, n2) =>
+                {
+                    if (n1.Date < n2.Date) return -1;
+                    else if (n1.Date > n2.Date) return 1;
+                    return 0;
+                });
                 foreach (var note in _results.Notes) {
-                    //proxy.Upload(note);
+                    proxy.Upload(note);
                     UpdateProgress(null, "Exporting activity: " + i);
                     ++i;
                     Thread.Sleep(50);

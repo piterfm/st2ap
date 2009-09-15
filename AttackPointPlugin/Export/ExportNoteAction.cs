@@ -114,7 +114,8 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         private string FormatTemperature(float temperature, char unit) {
-            return string.Format("{0} \u00b0{1}", ConvertToString(temperature), unit);
+            if (float.IsNaN(temperature)) return null;
+            return string.Format("{0:N1} \u00b0{1}", temperature, unit);
         }
 
         public static string FormatNotes(string format, Dictionary<string, string> fields, string fallbackValue) {

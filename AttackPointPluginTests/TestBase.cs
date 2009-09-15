@@ -25,7 +25,10 @@ namespace AttackPointPluginTests
         {
             public bool IsDebug {
                 get { return false; }
+                set { ;}
             }
+
+            public string LogFileName { get { return null; } }
 
             public void PrintMessage(string message) {
             }

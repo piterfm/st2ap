@@ -267,7 +267,7 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clouds.
+        ///   Looks up a localized string similar to Cloudy.
         /// </summary>
         internal static string W_Clouds {
             get {
@@ -285,7 +285,7 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Haze.
+        ///   Looks up a localized string similar to Hazy.
         /// </summary>
         internal static string W_Haze {
             get {
@@ -312,7 +312,7 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mostly clouds.
+        ///   Looks up a localized string similar to Mostly cloudy.
         /// </summary>
         internal static string W_MostClouds {
             get {
@@ -330,7 +330,7 @@ namespace GK.SportTracks.AttackPoint.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Partly clouds.
+        ///   Looks up a localized string similar to Partly cloudy.
         /// </summary>
         internal static string W_PartClouds {
             get {

@@ -371,25 +371,23 @@ namespace GK.SportTracks.AttackPoint
         }
 
         internal static void ShowWebPage(string page) {
-            try {
-                var process = new Process();
-                process.StartInfo.FileName = page;
-                process.Start();
-            }
-            catch (Exception ex) {
-                Logger.LogMessage("Failed to open a browser.", ex);
-                MessageBox.Show("Unable to open your browser:\n" + ex.Message);
-            }
+            StartProcess(page, "Unable to open your browser.");
         }
 
         internal static void OpenEmailClient(string subject) {
+            var mailto = string.Format("mailto:{0}?subject={1}", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail), subject);
+            StartProcess(mailto, "Unable to open your email client.");
+        }
+
+        internal static void StartProcess(string filename, string errorMessage) {
             try {
                 var process = new Process();
-                process.StartInfo.FileName = string.Format("mailto:{0}?subject={1}", HttpUtility.UrlEncode(ApPlugin.FeedbackEmail), HttpUtility.UrlEncode(subject));
+                process.StartInfo.FileName = filename;
                 process.Start();
             }
             catch (Exception ex) {
-                MessageBox.Show("Unable to open your email client:\n" + ex.Message);
+                Logger.LogMessage(string.Format("Failed to start '{0}'.", filename), ex);
+                MessageBox.Show(string.Format("{0}\n{1}", errorMessage, ex.Message));
             }
         }
 

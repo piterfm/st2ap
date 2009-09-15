@@ -340,7 +340,7 @@ namespace AttackPointPluginTests
             var error = action.Populate(note, activity.Object, edata);
 
             Assert.Null(error);
-            Assert.Equal("", note.Description);
+            Assert.Equal("Evening run. In Rancho San Antonio. \r\n63.5 °F. 17.5 °C. Light rain. Drizzling.\r\nThis is a note", note.Description);
         }
 
 

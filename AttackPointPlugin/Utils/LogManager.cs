@@ -26,7 +26,7 @@ namespace GK.Utils
         public class DefaultLogger : ILogger
         {
             public const long DefaultMaxFileSize = 1024 * 512; // 0.5 MB
-            protected const string LogFileName = "attackpoint-plugin.log";
+            protected const string DefaultLogFileName = "attackpoint-plugin.log";
             private const string EventLogSource = "AttackPoint Plugin";
             protected string _logFile;
             protected bool _isDebug;
@@ -34,12 +34,17 @@ namespace GK.Utils
             protected long _maxFileSize = DefaultMaxFileSize;
 
             public DefaultLogger() {
-                _logFile = LogFileName;
+                _logFile = DefaultLogFileName;
                 _isDebug = true;
                 _writeToWindowsEventLog = false;
             }
 
-            public bool IsDebug { get { return _isDebug; } }
+            public bool IsDebug {
+                get { return _isDebug; }
+                set { _isDebug = value; }
+            }
+
+            public string LogFileName { get { return _logFile; } }
 
             public void PrintMessage(string message) {
                 PrintMessage(message, null);

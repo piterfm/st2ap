@@ -89,6 +89,13 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         public static string GetPartOfDay(DateTime dateTime) {
+            /*
+             morning 4 - 10:59:59
+             middday 11 - 13:59:59
+             afternoon 14 - 17:29:59
+             evening 17:30 - 20:59:59
+             night 21 - 3:59:59
+            */
             double hours = dateTime.TimeOfDay.TotalHours;
             if (hours >= 4 && hours < 11)
                 return "Morning";

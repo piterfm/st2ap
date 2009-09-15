@@ -7,7 +7,8 @@ namespace GK.Utils
 {
     public interface ILogger
     {
-        bool IsDebug { get; }
+        bool IsDebug { get; set; }
+        string LogFileName { get; }
 
         void PrintMessage(string message);
         void PrintMessage(string message, Exception ex);

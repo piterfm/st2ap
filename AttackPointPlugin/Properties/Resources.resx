@@ -1146,13 +1146,13 @@
     <value>Clear</value>
   </data>
   <data name="W_Clouds" xml:space="preserve">
-    <value>Clouds</value>
+    <value>Cloudy</value>
   </data>
   <data name="W_Fog" xml:space="preserve">
     <value>Fog</value>
   </data>
   <data name="W_Haze" xml:space="preserve">
-    <value>Haze</value>
+    <value>Hazy</value>
   </data>
   <data name="W_HeavyRain" xml:space="preserve">
     <value>Heavy rain</value>
@@ -1161,13 +1161,13 @@
     <value>Light rain</value>
   </data>
   <data name="W_MostClouds" xml:space="preserve">
-    <value>Mostly clouds</value>
+    <value>Mostly cloudy</value>
   </data>
   <data name="W_Overcast" xml:space="preserve">
     <value>Overcast</value>
   </data>
   <data name="W_PartClouds" xml:space="preserve">
-    <value>Partly clouds</value>
+    <value>Partly cloudy</value>
   </data>
   <data name="W_Rain" xml:space="preserve">
     <value>Rain</value>

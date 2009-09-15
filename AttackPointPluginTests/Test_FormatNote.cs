@@ -28,7 +28,7 @@ namespace AttackPointPluginTests
             var fields = new Dictionary<string, string>();
 
             fields.Add("TimeOfDay", "10:00 AM");
-            fields.Add("Name", "Club chams");
+            fields.Add("Name", "Club champs");
             fields.Add("Location", "Tilden Park, Berkeley, CA");
             fields.Add("CourseSpec", "Blue 7.2 km, 350 m");
 

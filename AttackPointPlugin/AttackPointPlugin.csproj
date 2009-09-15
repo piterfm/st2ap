@@ -218,7 +218,6 @@
     <Content Include="ApProxy\ap-constant-data.xml" />
     <Content Include="ApProxy\ap-metadata.xml">
     </Content>
-    <Content Include="Resources\ArrowDown.bmp" />
     <None Include="Resources\ArrowDown.png" />
     <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\logo.bmp" />

@@ -49,8 +49,8 @@ namespace GK.SportTracks.AttackPoint.UI
             _results = e.Result as PreExportResults;
             var ex = _results.Error as Exception;
             if (ex != null) {
-                if (ProcessException(ex))
-                    return;
+                if (ProcessException(ex)) return;
+                llFeedback.Visible = true;
             }
             else {
                 if (_results.IsError || _results.IsWarning) {
@@ -81,6 +81,7 @@ namespace GK.SportTracks.AttackPoint.UI
         private void Upload() {
             bClose.Enabled = false;
             bIgnore.Visible = false;
+            llFeedback.Visible = false;
             bgwUploader.DoWork += new DoWorkEventHandler(UploadAction);
             bgwUploader.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgwUploader_RunWorkerCompleted);
             actionBanner1.Text = "Exporting to AttackPoint...";
@@ -98,11 +99,13 @@ namespace GK.SportTracks.AttackPoint.UI
                     else if (n1.Date > n2.Date) return 1;
                     return 0;
                 });
+
+                UpdateProgress(string.Format("{1}Exporting {0} activities...", _results.Notes.Count, Environment.NewLine), null);
                 foreach (var note in _results.Notes) {
                     proxy.Upload(note);
                     UpdateProgress(null, "Exporting activity: " + i);
                     ++i;
-                    Thread.Sleep(50);
+                    Thread.Sleep(50); // I don't want to stress the server.
                 }
                 UpdateProgress(string.Format("{0}DONE.", Environment.NewLine), "Export completed.");
                 e.Result = "Export completed.";
@@ -127,8 +130,8 @@ namespace GK.SportTracks.AttackPoint.UI
             
             var ex = e.Result as Exception;
             if (ex != null) {
-                if (ProcessException(ex))
-                    return;
+                if (ProcessException(ex)) return;
+                llFeedback.Visible = true;
             }
             else {
                 actionBanner1.Text = e.Result.ToString();

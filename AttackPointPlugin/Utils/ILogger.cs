@@ -14,6 +14,7 @@ namespace GK.Utils
         void PrintMessage(string message, Exception ex);
 
         void LogMessage(string message);
+        void LogMessage(string message, bool writeToEventLog);
         void LogMessage(string message, Exception ex);
 
         void PrintWebResponse(string url, IHttpResponseWrapper response);

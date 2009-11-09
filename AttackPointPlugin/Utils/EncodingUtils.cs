@@ -30,5 +30,12 @@ namespace GK.Utils
             return HttpUtility.UrlEncode(s, latin1Encoding);
         }
 
+        public static string UrlDecodeForLatin1(string s) {
+            return HttpUtility.UrlDecode(s, latin1Encoding);
+        }
+
+        public static string UrlEncode(string s) {
+            return HttpUtility.UrlEncode(s, Encoding.UTF8);
+        }
     }
 }

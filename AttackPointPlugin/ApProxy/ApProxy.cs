@@ -107,12 +107,14 @@ namespace GK.AttackPoint
         {
             var payload = new StringBuilder();
             foreach (var p in parameters) {
-                payload.AppendFormat("{0}={1}&", HttpUtility.UrlEncode(p.Key), EncodingUtils.UrlEncodeForLatin1(p.Value));
+                payload.AppendFormat("{0}={1}&", HttpUtility.UrlEncode(p.Key), EncodingUtils.UrlEncode(p.Value));
             }
 
             payload.Length = payload.Length - 1;
             byte[] bytes = new ASCIIEncoding().GetBytes(payload.ToString());
-            LogManager.Logger.PrintMessage(payload.ToString());
+            if (LogManager.Logger.IsDebug && !authenticate) {
+                LogManager.Logger.LogMessage(payload.ToString(), false);
+            }
 
             var request = _connectionProvider.GetRequest(Metadata.BaseUrl + url);
             request.ContentType = "application/x-www-form-urlencoded";

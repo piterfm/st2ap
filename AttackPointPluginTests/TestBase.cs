@@ -40,6 +40,10 @@ namespace AttackPointPluginTests
                 LogMessage(message, null);
             }
 
+            public void LogMessage(string message, bool writeToEventLog) {
+                LogMessage(message, null);
+            }
+
             public void LogMessage(string message, Exception ex) {
                 var sb = new StringBuilder(message);
                 if (ex != null) {

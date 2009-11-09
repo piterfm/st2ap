@@ -64,7 +64,15 @@ namespace GK.Utils
                 LogMessage(message, null);
             }
 
+            public void LogMessage(string message, bool writeToEventLog) {
+                LogMessage(message, null, writeToEventLog);
+            }
+
             public void LogMessage(string message, Exception ex) {
+                LogMessage(message, ex, true);
+            }
+
+            public void LogMessage(string message, Exception ex, bool writeToEventLog) {
                 try {
                     message = string.Format("{0}: {1}", DateTime.Now, message);
                     if (ex != null) {
@@ -72,7 +80,9 @@ namespace GK.Utils
                     }
 
                     PrintMessage(message);
-                    WriteMessageToEventLog(message, EventLogEntryType.Error);
+                    if (writeToEventLog) {
+                        WriteMessageToEventLog(message, EventLogEntryType.Error);
+                    }
 
                     using (StreamWriter writer = new StreamWriter(_logFile, IsAppend())) {
                         writer.WriteLine(message);

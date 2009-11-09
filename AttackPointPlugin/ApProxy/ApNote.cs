@@ -36,7 +36,9 @@ namespace GK.AttackPoint
                 object o = pi.GetValue(this, null);
                 var value = o == null ? p.NullValue : o.ToString();
                 if (value != null) {
-                    parameters.Add(p.Key, p.Unicode == "true" ? EncodingUtils.ConvertForLatin1Html(value) : value);
+                    // The server supports UTF-8 now instead of ISO-Latin
+                    //parameters.Add(p.Key, p.Unicode == "true" ? EncodingUtils.ConvertForLatin1Html(value) : value);
+                    parameters.Add(p.Key, value);
                 };
             }
 

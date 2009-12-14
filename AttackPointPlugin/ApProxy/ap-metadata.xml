@@ -24,6 +24,8 @@
         <property name="IsRestDay" key="restday" />
         <property name="Description" key="description" unicode="true" null-value="" />
         <property name="PrivateDescription" key="pdescription" unicode="true" />
+        <property name="SessionStartHour" key="sessionstarthour" null-value="-1" />
+        
       </properties>
     </operation>
     <operation class="ApTraining" url="/addtraining.jsp">
@@ -64,7 +66,10 @@
         <property name="TotalControls" key="controls" />
         <property name="TechnicalIntensityId" key="map" null-value="0" />
         <property name="IsPlan" key="isplan" null-value="0" />
-        
+        <property name="SessionData" key="sessiondata" />
+        <property name="SessionStartHour" key="sessionstarthour" null-value="-1" />
+        <property name="IsPrivateLocation" key="privateloc" null-value="0" />
+
       </properties>
     </operation>
   </operations>

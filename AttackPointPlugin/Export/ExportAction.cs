@@ -231,7 +231,7 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         protected string ConvertToString(bool b) {
-            return b ? "on" : null;
+            return b ? "1" : null;
         }
 
         delegate void ShowErrorHandler(Form form, string message, string caption);

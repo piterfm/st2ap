@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -145,6 +146,75 @@ namespace GK.SportTracks.AttackPoint.Export
                 training.TechnicalIntensityId = edata.ActivityData.TechnicalIntensityId;
             }
 
+            if (ai.HasAnyTrackData) {
+                int sessionSeconds = (int)Math.Ceiling(ai.ActualTrackTime.TotalSeconds);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("@samples");
+                int liveSeconds = 0;
+                int ri = 0;
+                int di = 0;
+                int hri = 0;
+                for (int elapsedSeconds = 0; elapsedSeconds <= sessionSeconds; elapsedSeconds++, liveSeconds++) {
+                    DateTime actualTime = ai.ActualTrackStart.AddSeconds(elapsedSeconds);
+                    string hrv = "";
+                    string dmv = "";
+                    string lat = "";
+                    string lon = "";
+                    string ele = "";
+                    bool anydata = false;
+
+                    if (activity.GPSRoute != null && ri < activity.GPSRoute.Count) {
+                        ITimeValueEntry<IGPSPoint> rp = activity.GPSRoute[ri];
+                        if (activity.GPSRoute.StartTime.AddSeconds(rp.ElapsedSeconds) == actualTime) {
+                            lat = rp.Value.LatitudeDegrees.ToString();
+                            lon = rp.Value.LongitudeDegrees.ToString();
+                            ele = rp.Value.ElevationMeters.ToString("#.#");
+                            anydata = true;
+                            ri++;
+                        }
+                    }
+                    if (ai.HasDistanceData && di < ai.MovingDistanceMetersTrack.Count) {
+                        ITimeValueEntry<float> dp = ai.MovingDistanceMetersTrack[di];
+                        if (ai.MovingDistanceMetersTrack.StartTime.AddSeconds(dp.ElapsedSeconds) == actualTime) {
+                            dmv = dp.Value.ToString("#.#");
+                            anydata = true;
+                            di++;
+                        }
+                    }
+
+                    if (activity.HeartRatePerMinuteTrack != null && hri < activity.HeartRatePerMinuteTrack.Count) {
+                        ITimeValueEntry<float> hrp = activity.HeartRatePerMinuteTrack[hri];
+                        if (activity.HeartRatePerMinuteTrack.StartTime.AddSeconds(hrp.ElapsedSeconds) == actualTime) {
+                            hrv = hrp.Value.ToString("#");
+                            anydata = true;
+                            hri++;
+                        }
+                    }
+                    if (anydata) {
+                        sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", liveSeconds, hrv, dmv, lat, lon, ele, ""));
+                    }
+
+                    if (activity.TimerPauses != null) {
+                        for (int tpi = 0; tpi < activity.TimerPauses.Count; tpi++) {
+                            IValueRange<DateTime> pp = activity.TimerPauses[tpi];
+                            if (actualTime < pp.Lower) break;
+                            if (pp.Lower <= actualTime && actualTime < pp.Upper) {
+                                // in a pause range
+                                liveSeconds--;
+                            }
+                        }
+                    }
+
+                }
+                if (ai.RecordedLapDetailInfo.Count > 0) {
+                    sb.AppendLine("@laps");
+                    foreach (LapDetailInfo lap in ai.RecordedLapDetailInfo) {
+                        sb.AppendLine(String.Format("{0},{1},{2},{3}", lap.LapElapsed.TotalSeconds, lap.LapDistanceMeters, Math.Round(lap.AverageHeartRatePerMinute), Math.Round(lap.MaximumHeartRatePerMinute)));
+                    }
+                }
+                training.SessionData = sb.ToString();
+            }
+            
             return null;
         }
 

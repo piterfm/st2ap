@@ -10,6 +10,7 @@ namespace GK.AttackPoint
     public class ApNote
     {
         public DateTime Date { get; set; }
+        public string SessionStartHour { get; set; }
         public string Description { get; set; }
         public string PrivateDescription { get; set; }
         public string RestingHeartRate { get; set; }

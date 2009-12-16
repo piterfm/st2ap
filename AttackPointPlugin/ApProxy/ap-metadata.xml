@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ap-metadata xmlns="http://www.atackpoint.org/metadata/v0.1"
+<?xml version="1.0" encoding="utf-8" ?>
+<ap-metadata xmlns="http://www.attackpoint.org/metadata/v0.1"
           base-url="http://www.attackpoint.org"
           login-url="/dologin.jsp"
           login-cookie="login"

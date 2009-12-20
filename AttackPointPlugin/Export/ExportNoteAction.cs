@@ -6,6 +6,7 @@ using ZoneFiveSoftware.Common.Data.Fitness;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using GK.SportTracks.AttackPoint.Properties;
+using ZoneFiveSoftware.Common.Data.Measurement;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
@@ -151,6 +152,11 @@ namespace GK.SportTracks.AttackPoint.Export
             if (!string.IsNullOrEmpty(value)) {
                 fields.Add(name, value);
             }
+        }
+
+        internal static Units GetDistanceUnits(ExportConfig config) {
+            var units =config.SystemPreferences.DistanceUnits;
+            return units == Length.Units.Centimeter || units == Length.Units.Kilometer || units == Length.Units.Meter ? Units.Metric : Units.English;
         }
 
         public override string Title { get { return BatchMode ? "AttackPoint notes" : "AttackPoint note"; } }

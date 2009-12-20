@@ -84,6 +84,7 @@ namespace GK.SportTracks.AttackPoint.Export
                             var edata = new ExportConfig() {
                                 ActivityData = ApPlugin.GetApData(activity),
                                 Logbook = ApPlugin.GetApplication().Logbook,
+                                SystemPreferences = ApPlugin.GetApplication().SystemPreferences,
                                 Metadata = ApPlugin.Metadata,
                                 Config = ApPlugin.ApConfig
                             };
@@ -145,6 +146,7 @@ namespace GK.SportTracks.AttackPoint.Export
                         {
                             ActivityData = ApPlugin.GetApData(_activity),
                             Logbook = ApPlugin.GetApplication().Logbook,
+                            SystemPreferences = ApPlugin.GetApplication().SystemPreferences,
                             Metadata = ApPlugin.Metadata,
                             Config = ApPlugin.ApConfig
                         };
@@ -299,6 +301,7 @@ namespace GK.SportTracks.AttackPoint.Export
 
         public ApActivityData ActivityData { get; set; }
         public ILogbook Logbook { get; set; }
+        public ISystemPreferences SystemPreferences { get; set; }
         public ApMetadata Metadata { get; set; }
         public ApConfig Config { get; set; }
         public ExportWarning Warnings { get; set; }

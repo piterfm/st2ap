@@ -65,8 +65,8 @@ namespace AttackPointPluginTests
             Assert.Equal("07", note.MonthId);
             Assert.Equal("11", note.DayId);
             Assert.Equal("This is a note", note.Description);
-            Assert.Equal("on", note.IsSick);
-            Assert.Equal("on", note.IsInjured);
+            Assert.Equal("1", note.IsSick);
+            Assert.Equal("1", note.IsInjured);
             Assert.Null(note.IsRestDay);
             Assert.Equal("55", note.RestingHeartRate);
             Assert.Equal("64", note.Weight);
@@ -213,8 +213,8 @@ namespace AttackPointPluginTests
             Assert.Equal("07", note.MonthId);
             Assert.Equal("11", note.DayId);
             Assert.Equal("This is a note", note.Description);
-            Assert.Equal("on", note.IsSick);
-            Assert.Equal("on", note.IsInjured);
+            Assert.Equal("1", note.IsSick);
+            Assert.Equal("1", note.IsInjured);
             Assert.Null(note.IsRestDay);
             Assert.Null(note.RestingHeartRate);
             Assert.Null(note.Weight);

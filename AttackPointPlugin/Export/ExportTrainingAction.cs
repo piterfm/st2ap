@@ -92,8 +92,12 @@ namespace GK.SportTracks.AttackPoint.Export
             training.Time = ai.Time;
 
             if (HasValue(ai.DistanceMeters)) {
-                training.Distance = ConvertToString(Math.Round(ai.DistanceMeters / 1000, 2));
-                training.DistanceUnitId = edata.Metadata.GetUnitsValue(Quantity.Distance.ToString(), Units.Metric.ToString());
+                Units distanceUnits = GetDistanceUnits(edata);
+                training.Distance = ConvertToString(distanceUnits == Units.Metric ?
+                    Math.Round(ai.DistanceMeters / 1000, 2) :
+                    Math.Round(ai.DistanceMeters * 0.000621371192, 2)
+                );
+                training.DistanceUnitId = edata.Metadata.GetUnitsValue(Quantity.Distance.ToString(), distanceUnits.ToString());
             }
 
             float climb = float.NaN;
@@ -146,7 +150,7 @@ namespace GK.SportTracks.AttackPoint.Export
                 training.TechnicalIntensityId = edata.ActivityData.TechnicalIntensityId;
             }
 
-            if (ai.HasAnyTrackData) {
+            if (edata.Config.Profile.AdvancedFeaturesEnabled /*&& edata.Config.ExportGpsTrack*/ && ai.HasAnyTrackData) {
                 int sessionSeconds = (int)Math.Ceiling(ai.ActualTrackTime.TotalSeconds);
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("@samples");

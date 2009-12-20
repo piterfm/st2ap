@@ -201,11 +201,11 @@ namespace AttackPointPluginTests
 
             request.VerifySet(r => r.Method = "POST");
             request.VerifySet(r => r.ContentType = "application/x-www-form-urlencoded");
-            request.VerifySet(r => r.ContentLength = 98);
+            request.VerifySet(r => r.ContentLength = 118);
 
             var bytes = rstream.ToArray();
-            Assert.Equal(98, bytes.Length);
-            Assert.Equal("session-month=07&session-day=29&session-year=2009&rhr=61&sleep=&weight=&description=This+is+a+note", new ASCIIEncoding().GetString(bytes));
+            Assert.Equal(118, bytes.Length);
+            Assert.Equal("session-month=07&session-day=29&session-year=2009&rhr=61&sleep=&weight=&description=This+is+a+note&sessionstarthour=-1", new ASCIIEncoding().GetString(bytes));
             _logger.Verify();
             
         }

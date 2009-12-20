@@ -7,7 +7,7 @@ using GK.Utils;
 
 namespace GK.AttackPoint
 {
-    [XmlRoot(ElementName = "ap-metadata", Namespace = "http://www.atackpoint.org/metadata/v0.1")]
+    [XmlRoot(ElementName = "ap-metadata", Namespace = "http://www.attackpoint.org/metadata/v0.1")]
     public class ApMetadata
     {
         [XmlAttribute("base-url")]

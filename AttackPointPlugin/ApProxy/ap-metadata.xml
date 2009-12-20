@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ap-metadata xmlns="http://www.atackpoint.org/metadata/v0.1"
+<ap-metadata xmlns="http://www.attackpoint.org/metadata/v0.1"
           base-url="http://www.attackpoint.org"
           login-url="/dologin.jsp"
           login-cookie="login"
@@ -25,7 +25,6 @@
         <property name="Description" key="description" unicode="true" null-value="" />
         <property name="PrivateDescription" key="pdescription" unicode="true" />
         <property name="SessionStartHour" key="sessionstarthour" null-value="-1" />
-        
       </properties>
     </operation>
     <operation class="ApTraining" url="/addtraining.jsp">
@@ -69,7 +68,6 @@
         <property name="SessionData" key="sessiondata" />
         <property name="SessionStartHour" key="sessionstarthour" null-value="-1" />
         <property name="IsPrivateLocation" key="privateloc" null-value="0" />
-
       </properties>
     </operation>
   </operations>

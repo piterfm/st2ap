@@ -8,6 +8,8 @@ using GK.SportTracks.AttackPoint.Export;
 using Moq;
 using ZoneFiveSoftware.Common.Data.Fitness;
 using GK.SportTracks.AttackPoint;
+using ZoneFiveSoftware.Common.Visuals.Fitness;
+using ZoneFiveSoftware.Common.Data.Measurement;
 
 namespace AttackPointPluginTests
 {
@@ -37,7 +39,7 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(8);
-            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15.2F);
+            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(1600F);
             activity.SetupGet(a => a.TotalAscendMetersEntered).Returns(460.5F);
             var shoes = new Mock<IEquipmentItem>();
             shoes.SetupGet(s => s.ReferenceId).Returns("783cc7b1-4a73-4b3f-b90f-7c96282406a3");
@@ -46,6 +48,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
             activity.SetupGet(a => a.AverageHeartRatePerMinuteEntered).Returns(170F);
             activity.SetupGet(a => a.MaximumHeartRatePerMinuteEntered).Returns(186F);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Kilometer);
 
             _config.Profile.AdvancedFeaturesEnabled = false;
             var action = new ExportTrainingAction(activity.Object);
@@ -54,6 +58,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -83,6 +88,8 @@ namespace AttackPointPluginTests
             Assert.Equal("16", note.SpikedControls);
             Assert.Equal("20", note.TotalControls);
             Assert.Equal("4", note.TechnicalIntensityId);
+            Assert.Equal("1.6", note.Distance);
+            Assert.Equal("kilometers", note.DistanceUnitId);
         }
 
         [Fact]
@@ -115,7 +122,7 @@ namespace AttackPointPluginTests
             category.SetupGet(c => c.ReferenceId).Returns("5e13c6e5-59d5-4e99-9fbe-16c65e1111e1");
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
-            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15.2F);
+            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15459.24573F);
             activity.SetupGet(a => a.TotalAscendMetersEntered).Returns(460.5F);
             var shoes = new Mock<IEquipmentItem>();
             shoes.SetupGet(s => s.ReferenceId).Returns("783cc7b1-4a73-4b3f-b90f-7c96282406a3");
@@ -124,6 +131,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
             activity.SetupGet(a => a.AverageHeartRatePerMinuteEntered).Returns(170F);
             activity.SetupGet(a => a.MaximumHeartRatePerMinuteEntered).Returns(186F);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Centimeter);
 
             _config.Profile.AdvancedFeaturesEnabled = true;
             var action = new ExportTrainingAction(activity.Object);
@@ -132,6 +141,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -161,6 +171,8 @@ namespace AttackPointPluginTests
             Assert.Equal("16", note.SpikedControls);
             Assert.Equal("20", note.TotalControls);
             Assert.Equal("4", note.TechnicalIntensityId);
+            Assert.Equal("15.46", note.Distance);
+            Assert.Equal("kilometers", note.DistanceUnitId);
         }
 
         [Fact]
@@ -199,6 +211,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
             activity.SetupGet(a => a.AverageHeartRatePerMinuteEntered).Returns(170F);
             activity.SetupGet(a => a.MaximumHeartRatePerMinuteEntered).Returns(186F);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Meter);
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
@@ -206,6 +220,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -348,6 +363,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(2);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
@@ -355,6 +372,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -383,6 +401,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(5);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             _config.Profile.AdvancedFeaturesEnabled = false;
             var action = new ExportTrainingAction(activity.Object);
@@ -391,6 +411,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -417,6 +438,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(5);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             _config.Profile.AdvancedFeaturesEnabled = true;
             var action = new ExportTrainingAction(activity.Object);
@@ -425,6 +448,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -492,6 +516,8 @@ namespace AttackPointPluginTests
             var equipment = new List<IEquipmentItem>();
             equipment.Add(shoes.Object);
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             // Remove equipment to emulate the error
             _config.Mapping.Shoes.RemoveAt(5);
@@ -501,6 +527,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -527,12 +554,14 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(8);
-            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15.2F);
+            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(23481.32F);
             var shoes = new Mock<IEquipmentItem>();
             shoes.SetupGet(s => s.ReferenceId).Returns("792d3504-ea35-43e0-942b-99d97195a236");
             var equipment = new List<IEquipmentItem>();
             equipment.Add(shoes.Object);
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             // Turn on the warning 
             _config.WarnOnNotMappedEquipment = true;
@@ -542,6 +571,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -550,6 +580,8 @@ namespace AttackPointPluginTests
 
             Assert.Null(error);
             Assert.NotEqual(0, (int)(edata.Warnings & ExportWarning.EquipmentNotMapped));
+            Assert.Equal("14.59", note.Distance);
+            Assert.Equal("miles", note.DistanceUnitId);
         }
 
         [Fact]
@@ -569,12 +601,14 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(8);
-            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15.2F);
+            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(3159.9992F);
             var shoes = new Mock<IEquipmentItem>();
             shoes.SetupGet(s => s.ReferenceId).Returns("792d3504-ea35-43e0-942b-99d97195a236");
             var equipment = new List<IEquipmentItem>();
             equipment.Add(shoes.Object);
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Foot);
 
             // Turn off the warning 
             _config.WarnOnNotMappedEquipment = false;
@@ -584,6 +618,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -593,6 +628,8 @@ namespace AttackPointPluginTests
             // Still it must be a warning even when the warning is off
             Assert.Null(error);
             Assert.NotEqual(0, (int)(edata.Warnings & ExportWarning.EquipmentNotMapped));
+            Assert.Equal("1.96", note.Distance);
+            Assert.Equal("miles", note.DistanceUnitId);
         }
 
         [Fact]
@@ -612,12 +649,14 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(8);
-            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15.2F);
+            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(41565.256F);
             var shoes = new Mock<IEquipmentItem>();
             shoes.SetupGet(s => s.ReferenceId).Returns("783cc7b1-4a73-4b3f-b90f-7c96282406a3");
             var equipment = new List<IEquipmentItem>();
             equipment.Add(shoes.Object);
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
@@ -625,6 +664,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -648,6 +688,8 @@ namespace AttackPointPluginTests
             Assert.Null(note.SpikedControls);
             Assert.Null(note.TotalControls);
             Assert.Null(note.TechnicalIntensityId);
+            Assert.Equal("25.83", note.Distance);
+            Assert.Equal("miles", note.DistanceUnitId);
         }
 
         [Fact]
@@ -667,7 +709,7 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
             activity.SetupGet(a => a.Intensity).Returns(8);
-            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15210.2F);
+            activity.SetupGet(a => a.TotalDistanceMetersEntered).Returns(15210.256F);
             var shoes = new Mock<IEquipmentItem>();
             shoes.SetupGet(s => s.ReferenceId).Returns("783cc7b1-4a73-4b3f-b90f-7c96282406a3");
             var equipment = new List<IEquipmentItem>();
@@ -676,6 +718,8 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.AverageHeartRatePerMinuteEntered).Returns(float.NaN);
             activity.SetupGet(a => a.MaximumHeartRatePerMinuteEntered).Returns(float.NaN);
             activity.SetupGet(a => a.TotalAscendMetersEntered).Returns(float.NaN);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Yard);
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
@@ -683,6 +727,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -696,8 +741,8 @@ namespace AttackPointPluginTests
 
             // Assert training
             Assert.Equal("013421", note.TotalTime);
-            Assert.Equal("15.21", note.Distance);
-            Assert.Equal("kilometers", note.DistanceUnitId);
+            Assert.Equal("9.45", note.Distance);
+            Assert.Equal("miles", note.DistanceUnitId);
             Assert.Null(note.Climb);
             Assert.Null(note.ClimbUnitId);
             Assert.Equal("4", note.IntensityId);
@@ -747,6 +792,8 @@ namespace AttackPointPluginTests
             var equipment = new List<IEquipmentItem>();
             equipment.Add(shoes.Object);
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
+            var settings = new Mock<ISystemPreferences>();
+            settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Inch);
 
             var action = new ExportTrainingAction(activity.Object);
             var note = new ApTraining();
@@ -754,6 +801,7 @@ namespace AttackPointPluginTests
             {
                 ActivityData = data,
                 Logbook = logbook.Object,
+                SystemPreferences = settings.Object,
                 Metadata = _metadata,
                 Config = _config
             };
@@ -762,6 +810,8 @@ namespace AttackPointPluginTests
 
             Assert.Null(error);
             Assert.Equal("Evening run in Rancho San Antonio. Burned 350.4.\r\nCourse: Blue 10.2 km 350 m\r\nThis is a note", note.Description);
+            Assert.Equal("9.45", note.Distance);
+            Assert.Equal("miles", note.DistanceUnitId);
 
         }
 

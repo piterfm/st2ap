@@ -43,6 +43,10 @@ namespace GK.SportTracks.AttackPoint.Settings
             comboHRCategory.DisplayMember = "Title";
             comboHRCategory.ValueMember = "Id";
 
+            comboGpsTrackVisibility.DataSource = ApPlugin.GpsTrackVisibilityOptions;
+            comboGpsTrackVisibility.DisplayMember = "Value";
+            comboGpsTrackVisibility.ValueMember = "Key";
+
             //RefreshPage();
         }
 
@@ -70,6 +74,7 @@ namespace GK.SportTracks.AttackPoint.Settings
                     cbWarnAboutShoes.Checked = ApConfig.WarnOnNotMappedEquipment;
                     cbWarnAboutIntensity.Checked = ApConfig.WarnOnUnspecifiedIntensity;
                     cbAutoIntensity.Checked = ApConfig.AutoCalculateMixedIntensity;
+                    //cbExportGpsTrack.Checked = ApConfig.ExportGpsTrack;
 
                     var oldSelectedIndex = comboNotes.SelectedIndex;
                     comboNotes.Items.Clear();
@@ -122,6 +127,8 @@ namespace GK.SportTracks.AttackPoint.Settings
                             tabControlMapping.TabPages.Add(_heartZonesTab);
                         }
                         cbAutoIntensity.Visible = true;
+                        lbGpsTrackVisibleTo.Visible = true;
+                        comboGpsTrackVisibility.Visible = true;
 
                         _stHRCategories = ApPlugin.UpdateStHeartRateZones();
 
@@ -142,6 +149,8 @@ namespace GK.SportTracks.AttackPoint.Settings
                             tabControlMapping.TabPages.RemoveAt(3);
                         }
                         cbAutoIntensity.Visible = false;
+                        lbGpsTrackVisibleTo.Visible = false;
+                        comboGpsTrackVisibility.Visible = false;
                     }
 
                 }
@@ -199,6 +208,7 @@ namespace GK.SportTracks.AttackPoint.Settings
                 config.WarnOnNotMappedEquipment = cbWarnAboutShoes.Checked;
                 config.WarnOnUnspecifiedIntensity = cbWarnAboutIntensity.Checked;
                 config.AutoCalculateMixedIntensity = cbAutoIntensity.Checked;
+                //config.ExportGpsTrack = cbExportGpsTrack.Checked;
 
                 dgActivities.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 for (int i = 0; i < dgActivities.Rows.Count; ++i) {

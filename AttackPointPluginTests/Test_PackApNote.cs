@@ -38,7 +38,7 @@ namespace AttackPointPluginTests
             var operation = _metadata.Operations[0];
             var parameters = note.Pack(operation);
 
-            Assert.Equal(12, parameters.Count);
+            Assert.Equal(13, parameters.Count);
             Assert.Equal("07", parameters["session-month"]);
             Assert.Equal("11", parameters["session-day"]);
             Assert.Equal("2009", parameters["session-year"]);
@@ -51,6 +51,7 @@ namespace AttackPointPluginTests
             Assert.Equal("Taking a day off", parameters["description"]);
             Assert.Equal("private note", parameters["pdescription"]);
             Assert.Equal("kilo", parameters["wunit"]);
+            Assert.Equal("-1", parameters["sessionstarthour"]);
         }
 
         [Fact]
@@ -60,11 +61,12 @@ namespace AttackPointPluginTests
             var operation = _metadata.Operations[0];
             var parameters = note.Pack(operation);
 
-            Assert.Equal(4, parameters.Count);
+            Assert.Equal(5, parameters.Count);
             Assert.Equal("", parameters["rhr"]);
             Assert.Equal("", parameters["sleep"]);
             Assert.Equal("", parameters["weight"]);
             Assert.Equal("", parameters["description"]);
+            Assert.Equal("-1", parameters["sessionstarthour"]);
         }
 
         [Fact]
@@ -83,7 +85,7 @@ namespace AttackPointPluginTests
             var operation = _metadata.Operations[0];
             var parameters = note.Pack(operation);
 
-            Assert.Equal(8, parameters.Count);
+            Assert.Equal(9, parameters.Count);
             Assert.Equal("07", parameters["session-month"]);
             Assert.Equal("11", parameters["session-day"]);
             Assert.Equal("2009", parameters["session-year"]);
@@ -92,6 +94,7 @@ namespace AttackPointPluginTests
             Assert.Equal("136", parameters["weight"]);
             Assert.Equal("Some text", parameters["description"]);
             Assert.Equal("kilo", parameters["wunit"]);
+            Assert.Equal("-1", parameters["sessionstarthour"]);
         }
 
         [Fact]
@@ -133,7 +136,7 @@ namespace AttackPointPluginTests
             var operation = _metadata.Operations[1];
             var parameters = note.Pack(operation);
 
-            Assert.Equal(29, parameters.Count);
+            Assert.Equal(31, parameters.Count);
             Assert.Equal("07", parameters["session-month"]);
             Assert.Equal("11", parameters["session-day"]);
             Assert.Equal("2009", parameters["session-year"]);
@@ -164,6 +167,8 @@ namespace AttackPointPluginTests
             Assert.Equal("20", parameters["controls"]);
             Assert.Equal("2", parameters["map"]);
             Assert.Equal("3", parameters["isplan"]);
+            Assert.Equal("-1", parameters["sessionstarthour"]);
+            Assert.Equal("0", parameters["privateloc"]);
         }
 
         [Fact]
@@ -173,7 +178,7 @@ namespace AttackPointPluginTests
             var operation = _metadata.Operations[1];
             var parameters = note.Pack(operation);
 
-            Assert.Equal(7, parameters.Count);
+            Assert.Equal(9, parameters.Count);
             Assert.Equal("", parameters["description"]);
             Assert.Equal("1", parameters["workouttypeid"]);
             Assert.Equal("-1", parameters["intensity"]);
@@ -181,6 +186,8 @@ namespace AttackPointPluginTests
             Assert.Equal("null", parameters["shoes"]);
             Assert.Equal("0", parameters["map"]);
             Assert.Equal("0", parameters["isplan"]);
+            Assert.Equal("-1", parameters["sessionstarthour"]);
+            Assert.Equal("0", parameters["privateloc"]);
         }
 
         [Fact]
@@ -227,7 +234,7 @@ namespace AttackPointPluginTests
             var operation = _metadata.Operations[1];
             var parameters = note.Pack(operation);
 
-            Assert.Equal(35, parameters.Count);
+            Assert.Equal(37, parameters.Count);
             Assert.Equal("07", parameters["session-month"]);
             Assert.Equal("11", parameters["session-day"]);
             Assert.Equal("2009", parameters["session-year"]);
@@ -264,6 +271,8 @@ namespace AttackPointPluginTests
             Assert.Equal("20", parameters["controls"]);
             Assert.Equal("2", parameters["map"]);
             Assert.Equal("3", parameters["isplan"]);
+            Assert.Equal("-1", parameters["sessionstarthour"]);
+            Assert.Equal("0", parameters["privateloc"]);
         }
 
         public void Pack_TrainingWithSomeMixedIntensity() {

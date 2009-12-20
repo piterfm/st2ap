@@ -80,7 +80,11 @@ namespace GK.AttackPoint
                 return ProtectedData.Protect(Encoding.UTF8.GetBytes(Password), null, DataProtectionScope.CurrentUser);
             }
             set {
-                if (value == null || value.Length == 0) Password = null;
+                if (value == null || value.Length == 0) {
+                    Password = null;
+                    return;
+                }
+                
                 try {
                     Password = Encoding.UTF8.GetString(ProtectedData.Unprotect(value, null, DataProtectionScope.CurrentUser));
                 }
@@ -104,7 +108,7 @@ namespace GK.AttackPoint
                 return
                     !AdvancedFeaturesEnabledSpecified ||
                     string.IsNullOrEmpty(Username) ||
-                    string.IsNullOrEmpty(Password) ||
+                    //string.IsNullOrEmpty(Password) ||
                     Activities == null ||
                     Shoes == null;
             }

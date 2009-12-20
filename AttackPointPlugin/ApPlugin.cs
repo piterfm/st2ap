@@ -11,7 +11,6 @@ using System.Diagnostics;
 using ZoneFiveSoftware.Common.Data.Fitness;
 using System.Runtime.Serialization.Formatters.Binary;
 using GK.SportTracks.AttackPoint.UI.Activities;
-using ZoneFiveSoftware.Common.Data.Measurement;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Web;
@@ -38,6 +37,7 @@ namespace GK.SportTracks.AttackPoint
         private static string BasePath;
         private static IConnectionProvider ConnectionProvider;
         public static ApMetadata Metadata;
+        public static List<KeyValuePair<string, string>> GpsTrackVisibilityOptions = new List<KeyValuePair<string, string>>();
 
         static ApPlugin() {
             try {
@@ -48,6 +48,11 @@ namespace GK.SportTracks.AttackPoint
                 BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 ApConfig = new ApConfig(BasePath);
                 Metadata = ApMetadata.LoadMetadata(BasePath);
+
+                GpsTrackVisibilityOptions.Add(new KeyValuePair<string, string>("0", "Everyone"));
+                GpsTrackVisibilityOptions.Add(new KeyValuePair<string, string>("3", "Just you"));
+                GpsTrackVisibilityOptions.Add(new KeyValuePair<string, string>("5", "No upload"));
+
                 _initialized = true;
             }
             catch (Exception ex) {
@@ -358,11 +363,6 @@ namespace GK.SportTracks.AttackPoint
                 ser.Serialize(w, data);
             }
             Logger.PrintMessage("ApActivityData:" + Environment.NewLine + sb);
-        }
-
-        internal static Units GetDistanceUnits() {
-            var units = GetApplication().SystemPreferences.DistanceUnits;
-            return units == Length.Units.Centimeter || units == Length.Units.Kilometer || units == Length.Units.Meter ? Units.Metric : Units.English;
         }
 
         internal static bool IsNotesFormatValid(string format) {

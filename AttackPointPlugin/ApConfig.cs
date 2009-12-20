@@ -25,6 +25,8 @@ namespace GK.SportTracks.AttackPoint
         public bool WarnOnUnspecifiedIntensity { get; set; }
         [XmlAttribute]
         public bool AutoCalculateMixedIntensity { get; set; }
+        //[XmlAttribute]
+        //public string GpsTrackVisibility { get; set; }
 
         public ApProfile Profile { get; set; }
         public ApMapping Mapping { get; set; }

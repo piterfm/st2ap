@@ -67,7 +67,7 @@
         <property name="IsPlan" key="isplan" null-value="0" />
         <property name="SessionData" key="sessiondata" />
         <property name="SessionStartHour" key="sessionstarthour" null-value="-1" />
-        <property name="IsPrivateLocation" key="privateloc" null-value="0" />
+        <property name="GpsTrackVisibility" key="privateloc" null-value="0" />
       </properties>
     </operation>
   </operations>

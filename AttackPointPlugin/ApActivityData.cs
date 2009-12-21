@@ -9,7 +9,7 @@ namespace GK.SportTracks.AttackPoint
 {
     /*****************************************************************/
     // AP support input of either distance or pace.
-    // There is no Pace property. Only distance is be supported.
+    // There is no Pace property. Only distance is supported.
     // It is unlikely anybody will need this functionality.
     /*****************************************************************/
 
@@ -20,6 +20,8 @@ namespace GK.SportTracks.AttackPoint
 
         [XmlAttribute("w")]
         public string WorkoutId { get; set; }
+        [XmlAttribute("g")]
+        public string GpsTrackVisibility { get; set; }
         [XmlAttribute("s")]
         public string SpikedControls { get; set; }
         [XmlAttribute("t")]
@@ -56,6 +58,7 @@ namespace GK.SportTracks.AttackPoint
                 (string.IsNullOrEmpty(TechnicalIntensityId) || (TechnicalIntensityId == "0")) &&
                 string.IsNullOrEmpty(CourseName) &&
                 string.IsNullOrEmpty(CourseLength) &&
+                string.IsNullOrEmpty(GpsTrackVisibility) &&
                 string.IsNullOrEmpty(CourseClimb) ?
                 true : false;
         }

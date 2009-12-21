@@ -16,6 +16,8 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
         private ApActivityData _data;
         private ITheme _theme;
         private ZoneFiveSoftware.Common.Visuals.TextBox[] _iTextBoxes = new ZoneFiveSoftware.Common.Visuals.TextBox[6];
+        // We keep the old value to avoid setting it if it's the same as the default one
+        private string _oldGpsTrackVisibility;
 
         public ApActivityControl() {
             InitializeComponent();
@@ -31,6 +33,10 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
 
             comboTechnicalIntensity.DisplayMember = "Title";
             comboTechnicalIntensity.ValueMember = "Id";
+
+            comboGpsTrackVisibility.DataSource = ApPlugin.GpsTrackVisibilityOptions;
+            comboGpsTrackVisibility.DisplayMember = "Value";
+            comboGpsTrackVisibility.ValueMember = "Key";
         }
 
         public ApActivityData Data { set { _data = value; } }
@@ -86,6 +92,10 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                     tbDistance.Text = _data.CourseLength;
                     tbClimb.Text = _data.CourseClimb;
 
+                    _oldGpsTrackVisibility = _data.GpsTrackVisibility;
+                    comboGpsTrackVisibility.SelectedValue = string.IsNullOrEmpty(_data.GpsTrackVisibility) ?
+                        ApPlugin.ApConfig.GetGpsTrackVisibility() : _data.GpsTrackVisibility;
+
                     tbPrivateNote.Text = _data.PrivateNote;
 
                     Enabled = true;
@@ -93,6 +103,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
                     tbPrivateNote.Enabled =
                     bClear.Enabled =
                     bCalculateIntensity.Enabled = profile.AdvancedFeaturesEnabled;
+                    comboGpsTrackVisibility.Enabled = profile.AdvancedFeaturesEnabled && ActivityInfo.HasAnyTrackData;
                 }
                 else {
                     lblTotalTime.Text = "N/A";
@@ -147,6 +158,18 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             _data.CourseLength = GetValue(tbDistance.Text);
             _data.CourseClimb = GetValue(tbClimb.Text);
             _data.PrivateNote = GetValue(tbPrivateNote.Text);
+
+            // We set GPS track visibility only for advanced accounts and only if it differs from the default value set in plugin settings.
+            var val = GetValue(comboGpsTrackVisibility.SelectedValue);
+            if (!ApPlugin.ApConfig.Profile.AdvancedFeaturesEnabled ||
+                string.IsNullOrEmpty(val) ||
+                (string.IsNullOrEmpty(_oldGpsTrackVisibility) && val.Equals(ApPlugin.ApConfig.GetGpsTrackVisibility()))
+            ) {
+                _data.GpsTrackVisibility = null;
+            }
+            else {
+                _data.GpsTrackVisibility = val;
+            }
         }
 
         private void UpdateIntensity() {
@@ -216,6 +239,7 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             ChangeTheme(comboWorkout, visualTheme);
             ChangeTheme(comboTechnicalIntensity, visualTheme);
             ChangeTheme(comboBoxCourseName, visualTheme);
+            ChangeTheme(comboGpsTrackVisibility, visualTheme);
         }
 
         private void ChangeTheme(ComboBox combo, ITheme visualTheme) {

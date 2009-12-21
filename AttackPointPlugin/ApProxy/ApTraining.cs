@@ -27,7 +27,7 @@ namespace GK.AttackPoint
         public string TechnicalIntensityId { get; set; }
         public string IsPlan { get; set; }
         public string SessionData { get; set; }
-        public string IsPrivateLocation { get; set; }
+        public string GpsTrackVisibility { get; set; }
 
         public string[] Intensities {
             get { return _intensities; }

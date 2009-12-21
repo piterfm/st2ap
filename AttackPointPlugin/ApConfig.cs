@@ -9,6 +9,9 @@ namespace GK.SportTracks.AttackPoint
     [XmlRoot(ElementName = "AttackPointConfiguration", Namespace = ApConstantData.Namespace)] 
     public class ApConfig
     {
+        public const string DefaultGpsTrackVisibility = "0";
+        public const string NoUploadGpsTrackVisibility = "5";
+
         public ApConfig() { }
         public ApConfig(string basePath) {
             Profile = new ApProfile(basePath);
@@ -25,8 +28,8 @@ namespace GK.SportTracks.AttackPoint
         public bool WarnOnUnspecifiedIntensity { get; set; }
         [XmlAttribute]
         public bool AutoCalculateMixedIntensity { get; set; }
-        //[XmlAttribute]
-        //public string GpsTrackVisibility { get; set; }
+        [XmlAttribute]
+        public string GpsTrackVisibility { get; set; }
 
         public ApProfile Profile { get; set; }
         public ApMapping Mapping { get; set; }
@@ -52,6 +55,10 @@ namespace GK.SportTracks.AttackPoint
             Profile.Activities = null;
             Profile.Shoes = null;
             Mapping = new ApMapping();
+        }
+
+        public string GetGpsTrackVisibility() {
+            return string.IsNullOrEmpty(GpsTrackVisibility) ? DefaultGpsTrackVisibility : GpsTrackVisibility;
         }
     }
 }

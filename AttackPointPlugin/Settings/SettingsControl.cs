@@ -74,7 +74,7 @@ namespace GK.SportTracks.AttackPoint.Settings
                     cbWarnAboutShoes.Checked = ApConfig.WarnOnNotMappedEquipment;
                     cbWarnAboutIntensity.Checked = ApConfig.WarnOnUnspecifiedIntensity;
                     cbAutoIntensity.Checked = ApConfig.AutoCalculateMixedIntensity;
-                    //cbExportGpsTrack.Checked = ApConfig.ExportGpsTrack;
+                    comboGpsTrackVisibility.SelectedValue = ApConfig.GetGpsTrackVisibility();
 
                     var oldSelectedIndex = comboNotes.SelectedIndex;
                     comboNotes.Items.Clear();
@@ -208,7 +208,7 @@ namespace GK.SportTracks.AttackPoint.Settings
                 config.WarnOnNotMappedEquipment = cbWarnAboutShoes.Checked;
                 config.WarnOnUnspecifiedIntensity = cbWarnAboutIntensity.Checked;
                 config.AutoCalculateMixedIntensity = cbAutoIntensity.Checked;
-                //config.ExportGpsTrack = cbExportGpsTrack.Checked;
+                config.GpsTrackVisibility = comboGpsTrackVisibility.SelectedValue.ToString();
 
                 dgActivities.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 for (int i = 0; i < dgActivities.Rows.Count; ++i) {

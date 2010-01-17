@@ -40,7 +40,7 @@
             // 
             this.pictureBoxLogo.Image = global::GK.SportTracks.AttackPoint.Properties.Resources.OLogo;
             this.pictureBoxLogo.Location = new System.Drawing.Point(-1, 2);
-            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(52, 54);
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -67,7 +67,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "(c) 2009 by Greg Khanlarov";
+            this.label2.Text = "(c) 2010 by Greg Khanlarov";
             // 
             // linkWebPage
             // 
@@ -90,7 +90,7 @@
             this.buttonOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(167)))), ((int)(((byte)(68)))));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOk.Location = new System.Drawing.Point(138, 69);
-            this.buttonOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(56, 19);
             this.buttonOk.TabIndex = 4;
@@ -142,7 +142,7 @@
             this.Controls.Add(this.pictureBoxLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBoxForm";

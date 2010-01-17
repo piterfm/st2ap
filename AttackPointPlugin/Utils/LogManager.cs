@@ -177,6 +177,11 @@ namespace GK.Utils
             }
 
             private void WriteMessageToEventLog(string message, EventLogEntryType type) {
+                // Vista and Windows 7 require administrative priviliges to work with EventLog
+                // Use EventLog only on Windows XP to simplify things.
+                OperatingSystem os = Environment.OSVersion;
+                if (os.Version.Major > 5) return;
+
                 try {
                     if (!EventLog.SourceExists(EventLogSource)) {
                         EventLog.CreateEventSource(EventLogSource, "Application");

@@ -312,7 +312,9 @@ namespace GK.SportTracks.AttackPoint.UI.Activities
             var intensities = new string[6];
             var categoryInfo = ActivityInfo.HeartRateZoneInfo(zoneCategory);
             foreach (var info in categoryInfo.Zones) {
-                if (info.Name == "Total") continue;
+                // We don't need to process "Total" zone which spans from -infinity to +infinity.
+                if (Single.IsNegativeInfinity(info.Zone.Low) && Single.IsPositiveInfinity(info.Zone.High)) continue;
+
                 var stHRZone = stZoneCategory.HeartZones.Find(x => x.StId == info.Zone.Name);
                 int index;
                 if (stHRZone == null ||

@@ -174,9 +174,9 @@ namespace GK.SportTracks.AttackPoint.Export
                         if (activity.GPSRoute != null && ri < activity.GPSRoute.Count) {
                             ITimeValueEntry<IGPSPoint> rp = activity.GPSRoute[ri];
                             if (activity.GPSRoute.StartTime.AddSeconds(rp.ElapsedSeconds) == actualTime) {
-                                lat = rp.Value.LatitudeDegrees.ToString();
-                                lon = rp.Value.LongitudeDegrees.ToString();
-                                ele = rp.Value.ElevationMeters.ToString("#.#");
+                                lat = ConvertToString(rp.Value.LatitudeDegrees);
+                                lon = ConvertToString(rp.Value.LongitudeDegrees);
+                                ele = rp.Value.ElevationMeters.ToString("#.#", _formatProvider);
                                 anydata = true;
                                 ri++;
                             }
@@ -184,7 +184,7 @@ namespace GK.SportTracks.AttackPoint.Export
                         if (ai.HasDistanceData && di < ai.MovingDistanceMetersTrack.Count) {
                             ITimeValueEntry<float> dp = ai.MovingDistanceMetersTrack[di];
                             if (ai.MovingDistanceMetersTrack.StartTime.AddSeconds(dp.ElapsedSeconds) == actualTime) {
-                                dmv = dp.Value.ToString("#.#");
+                                dmv = dp.Value.ToString("#.#", _formatProvider);
                                 anydata = true;
                                 di++;
                             }
@@ -193,13 +193,13 @@ namespace GK.SportTracks.AttackPoint.Export
                         if (activity.HeartRatePerMinuteTrack != null && hri < activity.HeartRatePerMinuteTrack.Count) {
                             ITimeValueEntry<float> hrp = activity.HeartRatePerMinuteTrack[hri];
                             if (activity.HeartRatePerMinuteTrack.StartTime.AddSeconds(hrp.ElapsedSeconds) == actualTime) {
-                                hrv = hrp.Value.ToString("#");
+                                hrv = hrp.Value.ToString("#", _formatProvider);
                                 anydata = true;
                                 hri++;
                             }
                         }
                         if (anydata) {
-                            sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", liveSeconds, hrv, dmv, lat, lon, ele, ""));
+                            sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", ConvertToString(liveSeconds), hrv, dmv, lat, lon, ele, ""));
                         }
 
                         if (activity.TimerPauses != null) {
@@ -217,7 +217,7 @@ namespace GK.SportTracks.AttackPoint.Export
                     if (ai.RecordedLapDetailInfo.Count > 0) {
                         sb.AppendLine("@laps");
                         foreach (LapDetailInfo lap in ai.RecordedLapDetailInfo) {
-                            sb.AppendLine(String.Format("{0},{1},{2},{3}", lap.LapElapsed.TotalSeconds, lap.LapDistanceMeters, Math.Round(lap.AverageHeartRatePerMinute), Math.Round(lap.MaximumHeartRatePerMinute)));
+                            sb.AppendLine(String.Format("{0},{1},{2},{3}", ConvertToString(lap.LapElapsed.TotalSeconds), ConvertToString(lap.LapDistanceMeters), ConvertToString(Math.Round(lap.AverageHeartRatePerMinute)), ConvertToString(Math.Round(lap.MaximumHeartRatePerMinute))));
                         }
                     }
                     training.SessionData = sb.ToString();

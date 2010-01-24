@@ -157,6 +157,7 @@ namespace GK.SportTracks.AttackPoint.Export
                 if (ai.HasAnyTrackData && !string.Equals(training.GpsTrackVisibility, ApConfig.NoUploadGpsTrackVisibility)) {
                     int sessionSeconds = (int)Math.Ceiling(ai.ActualTrackTime.TotalSeconds);
                     StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(ai.ActualTrackStart.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ",_formatProvider));
                     sb.AppendLine("@samples");
                     int liveSeconds = 0;
                     int ri = 0;
@@ -174,8 +175,8 @@ namespace GK.SportTracks.AttackPoint.Export
                         if (activity.GPSRoute != null && ri < activity.GPSRoute.Count) {
                             ITimeValueEntry<IGPSPoint> rp = activity.GPSRoute[ri];
                             if (activity.GPSRoute.StartTime.AddSeconds(rp.ElapsedSeconds) == actualTime) {
-                                lat = ConvertToString(rp.Value.LatitudeDegrees);
-                                lon = ConvertToString(rp.Value.LongitudeDegrees);
+                                lat = rp.Value.LatitudeDegrees.ToString("G9", _formatProvider);
+                                lon = rp.Value.LongitudeDegrees.ToString("G9", _formatProvider);
                                 ele = rp.Value.ElevationMeters.ToString("#.#", _formatProvider);
                                 anydata = true;
                                 ri++;
@@ -220,6 +221,23 @@ namespace GK.SportTracks.AttackPoint.Export
                             sb.AppendLine(String.Format("{0},{1},{2},{3}", ConvertToString(lap.LapElapsed.TotalSeconds), ConvertToString(lap.LapDistanceMeters), ConvertToString(Math.Round(lap.AverageHeartRatePerMinute)), ConvertToString(Math.Round(lap.MaximumHeartRatePerMinute))));
                         }
                     }
+                    sb.AppendLine("@pauses");
+                    if (activity.TimerPauses != null)
+                    {
+                        int pausedSeconds = 0;
+                        for (int tpi = 0; tpi < activity.TimerPauses.Count; tpi++)
+                        {
+                            IValueRange<DateTime> pp = activity.TimerPauses[tpi];
+                            int startSec = (int)pp.Lower.Subtract(ai.ActualTrackStart).TotalSeconds - pausedSeconds;
+                            int duration = (int)pp.Upper.Subtract(pp.Lower).TotalSeconds;
+                            pausedSeconds += duration;
+                            sb.AppendLine(String.Format("{0},{1}", ConvertToString(startSec), ConvertToString(duration)));
+                        }
+                    }
+                    sb.AppendLine("@source");
+                    sb.AppendLine("SportTracks");
+                    sb.AppendLine(String.Format("{0},{1}", "ST2AP", ApPlugin.GetVersion()));
+
                     training.SessionData = sb.ToString();
                 }
             }

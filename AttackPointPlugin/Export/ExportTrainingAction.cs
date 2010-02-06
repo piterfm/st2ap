@@ -179,7 +179,8 @@ namespace GK.SportTracks.AttackPoint.Export
                                 lon = rp.Value.LongitudeDegrees.ToString("G9", _formatProvider);
                                 ele = rp.Value.ElevationMeters.ToString("#.#", _formatProvider);
                                 anydata = true;
-                                ri++;
+                                // go to next one with different time
+                                for (; ri < activity.GPSRoute.Count && activity.GPSRoute[ri].ElapsedSeconds == rp.ElapsedSeconds; ri++) ;
                             }
                         }
                         if (ai.HasDistanceData && di < ai.MovingDistanceMetersTrack.Count) {
@@ -187,7 +188,9 @@ namespace GK.SportTracks.AttackPoint.Export
                             if (ai.MovingDistanceMetersTrack.StartTime.AddSeconds(dp.ElapsedSeconds) == actualTime) {
                                 dmv = dp.Value.ToString("#.#", _formatProvider);
                                 anydata = true;
-                                di++;
+                                // go to next one with different time
+                                for (; di < ai.MovingDistanceMetersTrack.Count && ai.MovingDistanceMetersTrack[di].ElapsedSeconds == dp.ElapsedSeconds; di++) ;
+                                
                             }
                         }
 
@@ -196,7 +199,8 @@ namespace GK.SportTracks.AttackPoint.Export
                             if (activity.HeartRatePerMinuteTrack.StartTime.AddSeconds(hrp.ElapsedSeconds) == actualTime) {
                                 hrv = hrp.Value.ToString("#", _formatProvider);
                                 anydata = true;
-                                hri++;
+                                // go to next one with different time
+                                for (; hri < activity.HeartRatePerMinuteTrack.Count && activity.HeartRatePerMinuteTrack[hri].ElapsedSeconds == hrp.ElapsedSeconds; hri++) ;
                             }
                         }
                         if (anydata) {

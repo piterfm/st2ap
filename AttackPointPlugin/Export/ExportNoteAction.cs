@@ -86,8 +86,30 @@ namespace GK.SportTracks.AttackPoint.Export
                 note.PrivateDescription = notes;
             }
 
+            if (activity.HasStartTime) {
+                note.SessionStartHour = ConvertToString(ApPlugin.AdjustDateTime(this.findSessionStart(activity, edata)).Hour);
+            }
+
             return null;
         }
+
+        protected DateTime findSessionStart(IActivity activity, ExportConfig edata) {
+            // logbook not sorted by date
+            foreach (IActivity otherActivity in edata.Logbook.Activities) {
+                if (otherActivity.HasStartTime) {
+                    double startOffsetHrs = activity.StartTime.Subtract(otherActivity.StartTime).TotalHours;
+                    if (startOffsetHrs > 0 && startOffsetHrs < 24) {
+                        ActivityInfo aiOther = ActivityInfoCache.Instance.GetInfo(otherActivity);
+                        double gapTimeHrs = activity.StartTime.Subtract(aiOther.ActualTrackEnd).TotalHours;
+                        if (gapTimeHrs < 1.0) {
+                            return findSessionStart(otherActivity, edata);
+                        }
+                    }
+                }
+            }
+            return activity.StartTime;
+        }
+
 
         public static string GetPartOfDay(DateTime dateTime) {
             /*

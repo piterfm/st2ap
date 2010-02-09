@@ -87,13 +87,13 @@ namespace GK.SportTracks.AttackPoint.Export
             }
 
             if (activity.HasStartTime) {
-                note.SessionStartHour = ConvertToString(ApPlugin.AdjustDateTime(this.findSessionStart(activity, edata)).Hour);
+                note.SessionStartHour = ConvertToString(AdjustDateTime(FindSessionStart(activity, edata)).Hour);
             }
 
             return null;
         }
 
-        protected DateTime findSessionStart(IActivity activity, ExportConfig edata) {
+        protected DateTime FindSessionStart(IActivity activity, ExportConfig edata) {
             // logbook not sorted by date
             foreach (IActivity otherActivity in edata.Logbook.Activities) {
                 if (otherActivity.HasStartTime) {
@@ -102,7 +102,7 @@ namespace GK.SportTracks.AttackPoint.Export
                         ActivityInfo aiOther = ActivityInfoCache.Instance.GetInfo(otherActivity);
                         double gapTimeHrs = activity.StartTime.Subtract(aiOther.ActualTrackEnd).TotalHours;
                         if (gapTimeHrs < 1.0) {
-                            return findSessionStart(otherActivity, edata);
+                            return FindSessionStart(otherActivity, edata);
                         }
                     }
                 }

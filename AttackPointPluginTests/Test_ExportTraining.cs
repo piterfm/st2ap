@@ -52,7 +52,7 @@ namespace AttackPointPluginTests
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Kilometer);
 
             _config.Profile.AdvancedFeaturesEnabled = false;
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -135,7 +135,7 @@ namespace AttackPointPluginTests
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Centimeter);
 
             _config.Profile.AdvancedFeaturesEnabled = true;
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -214,7 +214,7 @@ namespace AttackPointPluginTests
             var settings = new Mock<ISystemPreferences>();
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Meter);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -266,7 +266,7 @@ namespace AttackPointPluginTests
             category.SetupGet(c => c.ReferenceId).Returns("5e13c6e5-59d5-4e99-9fbe-16c65e1111e1");
             activity.SetupGet(a => a.Category).Returns(category.Object);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             // Remove category to emulate the error
             _config.Mapping.Activities.RemoveAt(11);
@@ -300,7 +300,7 @@ namespace AttackPointPluginTests
             activity.SetupGet(a => a.Category).Returns(category.Object);
             activity.SetupGet(a => a.TotalTimeEntered).Returns(new TimeSpan(1, 34, 21));
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -331,7 +331,7 @@ namespace AttackPointPluginTests
             category.SetupGet(c => c.ReferenceId).Returns("5e13c6e5-59d5-4e99-9fbe-16c65e1111e1");
             activity.SetupGet(a => a.Category).Returns(category.Object);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -366,7 +366,7 @@ namespace AttackPointPluginTests
             var settings = new Mock<ISystemPreferences>();
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -405,7 +405,7 @@ namespace AttackPointPluginTests
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             _config.Profile.AdvancedFeaturesEnabled = false;
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -442,7 +442,7 @@ namespace AttackPointPluginTests
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
             _config.Profile.AdvancedFeaturesEnabled = true;
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -478,7 +478,7 @@ namespace AttackPointPluginTests
             var equipment = new List<IEquipmentItem>();
             activity.SetupGet(a => a.EquipmentUsed).Returns(equipment);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -521,7 +521,7 @@ namespace AttackPointPluginTests
 
             // Remove equipment to emulate the error
             _config.Mapping.Shoes.RemoveAt(5);
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -565,7 +565,7 @@ namespace AttackPointPluginTests
 
             // Turn on the warning 
             _config.WarnOnNotMappedEquipment = true;
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -612,7 +612,7 @@ namespace AttackPointPluginTests
 
             // Turn off the warning 
             _config.WarnOnNotMappedEquipment = false;
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -658,7 +658,7 @@ namespace AttackPointPluginTests
             var settings = new Mock<ISystemPreferences>();
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Mile);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -721,7 +721,7 @@ namespace AttackPointPluginTests
             var settings = new Mock<ISystemPreferences>();
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Yard);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {
@@ -795,7 +795,7 @@ namespace AttackPointPluginTests
             var settings = new Mock<ISystemPreferences>();
             settings.SetupGet(s => s.DistanceUnits).Returns(Length.Units.Inch);
 
-            var action = new ExportTrainingAction(activity.Object);
+            var action = new ExportTrainingAction(CreateDailyActivityView(activity.Object));
             var note = new ApTraining();
             var edata = new ExportConfig()
             {

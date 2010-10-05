@@ -11,6 +11,7 @@ using ZoneFiveSoftware.Common.Data.Fitness;
 using ZoneFiveSoftware.Common.Data.GPS;
 using ZoneFiveSoftware.Common.Visuals;
 using ZoneFiveSoftware.Common.Visuals.Fitness;
+using ZoneFiveSoftware.Common.Visuals.Util;
 
 using GK.AttackPoint;
 using GK.SportTracks.AttackPoint;
@@ -20,8 +21,8 @@ namespace GK.SportTracks.AttackPoint.Export
 {
     public class ExportTrainingAction : ExportNoteAction
     {
-        public ExportTrainingAction(IActivity activity) : base(activity) { }
-        public ExportTrainingAction(IList<IActivity> activities) : base(activities) { }
+        public ExportTrainingAction(IDailyActivityView view) : base(view) { }
+        public ExportTrainingAction(IActivityReportsView view) : base(view) { }
 
         protected override ApNote CreateNote() { return new ApTraining(); }
 

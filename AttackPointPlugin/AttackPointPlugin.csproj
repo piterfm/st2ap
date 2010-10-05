@@ -233,15 +233,15 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)ApProxy\ap-metadata.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+    <PostBuildEvent>if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)ApProxy\ap-metadata.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\3\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
 
-if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)ApProxy\ap-constant-data.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)ApProxy\ap-constant-data.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\3\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
 
-if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)\plugin.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+if $(ConfigurationName) == DebugST copy /Y "$(ProjectDir)\plugin.xml" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\3\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
 
-if $(ConfigurationName) == DebugST copy /Y "$(TargetDir)*.dll" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+if $(ConfigurationName) == DebugST copy /Y "$(TargetDir)*.dll" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\3\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
 
-if $(ConfigurationName) == DebugST copy /Y "$(TargetDir)*.pdb" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\2.0\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
+if $(ConfigurationName) == DebugST copy /Y "$(TargetDir)*.pdb" "%25ALLUSERSPROFILE%25\Application Data\ZoneFiveSoftware\SportTracks\3\Plugins\Installed\1eec167a-0605-479e-8def-08633ac68a22\"
 
 rd /s /q "$(ProjectDir)..\Install"
 md "$(ProjectDir)..\Install"

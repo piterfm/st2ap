@@ -11,7 +11,7 @@ namespace GK.SportTracks.AttackPoint.Settings
         private SettingsControl _settingsControl;
 
         public Guid Id {
-            get { throw new NotImplementedException(); }
+            get { return new Guid("{41E649BC-CEBE-498e-B775-3BD0794BB206}"); }
         }
 
         public IList<ISettingsPage> SubPages {
@@ -55,7 +55,7 @@ namespace GK.SportTracks.AttackPoint.Settings
             //NOOP
         }
 
-
+#pragma warning disable 67
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
     }

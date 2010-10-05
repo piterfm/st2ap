@@ -21,6 +21,7 @@ using GK.SportTracks.AttackPoint.UI;
 using System.Collections.Generic;
 using System.Threading;
 using System.Globalization;
+using ZoneFiveSoftware.Common.Visuals.Util;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
@@ -29,6 +30,8 @@ namespace GK.SportTracks.AttackPoint.Export
 
     public abstract class ExportAction : IAction
     {
+        private IDailyActivityView _dailyActivityView;
+        private IActivityReportsView _activityReportsView;
         private IActivity _activity;
         private IList<IActivity> _activities;
         private static List<ExportWarning> Warnings = new List<ExportWarning>();
@@ -41,19 +44,31 @@ namespace GK.SportTracks.AttackPoint.Export
             }
         }
 
-        public ExportAction(IActivity activity) {
-            _activity = activity;
+        public ExportAction(IDailyActivityView view) {
+            _dailyActivityView = view;
         }
 
-        public ExportAction(IList<IActivity> activities) {
-            _activities = activities;
+        public ExportAction(IActivityReportsView view) {
+            _activityReportsView = view;
         }
 
-        protected bool BatchMode { get { return _activities != null; } }
+        private IList<IActivity> Activities {
+            get {
+                if (_dailyActivityView != null) {
+                    return CollectionUtils.GetAllContainedItemsOfType<IActivity>(_dailyActivityView.SelectionProvider.SelectedItems);
+                }
+                else {
+                    return CollectionUtils.GetAllContainedItemsOfType<IActivity>(_activityReportsView.SelectionProvider.SelectedItems);
+                }
+            }
+        }
+
+        protected bool BatchMode { get { return _activities != null && _activities.Count > 1; } }
 
         public void Refresh() { }
 
         public void Run(Rectangle rectButton) {
+            _activities = Activities;
 
             if (BatchMode) {
                 ExportMany();
@@ -134,6 +149,8 @@ namespace GK.SportTracks.AttackPoint.Export
         }
 
         private void ExportSingle() {
+            _activity = _activities[0];
+
             var dialog = new InformationDialog(ApPlugin.GetApplication().VisualTheme);
 
             dialog.Execute(Form.ActiveForm, "AttackPoint Plugin", "Exporting to AttackPoint...",
@@ -190,7 +207,9 @@ namespace GK.SportTracks.AttackPoint.Export
         public abstract string Title { get; }
         public virtual Image Image { get { return Properties.Resources.FavIcon.ToBitmap(); } }
         public virtual bool HasMenuArrow { get { return false; } }
-        public virtual bool Enabled { get { return !ApPlugin.ApConfig.IsMappingEmpty; } }
+        public virtual bool Enabled { get { return !ApPlugin.ApConfig.IsMappingEmpty && Activities != null && Activities.Count > 0; } }
+        public bool Visible { get { return true; } }
+        public IList<string> MenuPath { get { return new List<string>(); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -10,6 +10,9 @@ using System.IO;
 using System.Xml.Serialization;
 using GK.AttackPoint;
 using GK.SportTracks.AttackPoint;
+using ZoneFiveSoftware.Common.Visuals.Fitness;
+using ZoneFiveSoftware.Common.Visuals;
+using System.Collections;
 
 namespace AttackPointPluginTests
 {
@@ -64,5 +67,14 @@ namespace AttackPointPluginTests
 
             return athlete;
         }
+
+        protected IDailyActivityView CreateDailyActivityView(IActivity activity) {
+            var sprovider = new Mock<ISelectionProvider>();
+            sprovider.SetupGet(p => p.SelectedItems).Returns(new IActivity[] { activity });
+            var view = new Mock<IDailyActivityView>();
+            view.SetupGet(v => v.SelectionProvider).Returns(sprovider.Object);
+            return view.Object;
+        }
+
     }
 }

@@ -21,7 +21,7 @@ namespace AttackPointPluginTests
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbook(DateTime.MinValue, out athlete);
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -47,7 +47,7 @@ namespace AttackPointPluginTests
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbook(date, out athlete);
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -85,7 +85,7 @@ namespace AttackPointPluginTests
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbook(DateTime.MinValue, out athlete);
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -123,7 +123,7 @@ namespace AttackPointPluginTests
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbook(date, out athlete);
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -157,7 +157,7 @@ namespace AttackPointPluginTests
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbook(DateTime.MinValue, out athlete);
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -195,7 +195,7 @@ namespace AttackPointPluginTests
             Mock<IAthlete> athlete;
             var logbook = SetUpLogbookWithNanAthlete(date, out athlete);
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -236,7 +236,7 @@ namespace AttackPointPluginTests
             apActivityData.PrivateNote = "private note";
             _config.Profile.AdvancedFeaturesEnabled = true;
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -278,7 +278,7 @@ namespace AttackPointPluginTests
             apActivityData.PrivateNote = "private note";
             _config.Profile.AdvancedFeaturesEnabled = false;
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig()
             {
@@ -328,7 +328,7 @@ namespace AttackPointPluginTests
             // Set up note format
             _config.NotesFormat = "[{Name}. ][In {Location}. ][Burned {Calories} calories. ]\r\n[{WeatherTempF}.] [{WeatherTempC}.] [{WeatherConditions}.] [{WeatherDescription}.]\r\n[{Notes}]";
 
-            var action = new ExportNoteAction(activity.Object);
+            var action = new ExportNoteAction(CreateDailyActivityView(activity.Object));
             var note = new ApNote();
             var edata = new ExportConfig() {
                 ActivityData = null,

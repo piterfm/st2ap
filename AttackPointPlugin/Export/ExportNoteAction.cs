@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GK.AttackPoint;
-using ZoneFiveSoftware.Common.Data.Fitness;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using GK.SportTracks.AttackPoint.Properties;
+
+using ZoneFiveSoftware.Common.Data.Fitness;
 using ZoneFiveSoftware.Common.Data.Measurement;
+using ZoneFiveSoftware.Common.Visuals.Fitness;
+
+using GK.AttackPoint;
+using GK.SportTracks.AttackPoint.Properties;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
@@ -15,8 +18,8 @@ namespace GK.SportTracks.AttackPoint.Export
         private const string CourseSpecFormat = "Course: {0} {1} {2}";
         private static Regex FormatRegex = new Regex("\\[(.*?){(?<f>.*?)}(.*?)\\]", RegexOptions.Singleline);
 
-        public ExportNoteAction(IActivity activity) : base(activity) { }
-        public ExportNoteAction(IList<IActivity> activities) : base(activities) { }
+        public ExportNoteAction(IDailyActivityView view) : base(view) { }
+        public ExportNoteAction(IActivityReportsView view) : base(view) { }
 
         protected override ApNote CreateNote() { return new ApNote(); }
 

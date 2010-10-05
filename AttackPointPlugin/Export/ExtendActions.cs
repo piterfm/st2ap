@@ -10,15 +10,19 @@ using System.Xml.Serialization;
 
 namespace GK.SportTracks.AttackPoint.Export
 {
-    class ExtendActions : IExtendActivityExportActions
+    class ExtendActions : IExtendDailyActivityViewActions, IExtendActivityReportsViewActions
     {
-
-        public IList<IAction> GetActions(IList<IActivity> activities) {
-            return new IAction[] { new ExportTrainingAction(activities), new ExportNoteAction(activities) };
+        public IList<IAction> GetActions(IDailyActivityView view, ExtendViewActions.Location location) {
+            if (location == ExtendViewActions.Location.ExportMenu) {
+                return new IAction[] { new ExportTrainingAction(view), new ExportNoteAction(view) };
+            }
+            else return new IAction[0];
         }
-
-        public IList<IAction> GetActions(IActivity activity) {
-            return new IAction[] { new ExportTrainingAction(activity), new ExportNoteAction(activity) };
+        public IList<IAction> GetActions(IActivityReportsView view, ExtendViewActions.Location location) {
+            if (location == ExtendViewActions.Location.ExportMenu) {
+                return new IAction[] { new ExportTrainingAction(view), new ExportNoteAction(view) };
+            }
+            else return new IAction[0];
         }
 
     }

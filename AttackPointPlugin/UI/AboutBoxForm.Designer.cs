@@ -67,7 +67,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "(c) 2010 by Greg Khanlarov";
+            this.label2.Text = "(c) 2011 by Greg Khanlarov";
             // 
             // linkWebPage
             // 

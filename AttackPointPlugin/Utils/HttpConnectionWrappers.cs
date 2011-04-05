@@ -27,7 +27,12 @@ namespace GK.Utils
             if (Environment.OSVersion.Platform != PlatformID.Unix) {
                 request.Credentials = CredentialCache.DefaultCredentials;
             }
-            request.Proxy = GetWebProxy();
+
+            IWebProxy proxy = GetWebProxy();
+            if (proxy != null) {
+                request.Proxy = proxy;
+            }
+
             request.UserAgent = _userAgent;
             request.Timeout = _timeout;
             request.CookieContainer = _cookieContainer;
@@ -44,7 +49,7 @@ namespace GK.Utils
                 return _webProxy;
 
             var proxy = WebRequest.DefaultWebProxy;
-            if (Environment.OSVersion.Platform != PlatformID.Unix) {
+            if ((proxy != null) && (Environment.OSVersion.Platform != PlatformID.Unix)) {
                 proxy.Credentials = CredentialCache.DefaultCredentials;
             }
             return proxy;
